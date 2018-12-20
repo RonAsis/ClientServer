@@ -35,20 +35,13 @@ public class BlockingConnectionHandler<T> implements Runnable, ConnectionHandler
             protocol.start(((ConnectionsImpl) c).getId(),c);
             in = new BufferedInputStream(sock.getInputStream());
             out = new BufferedOutputStream(sock.getOutputStream());
-            while (!protocol.shouldTerminate() && connected && (read = in.read()) >= 0) {
 
+            while (!protocol.shouldTerminate() && connected && (read = in.read()) >= 0) {
                 T nextMessage = encdec.decodeNextByte((byte) read);
                 if (nextMessage != null) {
-                  // T response = protocol.process(nextMessage);
-                  //  T response=(T)("hello ");
                     protocol.process(nextMessage);
-////                    if (response != null) {
-//                        out.write(encdec.encode(response));
-//                        out.flush();
-////                    }
                 }
             }
-
         } catch (IOException ex) {
             ex.printStackTrace();
         }
