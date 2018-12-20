@@ -16,7 +16,9 @@ public class ConnectionsImpl<T> implements  Connections<T>  {
        connectionHandlerMap=new ConcurrentHashMap<>();
        id=0;
    }
-
+    public int getId(){
+       return this.id;
+    }
     /**
      * Send the given message-msg with the ConnectionHandler that represents the connectionId.
      * @param connectionId

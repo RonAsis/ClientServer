@@ -3,6 +3,8 @@ package bgu.spl.net.srv;
 import bgu.spl.net.api.MessageEncoderDecoder;
 import bgu.spl.net.api.MessagingProtocol;
 import bgu.spl.net.api.bidi.BidiMessagingProtocol;
+import bgu.spl.net.api.bidi.Connections;
+import bgu.spl.net.api.bidi.ConnectionsImpl;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -28,19 +30,22 @@ public class BlockingConnectionHandler<T> implements Runnable, ConnectionHandler
     public void run() {
         try (Socket sock = this.sock) { //just for automatic closing
             int read;
-
+            Connections c=new ConnectionsImpl();
+            ((ConnectionsImpl) c).addConnectionHandler(this);
+            protocol.start(((ConnectionsImpl) c).getId(),c);
             in = new BufferedInputStream(sock.getInputStream());
             out = new BufferedOutputStream(sock.getOutputStream());
-
             while (!protocol.shouldTerminate() && connected && (read = in.read()) >= 0) {
+
                 T nextMessage = encdec.decodeNextByte((byte) read);
                 if (nextMessage != null) {
                   // T response = protocol.process(nextMessage);
+                  //  T response=(T)("hello ");
                     protocol.process(nextMessage);
-//                    if (response != null) {
+////                    if (response != null) {
 //                        out.write(encdec.encode(response));
 //                        out.flush();
-//                    }
+////                    }
                 }
             }
 
@@ -58,6 +63,14 @@ public class BlockingConnectionHandler<T> implements Runnable, ConnectionHandler
 
     @Override
     public void send(T msg) {
-
+        T response=(T)("hello ");
+        if (response != null) {
+            try {
+                out.write(encdec.encode((T)"I get it"));
+                out.flush();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+                    }
     }
 }
