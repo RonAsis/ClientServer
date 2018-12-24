@@ -55,7 +55,7 @@ public class AckMessage extends Message {
             return null;
         }
         if(messageOpcode==-1){
-            this.messageOpcode=this.bytesToShort(this.getBytes());
+            this.messageOpcode=this.bytesToShort();
             this.rest();
             if(this.messageOpcode!=4 && this.messageOpcode!=7 && this.messageOpcode!=8)
                 return  this;

@@ -7,11 +7,18 @@ import static bgu.spl.net.api.MessageEncoderDecoderlmpl.delimeter;
 
 public class MessageLogin extends Message {
 
-    private String nameUser;
-    private String password;
+    private String nameUser="";
+    private String password="";
 
     public MessageLogin(){
         super(2);
+    }
+
+    public MessageLogin(String name,String password)
+    {
+        super(2);
+        this.nameUser=name;
+        this.password=password;
     }
     @Override
     public void excute() {
@@ -40,7 +47,7 @@ public class MessageLogin extends Message {
             addBytes(nextByte);
             return null;
         }
-        else if (nameUser.length()==0 && nextByte!=delimeter){
+        else if (nameUser.length()==0 && nextByte==delimeter){
             this.nameUser=this.popString();
             this.rest();
             return null;
@@ -52,8 +59,14 @@ public class MessageLogin extends Message {
         }
     }
 
+    @SuppressWarnings("Duplicates")
     @Override
     public byte[] getBytes() {
-        return new byte[0];
+        byte[] opcodeByte=this.shortToBytes(this.getOpcode());
+        byte[] result=mergeTwoArraysOfBytes(opcodeByte,this.nameUser.getBytes());
+        result=addByteToArray(result,delimeter);
+        result=mergeTwoArraysOfBytes(result,password.getBytes());
+        result=addByteToArray(result,delimeter);
+        return result;
     }
 }

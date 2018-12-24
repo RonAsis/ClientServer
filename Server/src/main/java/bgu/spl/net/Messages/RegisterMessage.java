@@ -49,6 +49,7 @@ public class RegisterMessage extends Message{
 
     }
 
+    @SuppressWarnings("Duplicates")
     @Override
     public byte[] getBytes() {
         byte[] opcodeByte=this.shortToBytes(this.getOpcode());

@@ -1,5 +1,6 @@
 package bgu.spl.net.accessories;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -65,9 +66,9 @@ public class SharedData {
             return false;
 
     }
-    public ConcurrentLinkedQueue<String> followUser(ConcurrentLinkedQueue<String> listUsers, String name){
+    public List<String> followUser(List<String> listUsers, String name){
         User user=users.get(name);//the user that want do follow
-        ConcurrentLinkedQueue<String> result=new ConcurrentLinkedQueue<>();//the result that return
+        List<String> result=new ArrayList<>();//the result that return
         if(user==null || user.isLogin()==false)// if the user is not exist or is logout
             return result;
         else{
@@ -88,9 +89,9 @@ public class SharedData {
             return result;
         }
     }
-    public  ConcurrentLinkedQueue<String> unFollowUser(ConcurrentLinkedQueue<String> listUsers, String name){
+    public  List<String> unFollowUser(List<String> listUsers, String name){
         User user=users.get(name);//the user that want do follow
-        ConcurrentLinkedQueue<String> result=new ConcurrentLinkedQueue<>();//the result that return
+        List<String> result=new ArrayList<>();//the result that return
         if(user==null || user.isLogin()==false)// if the user is not exist or is logout
             return result;
         else{

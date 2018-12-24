@@ -79,8 +79,9 @@ public abstract class Message<T> {
                 System.arraycopy(b, 0, c, lenA, lenB);
                 return c;
         }
-    public short bytesToShort(byte[] byteArr)
+    public short bytesToShort()
     {
+        byte[] byteArr=this.bytes;
         short result = (short)((byteArr[0] & 0xff) << 8);
         result += (short)(byteArr[1] & 0xff);
         return result;
@@ -93,5 +94,10 @@ public abstract class Message<T> {
     }
     public String toString(){
                 return "Message with opcode:"+this.opcode;
+    }
+    public char bytesToChar(){
+                char result=(char) (bytes[0] & 0xFF);
+                len=0;
+                return result;
     }
 }

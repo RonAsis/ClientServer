@@ -2,6 +2,8 @@ package bgu.spl.net.Messages;
 
 import bgu.spl.net.accessories.SharedData;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import static bgu.spl.net.api.MessageEncoderDecoderlmpl.delimeter;
@@ -9,16 +11,23 @@ import static bgu.spl.net.api.MessageEncoderDecoderlmpl.delimeter;
 public class FollowMessage extends  Message{
 
     private String name="";
-    private int follow=-1;
-    private int numOfUsers=-1;
-    private ConcurrentLinkedQueue<String> listUsers;
+    private byte follow=-1;
+    private short numOfUsers=-1;
+    private List<String> listUsers;
 
     public FollowMessage(String name){
         super(4);
         this.name=name;
-        listUsers=new ConcurrentLinkedQueue<>();
+        listUsers=new ArrayList<>();
 
     }
+    public FollowMessage(byte follow,short numOfUsers,List<String> list){
+        super(4);
+        this.listUsers=list;
+        this.follow=follow;
+        this.numOfUsers=numOfUsers;
+    }
+
     public void excute() {
         if(this.follow==0)
             follow();
@@ -35,13 +44,13 @@ public class FollowMessage extends  Message{
 
     private void follow(){
         SharedData sharedData=SharedData.getInstance();
-        dicideResult(sharedData.followUser(this.listUsers,this.name));
+        decideResult(sharedData.followUser(this.listUsers,this.name));
     }
     private void unfollow() {
         SharedData sharedData = SharedData.getInstance();
-        dicideResult(sharedData.unFollowUser(this.listUsers, this.name));
+        decideResult(sharedData.unFollowUser(this.listUsers, this.name));
     }
-    private void dicideResult(ConcurrentLinkedQueue<String> listSucceful){
+    private void decideResult(List<String> listSucceful){
         if (listSucceful.size() == 0)
             setResult(new ErrorMessage(getOpcode()));
         else {// less part of the list is successful
@@ -58,10 +67,8 @@ public class FollowMessage extends  Message{
 
     @Override
     public Message createMessage(byte nextByte) {
-        if(follow==-1){
-            addBytes(nextByte);
-            this.follow=Integer.parseInt(this.popString());
-            this.rest();
+        if(this.follow==-1){
+            this.follow=nextByte;
             return null;
         }
         else if (getLen()==0 && numOfUsers==-1){
@@ -69,7 +76,7 @@ public class FollowMessage extends  Message{
             return null;}
          else if (getLen()==1 && numOfUsers==-1){
              addBytes(nextByte);
-             this.numOfUsers=Integer.parseInt(popString());
+             this.numOfUsers=this.bytesToShort();
              rest();
              return null;
             }
@@ -96,7 +103,14 @@ public class FollowMessage extends  Message{
 
     @Override
     public byte[] getBytes() {
-
-        return new byte[0];
+        byte[] opcodeByte=this.shortToBytes(this.getOpcode());
+        opcodeByte=this.addByteToArray(opcodeByte,this.follow);
+        byte[] numOfUsersBytes=shortToBytes(this.numOfUsers);
+        byte[] result=mergeTwoArraysOfBytes(opcodeByte,numOfUsersBytes);
+        for(int i=0;i<listUsers.size();i++){
+            result=mergeTwoArraysOfBytes(result,this.listUsers.get(i).getBytes());
+            result=addByteToArray(result,delimeter);
+        }
+        return result;
     }
 }

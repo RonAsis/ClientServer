@@ -20,7 +20,7 @@ public class ErrorMessage extends Message {
             return null;
         }
         if(messageOpcode==-1){
-            this.messageOpcode=this.bytesToShort(this.getBytes());
+            this.messageOpcode=this.bytesToShort();
             this.rest();
             return this;
         }

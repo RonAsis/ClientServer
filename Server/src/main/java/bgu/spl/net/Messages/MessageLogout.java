@@ -1,6 +1,5 @@
 package bgu.spl.net.Messages;
 
-import bgu.spl.net.Future;
 import bgu.spl.net.accessories.SharedData;
 
 public class MessageLogout extends  Message {
@@ -9,6 +8,10 @@ public class MessageLogout extends  Message {
     public MessageLogout(String name){
         super(3);
         this.nameUser=name;
+    }
+
+    public MessageLogout(){
+        super(3);
     }
     @Override
     public void excute() {
@@ -20,11 +23,6 @@ public class MessageLogout extends  Message {
             setResult(new ErrorMessage(getOpcode()));
         }
     }
-
-//    @Override
-//    public String getContainResult() {
-//        return this.getResult();
-//    }
 
     @Override
     public Message createMessage(byte nextByte) {
