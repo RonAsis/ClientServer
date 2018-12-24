@@ -24,10 +24,10 @@ public class MessageLogin extends Message {
         }
     }
 
-    @Override
-    public String getContainResult() {
-        return this.getResult();
-    }
+//    @Override
+//    public String getContainResult() {
+//        return this.getResult();
+//    }
 
     public String getNameUser() {
         return this.nameUser;

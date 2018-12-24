@@ -31,11 +31,11 @@ public class UserListMessage extends  Message {
 
         }
     }
-
-    @Override
-    public String getContainResult() {
-        return null;
-    }
+//
+//    @Override
+//    public String getContainResult() {
+//        return null;
+//    }
 
     @Override
     public Message createMessage(byte nextByte) {

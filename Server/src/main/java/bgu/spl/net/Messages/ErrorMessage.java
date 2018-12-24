@@ -2,7 +2,7 @@ package bgu.spl.net.Messages;
 
 public class ErrorMessage extends Message {
 
-    short messageOpcode;
+    short messageOpcode=-1;
 
     public ErrorMessage(int messageOpcode){
         super(11);
@@ -28,10 +28,10 @@ public class ErrorMessage extends Message {
     }
 
 
-    @Override
-    public String getContainResult() {
-        return "Error "+this.messageOpcode;
-    }
+//    @Override
+//    public String getContainResult() {
+//        return "Error "+this.messageOpcode;
+//    }
 
     @Override
     public byte[] getBytes() {
@@ -42,6 +42,6 @@ public class ErrorMessage extends Message {
 
     @Override
     public void excute() {
-        System.out.println(this.getContainResult());
+        //System.out.println(this.getContainResult());
     }
 }

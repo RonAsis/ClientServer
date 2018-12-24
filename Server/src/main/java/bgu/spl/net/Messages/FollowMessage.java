@@ -28,10 +28,10 @@ public class FollowMessage extends  Message{
             setResult(new ErrorMessage(getOpcode()));//if the nubmer of follow is not 1 or 0
     }
 
-    @Override
-    public String getContainResult() {
-        return this.getResult();
-    }
+//    @Override
+//    public String getContainResult() {
+//        return this.getResult();
+//    }
 
     private void follow(){
         SharedData sharedData=SharedData.getInstance();

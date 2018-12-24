@@ -10,7 +10,7 @@ public abstract class Message<T> {
         private short opcode;
         private Future<Message> result;
         private byte[] bytes = new byte[1 << 10]; //start with 1k
-        private int len = -1;
+        private int len = 0;
 
         public Message(int opcode){
                 this.opcode=(short)opcode;
@@ -27,11 +27,13 @@ public abstract class Message<T> {
 
         public abstract void  excute();
 
-        public abstract  String  getContainResult();
-
-        public String getResult(){
-                return this.result.get().getContainResult();
+        public Message  getContainResult(){
+                return this.result.get();
         }
+
+//        public String getResult(){
+//                return this.result.get().getContainResult();
+//        }
 
         public void setResult(Message result) {
                 this.result.resolve(result);
@@ -40,18 +42,18 @@ public abstract class Message<T> {
         public String popString() {
                 //notice that we explicitly requesting that the string will be decoded from UTF-8
                 //this is not actually required as it is the default encoding in java.
-                String result = new String(bytes, 0, len, StandardCharsets.UTF_8);
+                String result = new String(bytes, 0, len+1, StandardCharsets.UTF_8);
                 len = 0;
                 return result;
         }
 
         public void addBytes(Byte nextByte){
-                len++;
                 this.bytes[len]=nextByte;
+                len++;
         }
 
         public void rest(){
-                this.len=-1;
+                this.len=0;
         }
 
         public void biggerBytes(int size){
@@ -83,5 +85,13 @@ public abstract class Message<T> {
         result += (short)(byteArr[1] & 0xff);
         return result;
     }
+    public byte[]addByteToArray(byte[] a,byte b){
 
+            byte[] c = Arrays.copyOf(a, a.length+1);
+            c[a.length]=b;
+            return c;
+    }
+    public String toString(){
+                return "Message with opcode:"+this.opcode;
+    }
 }

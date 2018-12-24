@@ -12,21 +12,22 @@ public class RegisterMessage extends Message{
     public RegisterMessage(){
         super(1);
     }
-    @Override
+
+    public RegisterMessage(String nameUser,String password){
+        super(1);
+        this.nameUser=nameUser;
+        this.password=password;
+    }
     public void excute() {
         SharedData sharedData=SharedData.getInstance();
         if(sharedData.register(this.nameUser,this.password)){
-            setResult(new AckMessage(getOpcode(),""));
+            setResult(new AckMessage(getOpcode()));
         }
         else{
             setResult(new ErrorMessage(getOpcode()));
         }
     }
 
-    @Override
-    public String getContainResult() {
-        return null;
-    }
 
     @SuppressWarnings("Duplicates")
     @Override
@@ -35,14 +36,14 @@ public class RegisterMessage extends Message{
              addBytes(nextByte);
              return null;
         }
-        else if (nameUser.length()==0 && nextByte!=delimeter){
+        else if (nameUser.length()==0 && nextByte==delimeter){
             this.nameUser=this.popString();
-            this.rest();
+          //  this.rest();
              return null;
          }
          else{
              this.password=this.popString();
-             this.rest();
+            // this.rest();
              return this;
          }
 
@@ -50,7 +51,12 @@ public class RegisterMessage extends Message{
 
     @Override
     public byte[] getBytes() {
-        return new byte[0];
+        byte[] opcodeByte=this.shortToBytes(this.getOpcode());
+        byte[] result=mergeTwoArraysOfBytes(opcodeByte,this.nameUser.getBytes());
+        result=addByteToArray(result,delimeter);
+        result=mergeTwoArraysOfBytes(result,password.getBytes());
+        result=addByteToArray(result,delimeter);
+        return result;
     }
 
 }

@@ -19,23 +19,28 @@ public class AckMessage extends Message {
         this.messageOpcode=(short)messageOpcode;
         this.optional=optional;
     }
+    public AckMessage(int messageOpcode ){
+        super(10);
+        this.messageOpcode=(short)messageOpcode;
+    }
     public AckMessage( ){
         super(10);
     }
-    @Override
-    public String getContainResult() {
-        String result="ACK "+getOpcode()+" "+this.messageOpcode;
-        if(this.optional.length()>0)
-            result=result+" "+this.optional;
-        return result;
-    }
+//    @Override
+//    public String getContainResult() {
+//        String result="ACK "+getOpcode()+" "+this.messageOpcode;
+//        if(this.optional.length()>0)
+//            result=result+" "+this.optional;
+//        return result;
+//    }
 
     @Override
     public byte[] getBytes() {
         byte[] opcodeByte=this.shortToBytes(this.getOpcode());
         byte[] messageOpcodeBytes=this.shortToBytes(messageOpcode);
         byte [] c=mergeTwoArraysOfBytes(opcodeByte,messageOpcodeBytes);
-        return  mergeTwoArraysOfBytes(c,optional.getBytes());
+        return c;
+        //  return  mergeTwoArraysOfBytes(c,optional.getBytes());
     }
 
     @Override

@@ -1,10 +1,12 @@
 package bgu.spl.net.api.bidi;
 
-public class BidiMessagingProtocollmpl implements  BidiMessagingProtocol{
+import bgu.spl.net.Messages.Message;
+
+public class BidiMessagingProtocollmpl<T> implements  BidiMessagingProtocol{
 
     private boolean shouldTerminate = false;
     private int connectionId;
-    private ConnectionsImpl<String> connections;
+    private ConnectionsImpl<Message> connections;
 
     @Override
     public void start(int connectionId, Connections connections) {
@@ -14,11 +16,10 @@ public class BidiMessagingProtocollmpl implements  BidiMessagingProtocol{
 
     @Override
     public void process(Object message) {
-        MessagesClientToServer mcl=(MessagesClientToServer)message;
+        Message mcl=(Message)message;
         mcl.excute();
-        //MessagesClientToServer msl=mcl.getResult();
         if(message!=null) {
-            //this.connections.send(this.connectionId,message);
+            connections.send(connectionId,mcl);
         }
     }
 

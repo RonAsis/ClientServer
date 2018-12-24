@@ -1,5 +1,7 @@
 package bgu.spl.net.impl.newsfeed;
 
+import bgu.spl.net.Messages.Message;
+import bgu.spl.net.Messages.RegisterMessage;
 import bgu.spl.net.impl.rci.RCIClient;
 
 public class NewsFeedClientMain {
@@ -16,12 +18,19 @@ public class NewsFeedClientMain {
     }
 
     private static void runFirstClient(String host) throws Exception {
-        short s=3;
-
+        RegisterMessage rm=new RegisterMessage("Ron1","123456");
         try (RCIClient c = new RCIClient(host, 7777)) {
-            c.send((s));
-            c.receive();
-//            c.receive(); //ok
+            c.send(rm);
+            Message message = c.receive();
+            System.out.println(message.toString());
+        RegisterMessage rm1=new RegisterMessage("Ron2","123456");
+            c.send(rm1);
+             message = c.receive();
+            System.out.println(message.toString());
+            c.send(rm);
+             message = c.receive();
+            System.out.println(message.toString());
+//            c.receive(); //o
 //
 //            c.send(new PublishNewsCommand(
 //                    "headlines",

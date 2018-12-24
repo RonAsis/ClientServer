@@ -1,7 +1,9 @@
 package bgu.spl.net.api.bidi;
 
+import bgu.spl.net.Messages.Message;
 import bgu.spl.net.Messages.NotificationMessage;
 import bgu.spl.net.srv.ConnectionHandler;
+import com.sun.xml.internal.ws.api.model.MEP;
 
 import java.io.IOException;
 import java.util.concurrent.ConcurrentHashMap;
@@ -28,10 +30,11 @@ public class ConnectionsImpl<T> implements  Connections<T>  {
      */
     @Override
     public boolean send(int connectionId, T msg) {
+        Message message=(Message)msg;
        if(msg!=null && connectionId>0){
            ConnectionHandler handler=connectionHandlerMap.get(connectionId);
            if(handler!=null){
-               handler.send(msg);
+               handler.send(message);
                return true;
            }
        }

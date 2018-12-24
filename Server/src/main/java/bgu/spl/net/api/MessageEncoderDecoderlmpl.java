@@ -7,21 +7,22 @@ import com.sun.org.apache.bcel.internal.generic.BREAKPOINT;
 public class MessageEncoderDecoderlmpl implements MessageEncoderDecoder {
 
     private byte[] bytesOpcode = new byte[2];
-    private short fOpcode;
+    private short fOpcode=-1;
     private int lenOpcode=0;
     private Message message;
-    public final static byte delimeter='\0';
+    public final static byte delimeter=(byte)'\0';
     private String nameUser="";
 
     @Override
     public Object decodeNextByte(byte nextByte) {
-        if (lenOpcode<2) {
+        if (lenOpcode<1) {
             bytesOpcode[lenOpcode] = nextByte;
             lenOpcode++;
         }
-        else if(lenOpcode==2){
-            lenOpcode++;
+        else if(lenOpcode==1){
+            bytesOpcode[lenOpcode] = nextByte;
             fOpcode=bytesToShort(this.bytesOpcode);
+            lenOpcode++;
             createMessageAccordingOpcode();
             if(fOpcode==3 || fOpcode==7) {
                 Message result=this.message.createMessage(nextByte);// not use in nextByte in this case.

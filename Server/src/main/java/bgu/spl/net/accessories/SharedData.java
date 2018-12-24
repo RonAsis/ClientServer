@@ -39,7 +39,7 @@ public class SharedData {
         synchronized (registerLock) {
             if (name != null && password != null) {
                 User successful = users.putIfAbsent(name, new User(name, password));
-                if (successful != null)
+                if (successful == null)
                     return true;
             }
             return false;

@@ -20,11 +20,11 @@ public class NotificationMessage extends Message {
     public NotificationMessage(){
         super(9);
     }
-    @Override
-
-    public String getContainResult() {
-        return this.getResult();
-    }
+//    @Override
+//
+//    public String getContainResult() {
+//        return this.getResult();
+//    }
 
     @Override
     public byte[] getBytes() {
@@ -37,7 +37,7 @@ public class NotificationMessage extends Message {
 
     @Override
     public void excute() {
-        System.out.println(getContainResult());
+        System.out.println("I get your response");
     }
 
     @Override

@@ -23,7 +23,7 @@ public class RCIClient implements Closeable {
         out = new BufferedOutputStream(sock.getOutputStream());
     }
 
-    public void send(short message) throws IOException {
+    public void send(Message message) throws IOException {
         out.write(encdec.encode((Object)message));
         out.flush();
     }

@@ -21,10 +21,10 @@ public class MessageLogout extends  Message {
         }
     }
 
-    @Override
-    public String getContainResult() {
-        return null;
-    }
+//    @Override
+//    public String getContainResult() {
+//        return this.getResult();
+//    }
 
     @Override
     public Message createMessage(byte nextByte) {
