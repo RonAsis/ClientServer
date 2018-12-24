@@ -1,5 +1,9 @@
 package bgu.spl.net.impl.rci;
 
+import bgu.spl.net.Messages.Message;
+import bgu.spl.net.Messages.MessagesServerToClient;
+import bgu.spl.net.api.MessageEncoderDecoder;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.Closeable;
@@ -9,7 +13,7 @@ import java.net.Socket;
 
 public class RCIClient implements Closeable {
 
-    private final ObjectEncoderDecoder encdec;
+    private final MessageEncoderDecoder encdec;
     private final Socket sock;
     private final BufferedInputStream in;
     private final BufferedOutputStream out;
@@ -21,17 +25,17 @@ public class RCIClient implements Closeable {
         out = new BufferedOutputStream(sock.getOutputStream());
     }
 
-    public void send(Command<?> cmd) throws IOException {
-        out.write(encdec.encode(cmd));
+    public void send(String message) throws IOException {
+        out.write(encdec.encode((Object)message));
         out.flush();
     }
 
-    public Serializable receive() throws IOException {
+    public MessagesServerToClient receive() throws IOException {
         int read;
         while ((read = in.read()) >= 0) {
-            Serializable msg = encdec.decodeNextByte((byte) read);
+            Object msg = encdec.decodeNextByte((byte) read);
             if (msg != null) {
-                return msg;
+                return (MessagesServerToClient)msg;
             }
         }
 

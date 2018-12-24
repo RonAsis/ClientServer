@@ -1,21 +1,36 @@
 package bgu.spl.net.Messages;
 
-public class AckMessage implements  MessagesServerToClient {
+import static bgu.spl.net.api.MessageEncoderDecoderlmpl.delimeter;
 
-    int opcode=10;
-    int messageOpcode;
+public class AckMessage extends MessagesServerToClient {
+
+    short messageOpcode;
     String optional;
 
     public AckMessage(int messageOpcode, String optional ){
-        this.messageOpcode=messageOpcode;
+        super(10);
+        this.messageOpcode=(short)messageOpcode;
         this.optional=optional;
     }
 
     @Override
     public String getContainResult() {
-        String result="ACK "+this.opcode+" "+this.messageOpcode;
+        String result="ACK "+getOpcode()+" "+this.messageOpcode;
         if(this.optional.length()>0)
             result=result+" "+this.optional;
         return result;
+    }
+
+    @Override
+    public byte[] getBytes() {
+        byte[] opcodeByte=this.shortToBytes(this.getOpcode());
+        byte[] messageOpcodeBytes=this.shortToBytes(messageOpcode);
+        byte [] c=mergeTwoArraysOfBytes(opcodeByte,messageOpcodeBytes);
+        return  mergeTwoArraysOfBytes(c,optional.getBytes());
+    }
+
+    @Override
+    public Message createMessage(byte nextByte) {
+        return null;
     }
 }

@@ -1,24 +1,22 @@
 package bgu.spl.net.Messages;
 
-import bgu.spl.net.Future;
 import bgu.spl.net.accessories.SharedData;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
 
+import static bgu.spl.net.api.MessageEncoderDecoderlmpl.delimeter;
+
 public class FollowMessage extends  MessagesClientToServer{
 
-    private int opcode=4;
-    private String name;
-    private int follow;
-    private int numOfUsers;
+    private String name="";
+    private int follow=-1;
+    private int numOfUsers=-1;
     private ConcurrentLinkedQueue<String> listUsers;
 
-    public FollowMessage(String name, int follow,int numOfUsers,ConcurrentLinkedQueue<String> list){
-        super(new Future<>());
+    public FollowMessage(String name){
+        super(4);
         this.name=name;
-        this.follow=follow;
-        this.numOfUsers=numOfUsers;
-        this.listUsers=list;
+        listUsers=new ConcurrentLinkedQueue<>();
 
     }
     public void excute() {
@@ -27,7 +25,7 @@ public class FollowMessage extends  MessagesClientToServer{
         else if(this.follow==1)
             unfollow();
         else
-            setResult(new ErrorMessage(this.opcode));//if the nubmer of follow is not 1 or 0
+            setResult(new ErrorMessage(getOpcode()));//if the nubmer of follow is not 1 or 0
     }
     private void follow(){
         SharedData sharedData=SharedData.getInstance();
@@ -39,7 +37,7 @@ public class FollowMessage extends  MessagesClientToServer{
     }
     private void dicideResult(ConcurrentLinkedQueue<String> listSucceful){
         if (listSucceful.size() == 0)
-            setResult(new ErrorMessage(this.opcode));
+            setResult(new ErrorMessage(getOpcode()));
         else {// less part of the list is successful
             String optional = "";
             String delimeter = "\0";//between all name;
@@ -47,7 +45,46 @@ public class FollowMessage extends  MessagesClientToServer{
                 optional = optional + delimeter;
             }
             optional = this.numOfUsers + " " + optional;//need check if need be space of \0**************************************************
-            setResult(new AckMessage(this.opcode, optional));
+            setResult(new AckMessage(getOpcode(), optional));
         }
         }
+
+
+    @Override
+    public Message createMessage(byte nextByte) {
+        if(follow==-1){
+            addBytes(nextByte);
+            this.follow=Integer.parseInt(this.popString());
+            this.rest();
+            return null;
+        }
+        else if (getLen()==0 && numOfUsers==-1){
+            addBytes(nextByte);
+            return null;}
+         else if (getLen()==1 && numOfUsers==-1){
+             addBytes(nextByte);
+             this.numOfUsers=Integer.parseInt(popString());
+             rest();
+             return null;
+            }
+         else if (this.listUsers.size()+1<numOfUsers){
+             if (nextByte!=delimeter){
+                 addBytes(nextByte);
+                 return null;
+             }
+             this.listUsers.add(popString());
+             rest();
+            return null;
+        }
+        else{
+            if (nextByte!=delimeter){
+                addBytes(nextByte);
+                return null;
+            }
+            this.listUsers.add(popString());
+            rest();
+            return  this;
+        }
+
+    }
 }

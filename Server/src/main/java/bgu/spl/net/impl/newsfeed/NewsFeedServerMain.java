@@ -1,5 +1,7 @@
 package bgu.spl.net.impl.newsfeed;
 
+import bgu.spl.net.api.MessageEncoderDecoderlmpl;
+import bgu.spl.net.api.bidi.BidiMessagingProtocollmpl;
 import bgu.spl.net.impl.echo.EchoProtocol;
 import bgu.spl.net.impl.echo.LineMessageEncoderDecoder;
 import bgu.spl.net.impl.rci.ObjectEncoderDecoder;
@@ -30,5 +32,11 @@ public class NewsFeedServerMain {
                 () -> new EchoProtocol(), //protocol factory
                 LineMessageEncoderDecoder::new //message encoder decoder factory
         ).serve();
+
+//        Server.threadPerClient(
+//                7777, //port
+//                () -> new BidiMessagingProtocollmpl(), //protocol factory
+//                MessageEncoderDecoderlmpl::new //message encoder decoder factory
+//        ).serve();
    }
 }

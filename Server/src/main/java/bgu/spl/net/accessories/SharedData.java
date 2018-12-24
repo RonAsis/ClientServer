@@ -9,7 +9,7 @@ public class SharedData {
         private ConcurrentHashMap<Integer,String> messagePost;
         private ConcurrentHashMap<Integer,String> messagePM;
         private ConcurrentHashMap<String,User> users;
-        private Integer tick;
+        private AtomicInteger tick;
         private Object postMsgLock=new Object();
         private Object pmMsgLock=new Object();
         private Object registerLock=new Object();
@@ -23,7 +23,7 @@ public class SharedData {
             messagePost=new ConcurrentHashMap<>();
             messagePM=new ConcurrentHashMap<>();
             users=new ConcurrentHashMap<>();
-            tick=0;
+            tick=new AtomicInteger();
         }
         public static SharedData getInstance() {
             return SingletonHolder.instance;
@@ -58,7 +58,7 @@ public class SharedData {
     public boolean logout(String name){
         User user=users.get(name);
         if(user!=null && user.isLogin()){
-            user.logout(tick);
+            user.logout(tick.get());
             return  true;
         }
         else
@@ -111,31 +111,42 @@ public class SharedData {
             return result;
         }
     }
-    public boolean sendMessagePost(String name,ConcurrentLinkedQueue<String> list,String msg) {
+    public ConcurrentLinkedQueue<String> sendMessagePost(String name,ConcurrentLinkedQueue<String> list,String msg) {
        synchronized (postMsgLock){
         User user = this.users.get(name);
         // if the user don't exist or don't login
         if (user == null || user.isLogin() == false)
-            return false;
-        this.tick++;
+            return null;
+        ConcurrentLinkedQueue mergeList=mergeList(list,user.getFollowList());
+        this.messagePost.put(channgeTick(),msg);
         user.addNumberOfPost();
-            this.messagePost.put(this.tick,msg);
-            for(String key: list){
-
-            }
-            return true;
+            return mergeList;
     }
 }
+    private ConcurrentLinkedQueue<String> mergeList(ConcurrentLinkedQueue<String> a,ConcurrentLinkedQueue<String> b){
+        for (String value:b){
+            if(!a.contains(value))
+                a.add(value);
+        }
+        return  a;
+    }
+    private int channgeTick(){
+        int oldValue;
+        int newValue;
+        do{
+            oldValue=this.tick.get();
+            newValue=oldValue+1;
+        }while(!this.tick.compareAndSet(oldValue,newValue));
+        return newValue;
+    }
     public boolean sendMessagePM(String name,String nameUserGetMsg,String msg){
         synchronized (pmMsgLock){
             User userSent=this.users.get(name);
             User userGetTheMsg=this.users.get(nameUserGetMsg);
             if (userSent==null || userSent.isLogin()==false || userGetTheMsg==null)
                 return false;
-            this.tick++;
-            this.messagePM.put(this.tick,msg);
-
-
+            int newValue=channgeTick();
+            this.messagePM.put(newValue,msg);
             return true;
         }
     }

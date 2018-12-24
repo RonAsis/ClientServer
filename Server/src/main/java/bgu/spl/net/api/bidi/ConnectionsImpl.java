@@ -1,5 +1,6 @@
 package bgu.spl.net.api.bidi;
 
+import bgu.spl.net.Messages.NotificationMessage;
 import bgu.spl.net.srv.ConnectionHandler;
 
 import java.io.IOException;
@@ -7,7 +8,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class ConnectionsImpl<T> implements  Connections<T>  {
     private ConcurrentHashMap<Integer,ConnectionHandler> connectionHandlerMap;
-    private int id;
+    private static int id;
 
     /**
      * Constructor
@@ -43,6 +44,7 @@ public class ConnectionsImpl<T> implements  Connections<T>  {
      */
     @Override
     public void broadcast(T msg) {
+        NotificationMessage notificationMessage=(NotificationMessage)msg;
         if (msg != null) {
             ConnectionHandler handler;
             for (int key : connectionHandlerMap.keySet()) {

@@ -5,20 +5,24 @@ import bgu.spl.net.accessories.SharedData;
 
 public class MessageLogout extends  MessagesClientToServer {
 
-    int opcode=3;
-    String name;
+    String nameUser;
     public MessageLogout(String name){
-        super(new Future<>());
-        this.name=name;
+        super(3);
+        this.nameUser=name;
     }
     @Override
     public void excute() {
         SharedData sharedData=SharedData.getInstance();
-        if(sharedData.logout(this.name)){
-            setResult(new AckMessage(this.opcode,""));
+        if(sharedData.logout(this.nameUser)){
+            setResult(new AckMessage(getOpcode(),""));
         }
         else{
-            setResult(new ErrorMessage(this.opcode));
+            setResult(new ErrorMessage(getOpcode()));
         }
+    }
+
+    @Override
+    public Message createMessage(byte nextByte) {
+        return this;
     }
 }

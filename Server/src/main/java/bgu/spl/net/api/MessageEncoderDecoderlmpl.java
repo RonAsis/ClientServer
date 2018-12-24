@@ -1,16 +1,87 @@
 package bgu.spl.net.api;
 
+import bgu.spl.net.Messages.*;
+
+
 public class MessageEncoderDecoderlmpl implements MessageEncoderDecoder {
-    private byte[] bytes = new byte[1 << 10]; //start with 1k
-    private int len = 0;
-    private int numberParts=1;
+
+    private byte[] bytesOpcode = new byte[2];
+    private short fOpcode;
+    private int lenOpcode=0;
+    private Message message;
+    public final static byte delimeter='\0';
+    private String nameUser="";
+
     @Override
     public Object decodeNextByte(byte nextByte) {
+        if (lenOpcode<2) {
+            bytesOpcode[lenOpcode] = nextByte;
+            lenOpcode++;
+        }
+        else if(lenOpcode==2){
+            lenOpcode++;
+            fOpcode=bytesToShort(this.bytesOpcode);
+            createMessageAccordingOpcode();
+            if(fOpcode==3 || fOpcode==7) {
+                Message result=this.message.createMessage(nextByte);// not use in nextByte in this case.
+                doneRead();
+                return result;
+            }
+        }
+        else  {
+            Message result;
+            if((result=this.message.createMessage(nextByte))!=null)
+                doneRead();
+            return result;
+        }
+
         return null;
     }
 
     @Override
     public byte[] encode(Object message) {
-        return new byte[0];
+        MessagesServerToClient msc=(MessagesServerToClient)message;
+        return msc.getBytes();
     }
+
+    private void rest(){
+        this.lenOpcode=0;
+        this.message=null;
+
+    }
+
+    private void doneRead(){
+        Message result=this.message;
+        rest();
+        if(fOpcode==2)
+            this.nameUser=((MessageLogin)result).getNameUser();
+    }
+    private void createMessageAccordingOpcode(){
+        switch (fOpcode){
+            case 1:this.message=new RegisterMessage();
+                   break;
+            case 2:this.message=new MessageLogin();
+                   break;
+            case 3:this.message=new MessageLogout(this.nameUser);
+                   break;
+            case 4:this.message=new FollowMessage(this.nameUser);
+                   break;
+            case 5:this.message=new PostMessage(this.nameUser);
+                   break;
+            case 6:this.message=new PmMessage(this.nameUser);
+                   break;
+            case 7: this.message=new UserListMessage(this.nameUser);
+                    break;
+        }
+    }
+
+
+    private short bytesToShort(byte[] byteArr)
+    {
+        short result = (short)((byteArr[0] & 0xff) << 8);
+        result += (short)(byteArr[1] & 0xff);
+        return result;
+    }
+
+
 }

@@ -10,6 +10,8 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
 
+import static bgu.spl.net.api.MessageEncoderDecoderlmpl.delimeter;
+
 public class EchoClient {
 
     public static void main(String[] args) throws IOException {
@@ -28,30 +30,31 @@ public class EchoClient {
                 BufferedReader in = new BufferedReader(new InputStreamReader(sock.getInputStream()));
                 BufferedWriter out = new BufferedWriter(new OutputStreamWriter(sock.getOutputStream()))) {
 
-            System.out.println("sending message to server");
-            out.write("1"+args[1]);
+            short s=1;
+            String register=s+"ronasis"+delimeter+"123456"+delimeter;
+            out.write(register);
             out.newLine();
             out.flush();
 
             System.out.println("awaiting response");
             String line = in.readLine();
-            System.out.println("message from server: " + line);
-            System.out.println("-----------------------------------");
-            System.out.println("sending message to server");
-            out.write("2"+"How Are you ?");
-            out.newLine();
-            out.flush();
-            System.out.println("awaiting response");
-            line = in.readLine();
-            System.out.println("message from server: " + line);
-            System.out.println("-----------------------------------");
-            System.out.println("sending message to server");
-            out.write("3"+"I do Spl3 now");
-            out.newLine();
-            out.flush();
-            System.out.println("awaiting response");
-            line = in.readLine();
-            System.out.println("message from server: " + line);
+//            System.out.println("message from server: " + line);
+//            System.out.println("-----------------------------------");
+//            System.out.println("sending message to server");
+//            out.write("2"+"How Are you ?");
+//            out.newLine();
+//            out.flush();
+//            System.out.println("awaiting response");
+//            line = in.readLine();
+//            System.out.println("message from server: " + line);
+//            System.out.println("-----------------------------------");
+//            System.out.println("sending message to server");
+//            out.write("3"+"I do Spl3 now");
+//            out.newLine();
+//            out.flush();
+//            System.out.println("awaiting response");
+//            line = in.readLine();
+//            System.out.println("message from server: " + line);
 
 
 //            while ((line = in.readLine()) != null) {

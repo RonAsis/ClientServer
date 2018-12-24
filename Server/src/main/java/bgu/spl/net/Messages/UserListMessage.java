@@ -6,11 +6,10 @@ import bgu.spl.net.accessories.SharedData;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class UserListMessage extends  MessagesClientToServer {
-    int opcode=7;
     String name;
 
     public  UserListMessage(String name){
-        super(new Future<>());
+        super(7);
         this.name=name;
     }
     @Override
@@ -18,7 +17,7 @@ public class UserListMessage extends  MessagesClientToServer {
         SharedData sharedData = SharedData.getInstance();
         ConcurrentLinkedQueue<String> userNameListRegister = sharedData.getUserNameListRegister(this.name);
         if (userNameListRegister.size() == 0)
-            setResult(new ErrorMessage(this.opcode));
+            setResult(new ErrorMessage(getOpcode()));
         else {
             {// less part of the list is successful
                 String optional = "";
@@ -27,9 +26,14 @@ public class UserListMessage extends  MessagesClientToServer {
                     optional = optional + delimeter;
                 }
                 optional = userNameListRegister.size() + " " + optional;//need check if need be space of \0**************************************************
-                setResult(new AckMessage(this.opcode, optional));
+                setResult(new AckMessage(getOpcode(), optional));
             }
 
         }
+    }
+
+    @Override
+    public Message createMessage(byte nextByte) {
+        return this;
     }
 }
