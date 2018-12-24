@@ -5,7 +5,7 @@ import bgu.spl.net.accessories.SharedData;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-public class UserListMessage extends  MessagesClientToServer {
+public class UserListMessage extends  Message {
     String name;
 
     public  UserListMessage(String name){
@@ -33,7 +33,17 @@ public class UserListMessage extends  MessagesClientToServer {
     }
 
     @Override
+    public String getContainResult() {
+        return null;
+    }
+
+    @Override
     public Message createMessage(byte nextByte) {
         return this;
+    }
+
+    @Override
+    public byte[] getBytes() {
+        return new byte[0];
     }
 }

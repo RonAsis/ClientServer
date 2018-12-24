@@ -5,7 +5,7 @@ import bgu.spl.net.accessories.SharedData;
 
 import static bgu.spl.net.api.MessageEncoderDecoderlmpl.delimeter;
 
-public class MessageLogin extends MessagesClientToServer {
+public class MessageLogin extends Message {
 
     private String nameUser;
     private String password;
@@ -24,10 +24,16 @@ public class MessageLogin extends MessagesClientToServer {
         }
     }
 
+    @Override
+    public String getContainResult() {
+        return this.getResult();
+    }
+
     public String getNameUser() {
         return this.nameUser;
     }
 
+    @SuppressWarnings("Duplicates")
     @Override
     public Message createMessage(byte nextByte) {
         if(nextByte!=delimeter) {
@@ -44,5 +50,10 @@ public class MessageLogin extends MessagesClientToServer {
             this.rest();
             return this;
         }
+    }
+
+    @Override
+    public byte[] getBytes() {
+        return new byte[0];
     }
 }

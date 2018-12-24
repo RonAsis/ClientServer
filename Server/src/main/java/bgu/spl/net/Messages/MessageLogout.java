@@ -3,7 +3,7 @@ package bgu.spl.net.Messages;
 import bgu.spl.net.Future;
 import bgu.spl.net.accessories.SharedData;
 
-public class MessageLogout extends  MessagesClientToServer {
+public class MessageLogout extends  Message {
 
     String nameUser;
     public MessageLogout(String name){
@@ -22,7 +22,17 @@ public class MessageLogout extends  MessagesClientToServer {
     }
 
     @Override
+    public String getContainResult() {
+        return null;
+    }
+
+    @Override
     public Message createMessage(byte nextByte) {
         return this;
+    }
+
+    @Override
+    public byte[] getBytes() {
+        return this.shortToBytes(getOpcode());
     }
 }

@@ -27,16 +27,16 @@ public class NewsFeedServerMain {
 //                ObjectEncoderDecoder::new //message encoder decoder factory
 //        ).serve();
 //
-        Server.threadPerClient(
-                7777, //port
-                () -> new EchoProtocol(), //protocol factory
-                LineMessageEncoderDecoder::new //message encoder decoder factory
-        ).serve();
-
 //        Server.threadPerClient(
 //                7777, //port
-//                () -> new BidiMessagingProtocollmpl(), //protocol factory
-//                MessageEncoderDecoderlmpl::new //message encoder decoder factory
+//                () -> new EchoProtocol(), //protocol factory
+//                LineMessageEncoderDecoder::new //message encoder decoder factory
 //        ).serve();
+
+        Server.threadPerClient(
+                7777, //port
+                () -> new BidiMessagingProtocollmpl(), //protocol factory
+                MessageEncoderDecoderlmpl::new //message encoder decoder factory
+        ).serve();
    }
 }

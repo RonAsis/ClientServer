@@ -1,6 +1,7 @@
 package bgu.spl.net.api;
 
 import bgu.spl.net.Messages.*;
+import com.sun.org.apache.bcel.internal.generic.BREAKPOINT;
 
 
 public class MessageEncoderDecoderlmpl implements MessageEncoderDecoder {
@@ -40,7 +41,7 @@ public class MessageEncoderDecoderlmpl implements MessageEncoderDecoder {
 
     @Override
     public byte[] encode(Object message) {
-        MessagesServerToClient msc=(MessagesServerToClient)message;
+        Message msc=(Message) message;
         return msc.getBytes();
     }
 
@@ -71,6 +72,14 @@ public class MessageEncoderDecoderlmpl implements MessageEncoderDecoder {
             case 6:this.message=new PmMessage(this.nameUser);
                    break;
             case 7: this.message=new UserListMessage(this.nameUser);
+                    break;
+            case 8:this.message=new StatMessage(this.nameUser);
+                    break;
+            case 9:this.message=new NotificationMessage();
+                    break;
+            case 10:this.message=new AckMessage();
+                    break;
+            case 11:this.message=new ErrorMessage();
                     break;
         }
     }

@@ -4,10 +4,10 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 import static bgu.spl.net.api.MessageEncoderDecoderlmpl.delimeter;
 
-public class NotificationMessage extends MessagesServerToClient {
-    int notificationType;
-    String postingUser;
-    String content;
+public class NotificationMessage extends Message {
+    int notificationType=-1;
+    String postingUser="";
+    String content="";
     ConcurrentLinkedQueue<String > userSentMessageTo;
 
     public  NotificationMessage(int notificationType, String postingUser, ConcurrentLinkedQueue<String >userSentMessageTo, String content){
@@ -17,10 +17,13 @@ public class NotificationMessage extends MessagesServerToClient {
         this.content=content;
         this.userSentMessageTo=userSentMessageTo;
     }
+    public NotificationMessage(){
+        super(9);
+    }
     @Override
 
     public String getContainResult() {
-        return null;
+        return this.getResult();
     }
 
     @Override
@@ -33,7 +36,43 @@ public class NotificationMessage extends MessagesServerToClient {
     }
 
     @Override
+    public void excute() {
+        System.out.println(getContainResult());
+    }
+
+    @Override
     public Message createMessage(byte nextByte) {
-        return null;
+        if(nextByte!=delimeter) {
+            addBytes(nextByte);
+            return null;
+        }
+        if(notificationType==-1){
+            addBytes(nextByte);
+            this.notificationType=Integer.parseInt(popString());
+            rest();
+            return null;
+        }
+        if(postingUser.length()==0){
+            if(nextByte!=delimeter) {
+                addBytes(nextByte);
+                return null;
+            }
+            else{
+                this.postingUser=popString();
+                rest();
+                return null;
+            }
+        }
+        else{
+            if(nextByte!=delimeter) {
+                addBytes(nextByte);
+                return null;
+            }
+            else{
+                this.content=popString();
+                rest();
+                return this;
+            }
+        }
     }
 }

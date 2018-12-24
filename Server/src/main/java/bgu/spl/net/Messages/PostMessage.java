@@ -7,7 +7,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 import static bgu.spl.net.api.MessageEncoderDecoderlmpl.delimeter;
 
-public class PostMessage extends  MessagesClientToServer {
+public class PostMessage extends  Message {
     String name;
     ConcurrentLinkedQueue<String> listUserS;
     String msg="";
@@ -31,6 +31,11 @@ public class PostMessage extends  MessagesClientToServer {
     }
 
     @Override
+    public String getContainResult() {
+        return null;
+    }
+
+    @Override
     public Message createMessage(byte nextByte) {
          if(nextByte!=delimeter) {
             addBytes(nextByte);
@@ -51,5 +56,10 @@ public class PostMessage extends  MessagesClientToServer {
             this.rest();
             return this;
          }
+    }
+
+    @Override
+    public byte[] getBytes() {
+        return new byte[0];
     }
 }

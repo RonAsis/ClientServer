@@ -16,11 +16,11 @@ public class NewsFeedClientMain {
     }
 
     private static void runFirstClient(String host) throws Exception {
-        short s=1;
+        short s=3;
 
         try (RCIClient c = new RCIClient(host, 7777)) {
-          //  c.send(
-
+            c.send((s));
+            c.receive();
 //            c.receive(); //ok
 //
 //            c.send(new PublishNewsCommand(

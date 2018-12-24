@@ -6,7 +6,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 import static bgu.spl.net.api.MessageEncoderDecoderlmpl.delimeter;
 
-public class FollowMessage extends  MessagesClientToServer{
+public class FollowMessage extends  Message{
 
     private String name="";
     private int follow=-1;
@@ -27,6 +27,12 @@ public class FollowMessage extends  MessagesClientToServer{
         else
             setResult(new ErrorMessage(getOpcode()));//if the nubmer of follow is not 1 or 0
     }
+
+    @Override
+    public String getContainResult() {
+        return this.getResult();
+    }
+
     private void follow(){
         SharedData sharedData=SharedData.getInstance();
         dicideResult(sharedData.followUser(this.listUsers,this.name));
@@ -86,5 +92,11 @@ public class FollowMessage extends  MessagesClientToServer{
             return  this;
         }
 
+    }
+
+    @Override
+    public byte[] getBytes() {
+
+        return new byte[0];
     }
 }

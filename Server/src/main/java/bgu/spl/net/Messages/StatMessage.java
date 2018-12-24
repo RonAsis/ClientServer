@@ -5,14 +5,13 @@ import bgu.spl.net.accessories.SharedData;
 
 import static bgu.spl.net.api.MessageEncoderDecoderlmpl.delimeter;
 
-public class StatMessage extends  MessagesClientToServer {
+public class StatMessage extends  Message {
     String name;
     String nameUserStat;
 
-    public  StatMessage(String name, String nameUserStat){
+    public  StatMessage(String name){
         super(8);
         this.name=name;
-        this.nameUserStat=nameUserStat;
     }
 
     @Override
@@ -27,6 +26,11 @@ public class StatMessage extends  MessagesClientToServer {
     }
 
     @Override
+    public String getContainResult() {
+        return null;
+    }
+
+    @Override
     public Message createMessage(byte nextByte) {
         if(nextByte!=delimeter) {
             addBytes(nextByte);
@@ -37,5 +41,10 @@ public class StatMessage extends  MessagesClientToServer {
             this.rest();
             return this;
         }
+    }
+
+    @Override
+    public byte[] getBytes() {
+        return new byte[0];
     }
 }

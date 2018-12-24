@@ -1,6 +1,6 @@
 package bgu.spl.net.Messages;
 
-public class ErrorMessage extends MessagesServerToClient {
+public class ErrorMessage extends Message {
 
     short messageOpcode;
 
@@ -9,8 +9,21 @@ public class ErrorMessage extends MessagesServerToClient {
         this.messageOpcode=(short)messageOpcode;
     }
 
+    public ErrorMessage(){
+        super(11);
+    }
+    @SuppressWarnings("Duplicates")
     @Override
     public Message createMessage(byte nextByte) {
+        if(messageOpcode==-1 && getLen()<1){
+            addBytes(nextByte);
+            return null;
+        }
+        if(messageOpcode==-1){
+            this.messageOpcode=this.bytesToShort(this.getBytes());
+            this.rest();
+            return this;
+        }
         return null;
     }
 
@@ -25,5 +38,10 @@ public class ErrorMessage extends MessagesServerToClient {
         byte[] opcodeByte=this.shortToBytes(this.getOpcode());
         byte[] messageOpcodeBytes=this.shortToBytes(messageOpcode);
        return mergeTwoArraysOfBytes(opcodeByte,messageOpcodeBytes);
+    }
+
+    @Override
+    public void excute() {
+        System.out.println(this.getContainResult());
     }
 }

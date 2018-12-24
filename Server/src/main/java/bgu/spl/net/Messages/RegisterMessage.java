@@ -4,7 +4,7 @@ import bgu.spl.net.accessories.SharedData;
 
 import static bgu.spl.net.api.MessageEncoderDecoderlmpl.delimeter;
 
-public class RegisterMessage extends MessagesClientToServer{
+public class RegisterMessage extends Message{
 
     private String nameUser="";
     private String password="";
@@ -21,6 +21,11 @@ public class RegisterMessage extends MessagesClientToServer{
         else{
             setResult(new ErrorMessage(getOpcode()));
         }
+    }
+
+    @Override
+    public String getContainResult() {
+        return null;
     }
 
     @SuppressWarnings("Duplicates")
@@ -41,6 +46,11 @@ public class RegisterMessage extends MessagesClientToServer{
              return this;
          }
 
+    }
+
+    @Override
+    public byte[] getBytes() {
+        return new byte[0];
     }
 
 }

@@ -1,8 +1,5 @@
 package bgu.spl.net.api.bidi;
 
-import bgu.spl.net.Messages.MessagesClientToServer;
-import bgu.spl.net.Messages.MessagesServerToClient;
-
 public class BidiMessagingProtocollmpl implements  BidiMessagingProtocol{
 
     private boolean shouldTerminate = false;
