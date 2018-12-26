@@ -1,7 +1,12 @@
 package bgu.spl.net.srv;
 
+import bgu.spl.net.Messages.AckMessage;
+import bgu.spl.net.Messages.Message;
 import bgu.spl.net.api.MessageEncoderDecoder;
+import bgu.spl.net.api.MessageEncoderDecoderlmpl;
 import bgu.spl.net.api.MessagingProtocol;
+import bgu.spl.net.api.bidi.BidiMessagingProtocol;
+import bgu.spl.net.api.bidi.ConnectionsImpl;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
@@ -15,21 +20,25 @@ public class NonBlockingConnectionHandler<T> implements ConnectionHandler<T> {
     private static final int BUFFER_ALLOCATION_SIZE = 1 << 13; //8k
     private static final ConcurrentLinkedQueue<ByteBuffer> BUFFER_POOL = new ConcurrentLinkedQueue<>();
 
-    private final MessagingProtocol<T> protocol;
+    private final BidiMessagingProtocol<T> protocol;
     private final MessageEncoderDecoder<T> encdec;
     private final Queue<ByteBuffer> writeQueue = new ConcurrentLinkedQueue<>();
     private final SocketChannel chan;
     private final Reactor reactor;
+    private ConnectionsImpl connections;
 
     public NonBlockingConnectionHandler(
             MessageEncoderDecoder<T> reader,
-            MessagingProtocol<T> protocol,
+            BidiMessagingProtocol<T> protocol,
             SocketChannel chan,
-            Reactor reactor) {
+            Reactor reactor, ConnectionsImpl connections) {
         this.chan = chan;
         this.encdec = reader;
         this.protocol = protocol;
         this.reactor = reactor;
+        this.connections=connections;
+        this.connections.addConnectionHandler(this);
+        protocol.start(this.connections.getId(),this.connections);
     }
 
     public Runnable continueRead() {
@@ -37,23 +46,22 @@ public class NonBlockingConnectionHandler<T> implements ConnectionHandler<T> {
 
         boolean success = false;
         try {
-            success = chan.read(buf) != -1;
+            success = chan.read(buf) != -1;// the communication is lost
         } catch (IOException ex) {
             ex.printStackTrace();
         }
 
         if (success) {
-            buf.flip();
+            buf.flip();//After a sequence of channel-read or put operations, invoke this method to prepare for a sequence of channel-write or relative get operations
             return () -> {
                 try {
-                    while (buf.hasRemaining()) {
+                    while (buf.hasRemaining()) {//Tells whether there are any elements between the current position and the limit.
                         T nextMessage = encdec.decodeNextByte(buf.get());
                         if (nextMessage != null) {
-                            T response = protocol.process(nextMessage);
-                            if (response != null) {
-                                writeQueue.add(ByteBuffer.wrap(encdec.encode(response)));
-                                reactor.updateInterestedOps(chan, SelectionKey.OP_READ | SelectionKey.OP_WRITE);
-                            }
+                            protocol.process(nextMessage);
+//                            if (response != null) {
+
+//                            }
                         }
                     }
                 } finally {
@@ -83,12 +91,12 @@ public class NonBlockingConnectionHandler<T> implements ConnectionHandler<T> {
     public void continueWrite() {
         while (!writeQueue.isEmpty()) {
             try {
-                ByteBuffer top = writeQueue.peek();
+                ByteBuffer top = writeQueue.peek();//Retrieves, but does not remove, the head of this queue, or returns null if this queue is empty.
                 chan.write(top);
-                if (top.hasRemaining()) {
+                if (top.hasRemaining()) {//Tells whether there are any elements between the current position and the limit.
                     return;
                 } else {
-                    writeQueue.remove();
+                    writeQueue.remove();//Retrieves and removes the head of this queue, it throws an exception if this queue is empty.
                 }
             } catch (IOException ex) {
                 ex.printStackTrace();
@@ -103,7 +111,7 @@ public class NonBlockingConnectionHandler<T> implements ConnectionHandler<T> {
     }
 
     private static ByteBuffer leaseBuffer() {
-        ByteBuffer buff = BUFFER_POOL.poll();
+        ByteBuffer buff = BUFFER_POOL.poll();//Retrieves and removes the head of this queue, or returns null if this queue is empty.
         if (buff == null) {
             return ByteBuffer.allocateDirect(BUFFER_ALLOCATION_SIZE);
         }
@@ -116,8 +124,19 @@ public class NonBlockingConnectionHandler<T> implements ConnectionHandler<T> {
         BUFFER_POOL.add(buff);
     }
 
+    @SuppressWarnings("Duplicates")
     @Override
     public void send(T msg) {
-
+        Message message=(Message)msg;
+        if(message.getOpcode()==10){
+            AckMessage ackMessage=(AckMessage)message;
+            if(ackMessage.getMessageOpcode()==2)
+                ((MessageEncoderDecoderlmpl)this.encdec).setNameUser(ackMessage.getNameUser());
+            if(ackMessage.getMessageOpcode()==3){
+                ((MessageEncoderDecoderlmpl)this.encdec).setNameUser("");
+            }
+        }
+        writeQueue.add(ByteBuffer.wrap(encdec.encode(msg)));
+        reactor.updateInterestedOps(chan, SelectionKey.OP_READ | SelectionKey.OP_WRITE);
     }
 }

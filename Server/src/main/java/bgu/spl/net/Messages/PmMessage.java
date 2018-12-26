@@ -3,6 +3,8 @@ package bgu.spl.net.Messages;
 import bgu.spl.net.Future;
 import bgu.spl.net.accessories.SharedData;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import static bgu.spl.net.api.MessageEncoderDecoderlmpl.delimeter;
@@ -22,15 +24,16 @@ public class PmMessage extends  Message {
         }
 
         @Override
-        public void excute() {
-            SharedData sharedData=SharedData.getInstance();
+        public short act(SharedData sharedData) {
             if(sharedData.sendMessagePM(name,userSentMessageTo,msg)) {
-                ConcurrentLinkedQueue list=new ConcurrentLinkedQueue();
+                List list=new ArrayList();
                 list.add(userSentMessageTo);
                 this.setResult(new NotificationMessage(typeMessage, name, list, msg));
+                return  this.getOpcode();
             }
             else{
                 this.setResult(new ErrorMessage(6));
+                return  -1;
             }
         }
 

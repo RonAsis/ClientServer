@@ -1,5 +1,6 @@
 package bgu.spl.net.Messages;
 
+import java.util.List;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import static bgu.spl.net.api.MessageEncoderDecoderlmpl.delimeter;
@@ -8,14 +9,17 @@ public class NotificationMessage extends Message {
     int notificationType=-1;
     String postingUser="";
     String content="";
-    ConcurrentLinkedQueue<String > userSentMessageTo;
+    List<String > userSentMessageTo;
 
-    public  NotificationMessage(int notificationType, String postingUser, ConcurrentLinkedQueue<String >userSentMessageTo, String content){
+    public  NotificationMessage(int notificationType, String postingUser, List<String > userSentMessageTo, String content){
         super(9);
         this.notificationType=notificationType;
         this.postingUser=postingUser;
         this.content=content;
         this.userSentMessageTo=userSentMessageTo;
+    }
+    public List getListUserSentMessageTo(){
+        return this.userSentMessageTo;
     }
     public NotificationMessage(){
         super(9);
@@ -35,9 +39,11 @@ public class NotificationMessage extends Message {
         return this.mergeTwoArraysOfBytes(opcodeByte,stringtoBytes);
     }
 
-    @Override
-    public void excute() {
-        System.out.println("I get your response");
+    public boolean checkIfFindInTheListOfUsers(String name){
+        if(userSentMessageTo.contains(name))
+            return true;
+        else
+            return false;
     }
 
     @Override

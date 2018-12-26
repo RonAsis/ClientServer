@@ -1,11 +1,10 @@
 package bgu.spl.net.impl.newsfeed;
 
+import bgu.spl.net.accessories.SharedData;
 import bgu.spl.net.api.MessageEncoderDecoderlmpl;
-import bgu.spl.net.api.bidi.BidiMessagingProtocollmpl;
-import bgu.spl.net.impl.echo.EchoProtocol;
-import bgu.spl.net.impl.echo.LineMessageEncoderDecoder;
-import bgu.spl.net.impl.rci.ObjectEncoderDecoder;
-import bgu.spl.net.impl.rci.RemoteCommandInvocationProtocol;
+import bgu.spl.net.api.bidi.BGSProtocol;
+import bgu.spl.net.srv.BaseServer;
+import bgu.spl.net.srv.BlockingConnectionHandler;
 import bgu.spl.net.srv.Server;
 
 public class NewsFeedServerMain {
@@ -32,10 +31,11 @@ public class NewsFeedServerMain {
 //                () -> new EchoProtocol(), //protocol factory
 //                LineMessageEncoderDecoder::new //message encoder decoder factory
 //        ).serve();
+        SharedData sharedData=new SharedData() ;
 
         Server.threadPerClient(
                 7777, //port
-                () -> new BidiMessagingProtocollmpl(), //protocol factory
+                () -> new BGSProtocol(sharedData), //protocol factory
                 MessageEncoderDecoderlmpl::new //message encoder decoder factory
         ).serve();
    }

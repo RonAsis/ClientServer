@@ -1,6 +1,7 @@
 package bgu.spl.net.Messages;
 
 import bgu.spl.net.Future;
+import bgu.spl.net.accessories.SharedData;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
@@ -9,7 +10,7 @@ public abstract class Message<T> {
 
         private short opcode;
         private Future<Message> result;
-        private byte[] bytes = new byte[1 << 10]; //start with 1k
+        private byte[] bytes = new byte[1 << 13]; //start with 8k
         private int len = 0;
 
         public Message(int opcode){
@@ -25,7 +26,9 @@ public abstract class Message<T> {
 
         public abstract byte[] getBytes();
 
-        public abstract void  excute();
+        public short  act(SharedData sharedData){
+            return this.opcode;
+        }
 
         public Message  getContainResult(){
                 return this.result.get();

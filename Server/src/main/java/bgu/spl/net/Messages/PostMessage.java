@@ -3,30 +3,35 @@ package bgu.spl.net.Messages;
 import bgu.spl.net.Future;
 import bgu.spl.net.accessories.SharedData;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import static bgu.spl.net.api.MessageEncoderDecoderlmpl.delimeter;
 
 public class PostMessage extends  Message {
     String name;
-    ConcurrentLinkedQueue<String> listUserS;
+    List<String> listUserS;
     String msg="";
     int typeMessage=0;
     public PostMessage(String name){
         super(5);
         this.name=name;
-        this.listUserS=new ConcurrentLinkedQueue<>();
+        this.listUserS=new ArrayList<>();
     }
 
     @Override
-    public void excute() {
-        SharedData sharedData=SharedData.getInstance();
-        ConcurrentLinkedQueue list=sharedData.sendMessagePost(name,listUserS,msg);
+    public short act(SharedData sharedData) {
+        List list=sharedData.sendMessagePost(name,listUserS,msg);
         if(list==null){
             this.setResult(new ErrorMessage(5));
+            return -1;
         }
         else{
-            this.setResult(new NotificationMessage(typeMessage, name, list, msg));
+            Message notificationMessage=new NotificationMessage(typeMessage, name, list, msg);
+            this.setResult(notificationMessage);
+            sharedData.addNotifactionToMessagesPost(notificationMessage);
+            return this.getOpcode();
         }
     }
 

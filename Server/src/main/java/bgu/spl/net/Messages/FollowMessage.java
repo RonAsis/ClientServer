@@ -4,7 +4,6 @@ import bgu.spl.net.accessories.SharedData;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ConcurrentLinkedQueue;
 
 import static bgu.spl.net.api.MessageEncoderDecoderlmpl.delimeter;
 
@@ -28,13 +27,19 @@ public class FollowMessage extends  Message{
         this.numOfUsers=numOfUsers;
     }
 
-    public void excute() {
-        if(this.follow==0)
-            follow();
-        else if(this.follow==1)
-            unfollow();
-        else
+    public short act(SharedData sharedData) {
+        if(this.follow==0) {
+            follow(sharedData);
+            return this.getOpcode();
+        }
+        else if(this.follow==1){
+            unfollow(sharedData);
+            return this.getOpcode();
+        }
+        else {
             setResult(new ErrorMessage(getOpcode()));//if the nubmer of follow is not 1 or 0
+            return -1;
+        }
     }
 
 //    @Override
@@ -42,12 +47,10 @@ public class FollowMessage extends  Message{
 //        return this.getResult();
 //    }
 
-    private void follow(){
-        SharedData sharedData=SharedData.getInstance();
+    private void follow(SharedData sharedData){
         decideResult(sharedData.followUser(this.listUsers,this.name));
     }
-    private void unfollow() {
-        SharedData sharedData = SharedData.getInstance();
+    private void unfollow(SharedData sharedData) {
         decideResult(sharedData.unFollowUser(this.listUsers, this.name));
     }
     private void decideResult(List<String> listSucceful){

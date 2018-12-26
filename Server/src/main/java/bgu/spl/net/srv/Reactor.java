@@ -2,6 +2,9 @@ package bgu.spl.net.srv;
 
 import bgu.spl.net.api.MessageEncoderDecoder;
 import bgu.spl.net.api.MessagingProtocol;
+import bgu.spl.net.api.bidi.BidiMessagingProtocol;
+import bgu.spl.net.api.bidi.ConnectionsImpl;
+
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.channels.ClosedSelectorException;
@@ -15,52 +18,53 @@ import java.util.function.Supplier;
 public class Reactor<T> implements Server<T> {
 
     private final int port;
-    private final Supplier<MessagingProtocol<T>> protocolFactory;
+    private final Supplier<BidiMessagingProtocol<T>> protocolFactory;
     private final Supplier<MessageEncoderDecoder<T>> readerFactory;
     private final ActorThreadPool pool;
     private Selector selector;
-
-    private Thread selectorThread;
+    private Thread selectorThread; // the main thread
     private final ConcurrentLinkedQueue<Runnable> selectorTasks = new ConcurrentLinkedQueue<>();
-
+    private ConnectionsImpl connections;
     public Reactor(
             int numThreads,
             int port,
-            Supplier<MessagingProtocol<T>> protocolFactory,
+            Supplier<BidiMessagingProtocol<T>> protocolFactory,
             Supplier<MessageEncoderDecoder<T>> readerFactory) {
 
         this.pool = new ActorThreadPool(numThreads);
         this.port = port;
         this.protocolFactory = protocolFactory;
         this.readerFactory = readerFactory;
+        this.connections=new ConnectionsImpl();
     }
 
     @Override
     public void serve() {
 	selectorThread = Thread.currentThread();
-        try (Selector selector = Selector.open();
+        try (Selector selector = Selector.open();//a new selector
                 ServerSocketChannel serverSock = ServerSocketChannel.open()) {
 
-            this.selector = selector; //just to be able to close
+            this.selector = selector; //just to be able to close, cant do this in  the try
 
-            serverSock.bind(new InetSocketAddress(port));
-            serverSock.configureBlocking(false);
-            serverSock.register(selector, SelectionKey.OP_ACCEPT);
+            serverSock.bind(new InetSocketAddress(port));//do that the server socket  be ready
+            serverSock.configureBlocking(false);//do that the server not be blocking
+            serverSock.register(selector, SelectionKey.OP_ACCEPT);// register him
 			System.out.println("Server started");
 
-            while (!Thread.currentThread().isInterrupted()) {
+            while (!Thread.currentThread().isInterrupted()) {// this is selectorThread
 
-                selector.select();
-                runSelectionThreadTasks();
+                selector.select();//this is blocking until one of the channels is ready for the registered event
+                                  // Then a set of SelectionKey is return
+                runSelectionThreadTasks();// run all the task in the queue
 
-                for (SelectionKey key : selector.selectedKeys()) {
+                for (SelectionKey key : selector.selectedKeys()) {// all selectionKey is with least one ready event
 
-                    if (!key.isValid()) {
+                    if (!key.isValid()) {// if the ket not want to read
                         continue;
-                    } else if (key.isAcceptable()) {
+                    } else if (key.isAcceptable()) {// event of acceptable
                         handleAccept(serverSock, selector);
                     } else {
-                        handleReadWrite(key);
+                        handleReadWrite(key);//event of write or read
                     }
                 }
 
@@ -91,15 +95,15 @@ public class Reactor<T> implements Server<T> {
         }
     }
 
-
+// take care on event of accept
     private void handleAccept(ServerSocketChannel serverChan, Selector selector) throws IOException {
         SocketChannel clientChan = serverChan.accept();
-        clientChan.configureBlocking(false);
+        clientChan.configureBlocking(false);//not want the client socket be blocking
         final NonBlockingConnectionHandler<T> handler = new NonBlockingConnectionHandler<>(
                 readerFactory.get(),
                 protocolFactory.get(),
                 clientChan,
-                this);
+                this,this.connections);
         clientChan.register(selector, SelectionKey.OP_READ, handler);
     }
 

@@ -1,7 +1,9 @@
 package bgu.spl.net.srv;
 
+import bgu.spl.net.Messages.AckMessage;
 import bgu.spl.net.Messages.Message;
 import bgu.spl.net.api.MessageEncoderDecoder;
+import bgu.spl.net.api.MessageEncoderDecoderlmpl;
 import bgu.spl.net.api.MessagingProtocol;
 import bgu.spl.net.api.bidi.BidiMessagingProtocol;
 import bgu.spl.net.api.bidi.Connections;
@@ -20,20 +22,21 @@ public class BlockingConnectionHandler<T> implements Runnable, ConnectionHandler
     private BufferedInputStream in;
     private BufferedOutputStream out;
     private volatile boolean connected = true;
+    private ConnectionsImpl connections;
 
-    public BlockingConnectionHandler(Socket sock, MessageEncoderDecoder<T> reader, BidiMessagingProtocol<T> protocol) {
+    public BlockingConnectionHandler(Socket sock, MessageEncoderDecoder<T> reader, BidiMessagingProtocol<T> protocol,ConnectionsImpl connections) {
         this.sock = sock;
         this.encdec = reader;
         this.protocol = protocol;
+        this.connections=connections;
     }
 
     @Override
     public void run() {
         try (Socket sock = this.sock) { //just for automatic closing
             int read;
-            Connections c=new ConnectionsImpl();
-            ((ConnectionsImpl) c).addConnectionHandler(this);
-            protocol.start(((ConnectionsImpl) c).getId(),c);
+            this.connections.addConnectionHandler(this);
+            protocol.start((this.connections).getId(),this.connections);
             in = new BufferedInputStream(sock.getInputStream());
             out = new BufferedOutputStream(sock.getOutputStream());
             while (!protocol.shouldTerminate() && connected && (read = in.read()) >= 0) {
@@ -54,12 +57,21 @@ public class BlockingConnectionHandler<T> implements Runnable, ConnectionHandler
         sock.close();
     }
 
+    @SuppressWarnings("Duplicates")
     @Override
     public void send(T msg) {
         Message message=(Message)msg;
+        if(message.getOpcode()==10){
+            AckMessage ackMessage=(AckMessage)message;
+            if(ackMessage.getMessageOpcode()==2)
+                ((MessageEncoderDecoderlmpl)this.encdec).setNameUser(ackMessage.getNameUser());
+            if(ackMessage.getMessageOpcode()==3){
+                ((MessageEncoderDecoderlmpl)this.encdec).setNameUser("");
+            }
+        }
         if (message != null) {
             try {
-                T response=(T)message.getContainResult();
+                T response=(T)message;
                 out.write(encdec.encode(response));
                 out.flush();
             } catch (IOException e) {

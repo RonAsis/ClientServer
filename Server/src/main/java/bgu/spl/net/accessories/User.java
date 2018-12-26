@@ -1,5 +1,7 @@
 package bgu.spl.net.accessories;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class User {
@@ -7,7 +9,7 @@ public class User {
     private String name;
     private String password;
     private boolean login;
-    private ConcurrentLinkedQueue<String> followList;
+    private List<String> followList;
     private int timestamp;
     private int numberOfPost;
     private int numbetOfFollowers;
@@ -16,7 +18,7 @@ public class User {
         this.name=name;
         this.password=password;
         login=false;
-        followList=new ConcurrentLinkedQueue();
+        followList=new ArrayList<>();
         timestamp=0;
         this.numberOfPost=numberOfPost;
         numbetOfFollowers=0;
@@ -38,7 +40,7 @@ public class User {
         return numbetOfFollowers;
     }
 
-    public void setFollowList(ConcurrentLinkedQueue<String> followList) {
+    public void setFollowList(List<String> followList) {
         this.followList = followList;
     }
 
@@ -68,7 +70,7 @@ public class User {
         timestamp=tick;
     }
 
-    public ConcurrentLinkedQueue<String> getFollowList() {
+    public List<String> getFollowList() {
         return followList;
     }
 

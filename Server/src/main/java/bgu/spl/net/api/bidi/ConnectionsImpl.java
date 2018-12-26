@@ -30,11 +30,10 @@ public class ConnectionsImpl<T> implements  Connections<T>  {
      */
     @Override
     public boolean send(int connectionId, T msg) {
-        Message message=(Message)msg;
        if(msg!=null && connectionId>0){
            ConnectionHandler handler=connectionHandlerMap.get(connectionId);
            if(handler!=null){
-               handler.send(message);
+               handler.send(msg);
                return true;
            }
        }
@@ -47,7 +46,6 @@ public class ConnectionsImpl<T> implements  Connections<T>  {
      */
     @Override
     public void broadcast(T msg) {
-        NotificationMessage notificationMessage=(NotificationMessage)msg;
         if (msg != null) {
             ConnectionHandler handler;
             for (int key : connectionHandlerMap.keySet()) {

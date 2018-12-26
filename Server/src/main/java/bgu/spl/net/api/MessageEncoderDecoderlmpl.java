@@ -53,10 +53,7 @@ public class MessageEncoderDecoderlmpl implements MessageEncoderDecoder {
     }
 
     private void doneRead(){
-        Message result=this.message;
         rest();
-        if(fOpcode==2)
-            this.nameUser=((MessageLogin)result).getNameUser();
     }
     private void createMessageAccordingOpcode(){
         switch (fOpcode){
@@ -92,6 +89,8 @@ public class MessageEncoderDecoderlmpl implements MessageEncoderDecoder {
         result += (short)(byteArr[1] & 0xff);
         return result;
     }
-
+    public void setNameUser(String nameUser){
+        this.nameUser=nameUser;
+    }
 
 }

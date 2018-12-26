@@ -40,8 +40,5 @@ public class ErrorMessage extends Message {
        return mergeTwoArraysOfBytes(opcodeByte,messageOpcodeBytes);
     }
 
-    @Override
-    public void excute() {
-        //System.out.println(this.getContainResult());
-    }
+
 }

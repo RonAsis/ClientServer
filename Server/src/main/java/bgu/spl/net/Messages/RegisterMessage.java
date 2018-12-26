@@ -18,13 +18,14 @@ public class RegisterMessage extends Message{
         this.nameUser=nameUser;
         this.password=password;
     }
-    public void excute() {
-        SharedData sharedData=SharedData.getInstance();
+    public short act(SharedData sharedData){
         if(sharedData.register(this.nameUser,this.password)){
             setResult(new AckMessage(getOpcode()));
+            return this.getOpcode();
         }
         else{
             setResult(new ErrorMessage(getOpcode()));
+            return -1;
         }
     }
 

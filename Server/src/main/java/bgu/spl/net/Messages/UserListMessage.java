@@ -13,11 +13,12 @@ public class UserListMessage extends  Message {
         this.name=name;
     }
     @Override
-    public void excute() {
-        SharedData sharedData = SharedData.getInstance();
+    public short act(SharedData sharedData) {
         ConcurrentLinkedQueue<String> userNameListRegister = sharedData.getUserNameListRegister(this.name);
-        if (userNameListRegister.size() == 0)
+        if (userNameListRegister.size() == 0) {
             setResult(new ErrorMessage(getOpcode()));
+            return -1;
+        }
         else {
             {// less part of the list is successful
                 String optional = "";
@@ -27,6 +28,7 @@ public class UserListMessage extends  Message {
                 }
                 optional = userNameListRegister.size() + " " + optional;//need check if need be space of \0**************************************************
                 setResult(new AckMessage(getOpcode(), optional));
+                return this.getOpcode();
             }
 
         }

@@ -1,5 +1,7 @@
 package bgu.spl.net.Messages;
 
+import com.sun.org.apache.regexp.internal.RE;
+
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import static bgu.spl.net.api.MessageEncoderDecoderlmpl.delimeter;
@@ -13,6 +15,7 @@ public class AckMessage extends Message {
     private int numPosts=-1;
     private int numFollowers=-1;
     private int numFollowing=-1;
+    private String nameUser;
 
     public AckMessage(int messageOpcode, String optional ){
         super(10);
@@ -43,10 +46,6 @@ public class AckMessage extends Message {
         //  return  mergeTwoArraysOfBytes(c,optional.getBytes());
     }
 
-    @Override
-    public void excute() {
-        System.out.println(getContainResult());
-    }
 
     @Override
     public Message createMessage(byte nextByte) {
@@ -132,5 +131,16 @@ public class AckMessage extends Message {
             this.numFollowing = createNumber2Bytes(nextByte, this.numFollowers);
             return this;
             }
+    }
+    public short getMessageOpcode(){
+        return  this.messageOpcode;
+    }
+
+    public void setNameUser(String nameUser) {
+        this.nameUser = nameUser;
+    }
+
+    public String getNameUser() {
+        return nameUser;
     }
 }

@@ -4,7 +4,7 @@ import bgu.spl.net.accessories.SharedData;
 
 public class MessageLogout extends  Message {
 
-    String nameUser;
+    String nameUser="";
     public MessageLogout(String name){
         super(3);
         this.nameUser=name;
@@ -14,13 +14,16 @@ public class MessageLogout extends  Message {
         super(3);
     }
     @Override
-    public void excute() {
-        SharedData sharedData=SharedData.getInstance();
+    public short act(SharedData sharedData){
         if(sharedData.logout(this.nameUser)){
-            setResult(new AckMessage(getOpcode(),""));
+            Message ackMessage=new AckMessage(getOpcode(),"");
+            setResult(ackMessage);
+            ((AckMessage) ackMessage).setNameUser("");
+            return this.getOpcode();
         }
         else{
             setResult(new ErrorMessage(getOpcode()));
+            return -1;
         }
     }
 
@@ -32,5 +35,9 @@ public class MessageLogout extends  Message {
     @Override
     public byte[] getBytes() {
         return this.shortToBytes(getOpcode());
+    }
+
+    public String getNameUser(){
+        return this.nameUser;
     }
 }

@@ -21,13 +21,16 @@ public class MessageLogin extends Message {
         this.password=password;
     }
     @Override
-    public void excute() {
-        SharedData sharedData=SharedData.getInstance();
+    public short act(SharedData sharedData) {
         if(sharedData.login(this.nameUser,this.password)){
-            setResult(new AckMessage(getOpcode(),""));
+            Message ackMessage=new AckMessage(getOpcode(),"");
+            setResult(ackMessage);
+            ((AckMessage) ackMessage).setNameUser(this.nameUser);
+            return this.getOpcode();
         }
         else{
             setResult(new ErrorMessage(getOpcode()));
+            return -1;
         }
     }
 

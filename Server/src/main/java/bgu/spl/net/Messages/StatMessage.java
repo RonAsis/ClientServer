@@ -15,13 +15,15 @@ public class StatMessage extends  Message {
     }
 
     @Override
-    public void excute() {
-        SharedData sharedData=SharedData.getInstance();
+    public short act(SharedData sharedData) {
         String statUser=sharedData.getStatUser(this.name,this.nameUserStat);
-        if(statUser.length()==0)
+        if(statUser.length()==0) {
             setResult(new ErrorMessage(getOpcode()));
+            return -1;
+        }
         else{
             setResult(new AckMessage(getOpcode(),statUser));
+            return  this.getOpcode();
         }
     }
 

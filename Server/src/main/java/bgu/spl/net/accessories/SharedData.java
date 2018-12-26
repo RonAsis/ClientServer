@@ -1,5 +1,8 @@
 package bgu.spl.net.accessories;
 
+import bgu.spl.net.Messages.Message;
+import bgu.spl.net.Messages.NotificationMessage;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
@@ -7,8 +10,8 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class SharedData {
-        private ConcurrentHashMap<Integer,String> messagePost;
-        private ConcurrentHashMap<Integer,String> messagePM;
+        private ConcurrentHashMap<Integer, NotificationMessage> messagePost;
+        private ConcurrentLinkedQueue<String> messagePM;
         private ConcurrentHashMap<String,User> users;
         private AtomicInteger tick;
         private Object postMsgLock=new Object();
@@ -17,19 +20,25 @@ public class SharedData {
     /**
      * Singleton of ShareData
      */
-    private static class SingletonHolder {
-            private static SharedData instance = new SharedData();
-        }
-        private SharedData() {
-            messagePost=new ConcurrentHashMap<>();
-            messagePM=new ConcurrentHashMap<>();
+//    private static class SingletonHolder {
+//            private static SharedData instance = new SharedData();
+//        }
+//        private SharedData() {
+//            messagePost=new ConcurrentHashMap<>();
+//            messagePM=new ConcurrentLinkedQueue<>();
+//            users=new ConcurrentHashMap<>();
+//            tick=new AtomicInteger();
+//        }
+//        public static SharedData getInstance() {
+//            return SingletonHolder.instance;
+//        }
+
+    public SharedData(){
+        messagePost=new ConcurrentHashMap<>();
+            messagePM=new ConcurrentLinkedQueue<>();
             users=new ConcurrentHashMap<>();
             tick=new AtomicInteger();
-        }
-        public static SharedData getInstance() {
-            return SingletonHolder.instance;
-        }
-
+    }
     /**
      * Register user to the server .
       * @param name
@@ -57,13 +66,15 @@ public class SharedData {
 
     }
     public boolean logout(String name){
-        User user=users.get(name);
-        if(user!=null && user.isLogin()){
-            user.logout(tick.get());
-            return  true;
+        if(name!=null) {
+            User user = users.get(name);
+            if (user != null && user.isLogin()) {
+                user.logout(tick.get());
+                return true;
+            } else
+                return false;
         }
-        else
-            return false;
+        return false;
 
     }
     public List<String> followUser(List<String> listUsers, String name){
@@ -112,19 +123,34 @@ public class SharedData {
             return result;
         }
     }
-    public ConcurrentLinkedQueue<String> sendMessagePost(String name,ConcurrentLinkedQueue<String> list,String msg) {
+    public void addNotifactionToMessagesPost(Message notificationMessage){
+        this.messagePost.put(channgeTick(),(NotificationMessage)notificationMessage);
+
+    }
+    public List<Message> getMesageThatDontSendToUser(String name){
+        List<Message> result=new ArrayList<>();
+        int tickCurrnt=this.tick.get();
+        int tickLastOfUser=this.users.get(name).getTickLogOut();
+        while (tickCurrnt<=tickLastOfUser){
+             NotificationMessage notificationMessage= this.messagePost.get(tickLastOfUser);
+            if( notificationMessage!=null &&notificationMessage.checkIfFindInTheListOfUsers(name))
+                result.add(notificationMessage);
+            tickLastOfUser++;
+        }
+        return result;
+    }
+    public List<String> sendMessagePost(String name,List<String> list,String msg) {
        synchronized (postMsgLock){
         User user = this.users.get(name);
         // if the user don't exist or don't login
         if (user == null || user.isLogin() == false)
             return null;
-        ConcurrentLinkedQueue mergeList=mergeList(list,user.getFollowList());
-        this.messagePost.put(channgeTick(),msg);
+        List<String> mergeList=mergeList(list,user.getFollowList());
         user.addNumberOfPost();
             return mergeList;
     }
 }
-    private ConcurrentLinkedQueue<String> mergeList(ConcurrentLinkedQueue<String> a,ConcurrentLinkedQueue<String> b){
+    private List<String> mergeList(List<String> a,List<String> b){
         for (String value:b){
             if(!a.contains(value))
                 a.add(value);
@@ -146,8 +172,7 @@ public class SharedData {
             User userGetTheMsg=this.users.get(nameUserGetMsg);
             if (userSent==null || userSent.isLogin()==false || userGetTheMsg==null)
                 return false;
-            int newValue=channgeTick();
-            this.messagePM.put(newValue,msg);
+            this.messagePM.add(msg);
             return true;
         }
     }
