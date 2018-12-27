@@ -1,23 +1,25 @@
 
-#include <Client.h>
 #include <thread>
+#include "../include/ConnectionHandler.h"
+#include "../include/Client.h"
+#include <boost/asio.hpp>
 
-Client::Client(ConnectionHandler connectionHandler, int id): connectionHandler(connectionHandler), stop(false), id(id), clientName("CLIENT#"+id){}
+class size_type;
+
+Client::Client(ConnectionHandler& connectionHandler, int id): connectionHandler(connectionHandler), stop(false), id(id), clientName("CLIENT#" + id){}
 
 void Client::runWriter(){
-    while(this.stop==false)  {
-        const short bufsize = 1024;
+    while(!this->stop)  {
+        const short bufsize(1024);
         char buf[bufsize];
         std::cin.getline(buf, bufsize); // getting a new line from the user
         std::string line(buf);
-        int len=line.length();
+        int len(line.length());
 
-
-
-        line(line.substr(indexOfSecondSpace+1)); // removing the message's type
+        //line(line.substr(indexOfSecondSpace+1)); // removing the message's type
         if (!connectionHandler.sendLine(line)) { // if it wasn't possible to send the line from the user break;
             std::cout << "Disconnected. Exiting...\n" << std::endl;
-            this.stop = true;
+            this->stop = true;
             break;
         }
         std::cout << "Sent " << len+1 << " bytes to server" << std::endl;
@@ -25,45 +27,92 @@ void Client::runWriter(){
 }
 
 void Client::runReader(){
-    while(this.stop==false)  {
+    while(!this->stop)  {
         std::string answer;
 
         if (!connectionHandler.getLine(answer)) { // if it wasn't possible to get the answer from the server
             std::cout << "Disconnected. Exiting...\n" << std::endl;
-            this.stop = true;
+            this->stop = true;
             break;
         }
+        std::cout << this->clientName+""+answer<<std::endl;
 
-        len=answer.length();
-        answer.resize(len-1);
-
-        //   std::cout << "Reply: " << answer << " " << len << " bytes " << std::endl << std::endl;
-        int index(answer.indexOf(0));
-        string::size_type indexOfSecondSpace(answer.find(' ', 1));
-        std::string messageType(answer.substr(1, indexOfSecondSpace-1));
-        //   boost::to_upper(messageType);
-        if (messageType = "9") { //NOTIFICATION // **** do we need the space??????
-            if (answer[3] == "5") // public
-                std::cout << this.clientName+"> NOTIFICATION Public ****"+ answer.substr(4) << std::endl;
-            else { // pm
-                std::cout << this.clientName+"> NOTIFICATION PM ****"+ answer.substr(4) << std::endl;
-            }
-        }
-        else if (messageType = "10"){ //ACK
-            std::cout << this.clientName+"> ACK ****"+ answer.substr(3) << std::endl;
-            if (answer[4] == "3")
-                this.stop = true;
-        }
-        else { // ERROR
-            std::cout << this.clientName+"> ERROR ****"+ answer.substr(3) << std::endl;
-        }
+        std::string::size_type index(answer.find('>', 0));
+        if (answer.substr(index+1, index+3) == "ACK")
+            this->stop = true;
     }
 }
 
-ConnectionHandler Client::getConnectionHandler(){
-    return this.connectionHandler;
+ConnectionHandler& Client::getConnectionHandler(){
+    return this->connectionHandler;
 }
 
 bool Client::getStop(){
-    return this.stop;
+    return this->stop;
 }
+
+
+/**
+ * Destructor - this method destructs this Client.
+ *
+ */
+Client :: ~Client() {
+    this->connectionHandler.close();
+}
+
+/**
+ * Copy constructor - this method makes a copy of this Client and saves it in the given Client "other".
+ *
+ * @param other - the Client in which the copy of this Client will be saved.
+ */
+Client :: Client(const Client &other): stop(other.stop), id(other.id), clientName(other.clientName), connectionHandler("11", 1){
+}
+
+/**
+ * Move constructor - this method makes a copy of this Client, saves it in the given Client "other"
+ * and deletes this Client.
+ *
+ * @param other - the Client in which the copy of this Client will be saved.
+
+Client :: Client(Client&& other): orderPrint(other.orderPrint),capacity(other.capacity),numberTable(other.numberTable),open(other.open),customersList(), orderList(){
+    customersList = std:: move(other.customersList);
+    orderList = std:: move(other.orderList);
+    other.open = false;
+}
+*/
+/**
+ * Copy assignment - this method makes a copy of the given Client "other" and saves it in this Client.
+ *
+ * @param other - the Client that this Client will be identical to.
+
+Client& Client :: operator=(const Client &other) {
+    if (this != &other) {
+        clear();
+        for (Customer *customer:other.customersList)
+            this->customersList.push_back(customer->clone());
+        for (OrderPair orderPair:other.orderList) {
+            OrderPair op(orderPair.first, orderPair.second);
+            orderList.push_back(op);
+        }
+    }
+    return *this;
+
+}
+*/
+/**
+ * Move assignment - this method makes a copy of the given Client "other", saves it in this Client
+ * and deletes the given Client "other".
+ *
+ * @param other - the Client that this Client will be identical to.
+
+Client &Client::operator=(Client &&other) {
+    if (this != &other) {
+        clear();
+        customersList = std::move(other.customersList);
+        orderList = std::move(other.orderList);
+        open = other.open;
+        capacity = other.capacity;
+        numberTable = other.numberTable;
+    }
+    return *this;
+} */

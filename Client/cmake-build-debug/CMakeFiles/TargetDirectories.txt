@@ -1,0 +1,3 @@
+/home/noy/Desktop/SPL/as3/Client/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/noy/Desktop/SPL/as3/Client/cmake-build-debug/CMakeFiles/Client.dir
+/home/noy/Desktop/SPL/as3/Client/cmake-build-debug/CMakeFiles/edit_cache.dir
