@@ -3,23 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="1da2da1a-509a-4607-b706-fa08250cd185" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/net/Messages/AckMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/net/Messages/AckMessage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/net/Messages/FollowMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/net/Messages/FollowMessage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/net/Messages/Message.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/net/Messages/Message.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/net/Messages/MessageLogin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/net/Messages/MessageLogin.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/net/Messages/MessageLogout.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/net/Messages/MessageLogout.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/net/Messages/NotificationMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/net/Messages/NotificationMessage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/net/Messages/PmMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/net/Messages/PmMessage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/net/Messages/PostMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/net/Messages/PostMessage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/net/Messages/RegisterMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/net/Messages/RegisterMessage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/net/Messages/StatMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/net/Messages/StatMessage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/net/Messages/UserListMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/net/Messages/UserListMessage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/net/accessories/SharedData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/net/accessories/SharedData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/net/api/MessageEncoderDecoderlmpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/net/api/MessageEncoderDecoderlmpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/net/api/bidi/BGSProtocol.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/net/api/bidi/BGSProtocol.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/net/api/bidi/ConnectionsImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/net/api/bidi/ConnectionsImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/net/impl/newsfeed/NewsFeedClientMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/net/impl/newsfeed/NewsFeedClientMain.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/net/srv/BlockingConnectionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/net/srv/BlockingConnectionHandler.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -109,8 +92,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/bgu/spl/net/accessories/SharedData.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="15">
-              <caret line="56" column="5" lean-forward="true" selection-start-line="56" selection-start-column="5" selection-end-line="56" selection-end-column="5" />
+            <state relative-caret-position="420">
+              <caret line="65" lean-forward="true" selection-start-line="65" selection-end-line="65" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -382,7 +365,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1545926185396" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1545927510878" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
   </component>
@@ -497,7 +480,7 @@
       <workItem from="1545323855049" duration="62426000" />
       <workItem from="1545644320472" duration="22054000" />
       <workItem from="1545770734153" duration="33440000" />
-      <workItem from="1545911996061" duration="14300000" />
+      <workItem from="1545911996061" duration="14939000" />
     </task>
     <task id="LOCAL-00001" summary="start of the program">
       <created>1545328097247</created>
@@ -562,11 +545,18 @@
       <option name="project" value="LOCAL" />
       <updated>1545860579842</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="change in the server not done">
+      <created>1545926320660</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1545926320660</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="144488000" />
+    <option name="totallyTimeSpent" value="145127000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -581,7 +571,7 @@
     <frame x="1366" y="-2" width="1600" height="1202" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.28700128" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.28700128" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -590,7 +580,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32929105" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.38992536" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.38992536" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39925373" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -1134,8 +1124,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/bgu/spl/net/accessories/SharedData.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="56" column="5" lean-forward="true" selection-start-line="56" selection-start-column="5" selection-end-line="56" selection-end-column="5" />
+        <state relative-caret-position="420">
+          <caret line="65" lean-forward="true" selection-start-line="65" selection-end-line="65" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
