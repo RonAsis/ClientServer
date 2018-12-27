@@ -4,7 +4,6 @@ LDFLAGS:=-lboost_system-mt
 
 all: Client
 	g++ -o bin/ bin/ConnectionHandler.o bin/Client.o bin/ClientMain.o  $(LDFLAGS)
-g++ -L/usr/lib/x86_64-linux-gnu -lboost_system -lboost_filesystem prog.cpp -o prog
 
 Client: bin/ConnectionHandler.o bin/Client.o bin/ClientMain.o
 
