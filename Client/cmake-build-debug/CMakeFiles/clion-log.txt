@@ -1,4 +1,9 @@
-/snap/clion/57/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /home/noy/Desktop/SPL/as3/Client
+/snap/clion/57/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /home/ron/ClientServer/Client
+-- Boost version: 1.65.1
+-- Found the following Boost libraries:
+--   filesystem
+--   regex
+--   system
 -- Configuring done
 -- Generating done
--- Build files have been written to: /home/noy/Desktop/SPL/as3/Client/cmake-build-debug
+-- Build files have been written to: /home/ron/ClientServer/Client/cmake-build-debug
