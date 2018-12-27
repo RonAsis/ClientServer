@@ -1,11 +1,13 @@
 CFLAGS:=-c -Wall -Weffc++ -g -std=c++11 -Iinclude
-LDFLAGS:=-lboost_system
+LDFLAGS:=-lboost_system-mt
+
 
 all: Client
 	g++ -o bin/ bin/ConnectionHandler.o bin/Client.o bin/ClientMain.o  $(LDFLAGS)
+g++ -L/usr/lib/x86_64-linux-gnu -lboost_system -lboost_filesystem prog.cpp -o prog
 
 Client: bin/ConnectionHandler.o bin/Client.o bin/ClientMain.o
-	
+
 bin/ConnectionHandler.o: src/ConnectionHandler.cpp
 	g++ $(CFLAGS) -o bin/ConnectionHandler.o src/ConnectionHandler.cpp
 
