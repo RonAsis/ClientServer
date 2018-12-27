@@ -6,31 +6,26 @@ import bgu.spl.net.accessories.SharedData;
 import static bgu.spl.net.api.MessageEncoderDecoderlmpl.delimeter;
 
 public class StatMessage extends  Message {
-    String name;
-    String nameUserStat;
+    String userName;
 
     public  StatMessage(String name){
         super(8);
-        this.name=name;
+        this.userName=name;
     }
 
     @Override
     public short act(SharedData sharedData) {
-        String statUser=sharedData.getStatUser(this.name,this.nameUserStat);
-        if(statUser.length()==0) {
+        short [] statUser=sharedData.getStatUser(this.userName);
+        if(statUser==null) {
             setResult(new ErrorMessage(getOpcode()));
             return -1;
         }
         else{
-            setResult(new AckMessage(getOpcode(),statUser));
+            setResult(new AckMessage(this.getOpcode(),statUser[0],statUser[1],statUser[2]));
             return  this.getOpcode();
         }
     }
 
-//    @Override
-//    public String getContainResult() {
-//        return null;
-//    }
 
     @Override
     public Message createMessage(byte nextByte) {
@@ -39,7 +34,7 @@ public class StatMessage extends  Message {
             return null;
         }
         else{
-            this.nameUserStat=popString();
+            this.userName=popString();
             this.rest();
             return this;
         }
@@ -47,6 +42,9 @@ public class StatMessage extends  Message {
 
     @Override
     public byte[] getBytes() {
-        return new byte[0];
+        byte[] opcodeByte=this.shortToBytes(this.getOpcode());
+        byte[] result=mergeTwoArraysOfBytes(opcodeByte,this.userName.getBytes());
+        result=addByteToArray(result,delimeter);
+        return result;
     }
 }

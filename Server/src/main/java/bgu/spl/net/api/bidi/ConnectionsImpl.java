@@ -11,6 +11,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class ConnectionsImpl<T> implements  Connections<T>  {
     private ConcurrentHashMap<Integer,ConnectionHandler> connectionHandlerMap;
     private static int id;
+    private ConcurrentHashMap<String,Integer> userIdMap;
 
     /**
      * Constructor
@@ -18,6 +19,7 @@ public class ConnectionsImpl<T> implements  Connections<T>  {
    public ConnectionsImpl(){
        connectionHandlerMap=new ConcurrentHashMap<>();
        id=0;
+       userIdMap=new ConcurrentHashMap<>();
    }
     public int getId(){
        return this.id;
@@ -84,5 +86,11 @@ public class ConnectionsImpl<T> implements  Connections<T>  {
             return id;
         }
         return -1;
+    }
+    public void  addToUserIdMap(String username,Integer idClinet){
+        userIdMap.put(username,idClinet);
+    }
+    public ConcurrentHashMap<String,Integer> getUserIdMap(){
+        return this.userIdMap;
     }
 }

@@ -13,13 +13,18 @@ public class PostMessage extends  Message {
     String name;
     List<String> listUserS;
     String msg="";
-    int typeMessage=0;
+    char typeMessage='0';
+    String content;// for test the server
     public PostMessage(String name){
         super(5);
         this.name=name;
         this.listUserS=new ArrayList<>();
     }
-
+    public PostMessage(String name,String content){
+        super(5);
+        this.name=name;
+        this.content=content;
+    }
     @Override
     public short act(SharedData sharedData) {
         List list=sharedData.sendMessagePost(name,listUserS,msg);
@@ -50,14 +55,15 @@ public class PostMessage extends  Message {
             String content=popString();
             String[] spilt=content.split(" ");
             int i=0;
-            for(;i<spilt.length-1;i++){
+            for(;i<spilt.length;i++){
                 if(spilt[i].contains("@"))
                     this.listUserS.add(spilt[i].substring(1));
                 else{
-                    msg=spilt[i]+" ";
+                    msg=msg+spilt[i];
+                    if(i+1<spilt.length && !spilt[i].contains("@"))
+                        msg=msg+" ";
                 }
             }
-            this.msg=this.msg+spilt[i];
             this.rest();
             return this;
          }
@@ -65,6 +71,9 @@ public class PostMessage extends  Message {
 
     @Override
     public byte[] getBytes() {
-        return new byte[0];
+        byte[] opcodeByte=this.shortToBytes(this.getOpcode());
+        byte[] result=mergeTwoArraysOfBytes(opcodeByte,this.content.getBytes());
+        result=addByteToArray(result,delimeter);
+        return result;
     }
 }

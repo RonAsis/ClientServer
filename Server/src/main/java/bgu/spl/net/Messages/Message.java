@@ -45,14 +45,17 @@ public abstract class Message<T> {
         public String popString() {
                 //notice that we explicitly requesting that the string will be decoded from UTF-8
                 //this is not actually required as it is the default encoding in java.
-                String result = new String(bytes, 0, len+1, StandardCharsets.UTF_8);
+                String result = new String(bytes, 0, len, StandardCharsets.UTF_8);
                 len = 0;
                 return result;
         }
 
         public void addBytes(Byte nextByte){
-                this.bytes[len]=nextByte;
-                len++;
+            if (len >= bytes.length) {
+                bytes = Arrays.copyOf(bytes, len * 2);
+            }
+
+            bytes[len++] = nextByte;
         }
 
         public void rest(){
@@ -87,6 +90,7 @@ public abstract class Message<T> {
         byte[] byteArr=this.bytes;
         short result = (short)((byteArr[0] & 0xff) << 8);
         result += (short)(byteArr[1] & 0xff);
+        rest();
         return result;
     }
     public byte[]addByteToArray(byte[] a,byte b){

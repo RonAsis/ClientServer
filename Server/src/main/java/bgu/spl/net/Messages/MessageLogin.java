@@ -23,7 +23,7 @@ public class MessageLogin extends Message {
     @Override
     public short act(SharedData sharedData) {
         if(sharedData.login(this.nameUser,this.password)){
-            Message ackMessage=new AckMessage(getOpcode(),"");
+            Message ackMessage=new AckMessage(getOpcode());
             setResult(ackMessage);
             ((AckMessage) ackMessage).setNameUser(this.nameUser);
             return this.getOpcode();

@@ -16,7 +16,7 @@ public class MessageLogout extends  Message {
     @Override
     public short act(SharedData sharedData){
         if(sharedData.logout(this.nameUser)){
-            Message ackMessage=new AckMessage(getOpcode(),"");
+            Message ackMessage=new AckMessage(getOpcode());
             setResult(ackMessage);
             ((AckMessage) ackMessage).setNameUser("");
             return this.getOpcode();

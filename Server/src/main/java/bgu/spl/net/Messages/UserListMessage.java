@@ -3,6 +3,7 @@ package bgu.spl.net.Messages;
 import bgu.spl.net.Future;
 import bgu.spl.net.accessories.SharedData;
 
+import java.util.List;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class UserListMessage extends  Message {
@@ -14,20 +15,14 @@ public class UserListMessage extends  Message {
     }
     @Override
     public short act(SharedData sharedData) {
-        ConcurrentLinkedQueue<String> userNameListRegister = sharedData.getUserNameListRegister(this.name);
+        List<String> userNameListRegister = sharedData.getUserNameListRegister(this.name);
         if (userNameListRegister.size() == 0) {
             setResult(new ErrorMessage(getOpcode()));
             return -1;
         }
         else {
             {// less part of the list is successful
-                String optional = "";
-                String delimeter = "\0";//between all name;
-                for (String key : userNameListRegister) {
-                    optional = optional + delimeter;
-                }
-                optional = userNameListRegister.size() + " " + optional;//need check if need be space of \0**************************************************
-                setResult(new AckMessage(getOpcode(), optional));
+                setResult(new AckMessage(getOpcode(),(short)userNameListRegister.size(),userNameListRegister));
                 return this.getOpcode();
             }
 
@@ -46,6 +41,6 @@ public class UserListMessage extends  Message {
 
     @Override
     public byte[] getBytes() {
-        return new byte[0];
+        return this.shortToBytes(this.getOpcode());
     }
 }

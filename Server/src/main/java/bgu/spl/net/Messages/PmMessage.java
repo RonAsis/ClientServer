@@ -10,25 +10,25 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import static bgu.spl.net.api.MessageEncoderDecoderlmpl.delimeter;
 
 public class PmMessage extends  Message {
-        String name;
+        String userName;
         ConcurrentLinkedQueue<String> listUserS;
         String userSentMessageTo="";
-        String msg;
-        int typeMessage=1;
+        String content;
+        char typeMessage='1';
 
 
     public PmMessage(String name){
             super(6);
-            this.name=name;
+            this.userName=name;
             this.listUserS=new ConcurrentLinkedQueue<>();
         }
 
         @Override
         public short act(SharedData sharedData) {
-            if(sharedData.sendMessagePM(name,userSentMessageTo,msg)) {
+            if(sharedData.sendMessagePM(userName,userSentMessageTo,content)) {
                 List list=new ArrayList();
                 list.add(userSentMessageTo);
-                this.setResult(new NotificationMessage(typeMessage, name, list, msg));
+                this.setResult(new NotificationMessage(typeMessage, userName, list, content));
                 return  this.getOpcode();
             }
             else{
@@ -54,7 +54,7 @@ public class PmMessage extends  Message {
             return null;
         }
         else{
-            this.msg=popString();
+            this.content=popString();
             this.rest();
             return this;
         }
@@ -62,6 +62,11 @@ public class PmMessage extends  Message {
 
     @Override
     public byte[] getBytes() {
-        return new byte[0];
+        byte[] opcodeByte=this.shortToBytes(this.getOpcode());
+        byte[] result=mergeTwoArraysOfBytes(opcodeByte,this.userName.getBytes());
+        result=addByteToArray(result,delimeter);
+        result=mergeTwoArraysOfBytes(result,content.getBytes());
+        result=addByteToArray(result,delimeter);
+        return result;
     }
 }

@@ -10,7 +10,7 @@ public class MessageEncoderDecoderlmpl implements MessageEncoderDecoder {
     private short fOpcode=-1;
     private int lenOpcode=0;
     private Message message;
-    public final static byte delimeter=(byte)'\0';
+    public final static byte delimeter='\0';
     private String nameUser="";
 
     @Override

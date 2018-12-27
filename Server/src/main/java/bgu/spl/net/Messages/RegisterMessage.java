@@ -39,12 +39,10 @@ public class RegisterMessage extends Message{
         }
         else if (nameUser.length()==0 && nextByte==delimeter){
             this.nameUser=this.popString();
-          //  this.rest();
              return null;
          }
          else{
              this.password=this.popString();
-            // this.rest();
              return this;
          }
 

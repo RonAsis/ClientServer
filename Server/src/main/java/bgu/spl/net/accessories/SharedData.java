@@ -176,9 +176,9 @@ public class SharedData {
             return true;
         }
     }
-    public ConcurrentLinkedQueue<String> getUserNameListRegister(String name){
+    public List<String> getUserNameListRegister(String name){
         synchronized (registerLock){
-            ConcurrentLinkedQueue<String> result=new ConcurrentLinkedQueue<>();
+            List<String> result=new ArrayList<>();
             User user=this.users.get(name);
             if(user!=null || user.isLogin()==false)
                 return result;
@@ -186,14 +186,15 @@ public class SharedData {
             return result;
         }
     }
-    public String getStatUser(String name, String nameUserStat){
+    public short[] getStatUser(String name){
         User user=this.users.get(name);
-        User userStat=this.users.get(nameUserStat);
-        String result = "";
+        User userStat=this.users.get(name);
         if (user==null || user.isLogin()==false || userStat==null)
-            return "";
-        String delimeter = "\0";//between all name;
-        result=result+userStat.getNumberOfPost()+delimeter+userStat.getNumbetOfFollowers()+delimeter+userStat.getNumberUsersTheUserIsFollowing();
+            return null;
+        short[] result=new short[3];
+        result[0]=(short)userStat.getNumberOfPost();
+        result[1]=(short)userStat.getNumbetOfFollowers();
+        result[2]=(short)userStat.getNumberUsersTheUserIsFollowing();
         return  result;
     }
 }

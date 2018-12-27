@@ -48,22 +48,16 @@ public class FollowMessage extends  Message{
 //    }
 
     private void follow(SharedData sharedData){
-        decideResult(sharedData.followUser(this.listUsers,this.name));
+        decideResult(this.listUsers=sharedData.followUser(this.listUsers,this.name));
     }
     private void unfollow(SharedData sharedData) {
-        decideResult(sharedData.unFollowUser(this.listUsers, this.name));
+        decideResult(this.listUsers=sharedData.unFollowUser(this.listUsers, this.name));
     }
     private void decideResult(List<String> listSucceful){
         if (listSucceful.size() == 0)
             setResult(new ErrorMessage(getOpcode()));
         else {// less part of the list is successful
-            String optional = "";
-            String delimeter = "\0";//between all name;
-            for (String key : listUsers) {
-                optional = optional + delimeter;
-            }
-            optional = this.numOfUsers + " " + optional;//need check if need be space of \0**************************************************
-            setResult(new AckMessage(getOpcode(), optional));
+            setResult(new AckMessage(getOpcode(),this.numOfUsers,this.listUsers));
         }
         }
 
