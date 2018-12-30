@@ -11,13 +11,13 @@ int main (int argc, char **argv) {
     std::string host = argv[1];
     short port = atoi(argv[2]);
 
-    ConnectionHandler connectionHandler(host, port);
-    if (!connectionHandler.connect()) {
+    int id = 0;
+    Client client(host, port, id); // creating a new client
+
+    if (!client.getConnectionHandler().connect()) {
         std::cerr << "Cannot connect to " << host << ":" << port << std::endl;
         return 1;
     }
-int id = 0;
-    Client client(connectionHandler, id); // creating a new client
 
     std::thread threadWrite (&Client::runWriter, &client);
     std::thread threadRead (&Client::runReader, &client);

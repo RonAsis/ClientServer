@@ -17,12 +17,10 @@ private:
     short messageTypeShort(std::string messageTypeName);
     std::string messageTypeString(short messageTypeName);
     void shortToBytes(short num, char* bytesArr);
-    std::string charToHex(char letter);
-    std::string hexToChar(char letter);
-    std::string changeMessageToHex(std::string messageTypeName, std::string messageContent);
+    std::string changeStringToMessage(std::string messageTypeName, std::string messageContent);
     short bytesToShort(char* bytesArr);
-    std::string changeMessageToChar(std::string answer, std::string messageContent, std::string messageType);
-    public:
+    std::string changeMessageToString(std::string answer, std::string messageContent, std::string messageType);
+public:
     ConnectionHandler(std::string host, short port);
     virtual ~ConnectionHandler();
 

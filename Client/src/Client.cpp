@@ -6,7 +6,7 @@
 
 class size_type;
 
-Client::Client(ConnectionHandler& connectionHandler, int id): connectionHandler(connectionHandler), stop(false), id(id), clientName("CLIENT#" + id){}
+Client::Client(std::string host, short port, int id): connectionHandler(host, port), stop(false), id(id), clientName("CLIENT#" + id){}
 
 void Client::runWriter(){
     while(!this->stop)  {
@@ -16,7 +16,6 @@ void Client::runWriter(){
         std::string line(buf);
         int len(line.length());
 
-        //line(line.substr(indexOfSecondSpace+1)); // removing the message's type
         if (!connectionHandler.sendLine(line)) { // if it wasn't possible to send the line from the user break;
             std::cout << "Disconnected. Exiting...\n" << std::endl;
             this->stop = true;
@@ -30,10 +29,10 @@ void Client::runReader(){
     while(!this->stop)  {
         std::string answer;
 
-        if (!connectionHandler.getLine(answer)) { // if it wasn't possible to get the answer from the server
-            std::cout << "Disconnected. Exiting...\n" << std::endl;
-            this->stop = true;
-            break;
+        while (!connectionHandler.getLine(answer)) { // if it wasn't possible to get the answer from the server
+            //std::cout << "Disconnected. Exiting...\n" << std::endl;
+            //this->stop = true;
+           // break;
         }
         std::cout << this->clientName+""+answer<<std::endl;
 

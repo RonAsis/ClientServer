@@ -46,18 +46,30 @@ bool ConnectionHandler::sendLine(std::string& line) {
 }
 
 bool ConnectionHandler::sendFrameAscii(const std::string& frame, char delimiter) {
+
     string::size_type indexOfSpace(frame.find(' ', 0)); // the first word is the message's type
-    std::string messageTypeName(frame.substr(0, indexOfSpace-1)); // message's name
+    std::string messageTypeName(frame.substr(0, indexOfSpace)); // message's name
     short messageOpcode(messageTypeShort(messageTypeName)); // message's opcode
-    std::string hexMessage;
-    char *h = new char[2];
+
+   // char *h = new char[2];
+    char h[2];
+  //  std::cout << messageOpcode << std::endl;
     shortToBytes(messageOpcode, h);
+   // printf("%d %d\n",h[0],h[1]);
+    //std::cout << h[0]<<std::endl;
+    //std::cout << h[1]<<std::endl;
+    bool result = sendBytes(h, 2); // sending the encoded message to the server
+
+    if(!result) return false;
+
     std::string messageContent(frame.substr(indexOfSpace+1, frame.length()));
 
-    hexMessage = hexMessage + changeMessageToHex(messageTypeName, messageContent); // the encoded message
+    std::string message(changeStringToMessage(messageTypeName, messageContent));
 
-    bool result=sendBytes(hexMessage.c_str(), hexMessage.length()); // sending the encoded message to the server
-    if(!result) return false;
+    result = sendBytes(message.c_str(), messageContent.length() ); // sending the encoded message to the server
+    if(!result){
+        return false;
+    }
     return sendBytes(&delimiter,1);
 }
 
@@ -98,69 +110,37 @@ void ConnectionHandler::shortToBytes(short num, char* bytesArr){
 }
 
 /**
- * Changing the given string messageContent to hex.
+ * Changing the given string messageContent to .
  *
  * @param messageTypeName - the type of the message.
  * @param messageContent - the content of the message.
- * @return the given message encoded to hex.
+ * @return the given message encoded to .
  */
-std::string ConnectionHandler::changeMessageToHex(std::string messageTypeName, std::string messageContent){
-    std::string hexMessage;
+std::string ConnectionHandler::changeStringToMessage(std::string messageTypeName, std::string messageContent){
+    std::string message;
 
     if (messageTypeName == "REGISTER" || messageTypeName == "LOGIN" || messageTypeName == "PM") {
         string::size_type indexOfSpace(messageContent.find(' ', 0)); // where the username ends
-        for (int i=0; i<indexOfSpace; i++) // changing the userName to hex
-            hexMessage = hexMessage + charToHex(messageContent[i]);
-
-        hexMessage = hexMessage +"0";
-
-        indexOfSpace = messageContent.find(' ', 1);
-        for (int i=indexOfSpace+1; i<messageContent.length(); i++) // changing the password//content to hex
-            hexMessage = hexMessage + charToHex(messageContent[i]);
-        return hexMessage;
+        message = messageContent.substr(0,indexOfSpace) +"0"+messageContent.substr(indexOfSpace+1, messageContent.length());
+        return message;
     }
 
     else if (messageTypeName == "LOGOUT" || messageTypeName == "USERLIST")  {
-        hexMessage = "";
-        return hexMessage;
+        message = "";
+        return message;
     }
 
     else if (messageTypeName == "FOLLOW"){
-        hexMessage = messageContent[0]; // follow or unfollow
+        message = messageContent[0]; // follow or unfollow
         string::size_type indexOfSpace(messageContent.find(' ', 0)); // number of users to follow/unfollow
-        for (int i=0; i<indexOfSpace; i++) // changing the number of users to follow/unfollow to hex
-            hexMessage = hexMessage + charToHex(messageContent[i]);
-
-        hexMessage = hexMessage +"0";
-
-        indexOfSpace = messageContent.find(' ', 1);
-        for (int i=indexOfSpace+1; i<messageContent.length(); i++) // changing the usernames to hex
-            hexMessage = hexMessage + charToHex(messageContent[i]);
-        return hexMessage;
+        message = message + messageContent.substr(1, indexOfSpace) + "0" + messageContent.substr(indexOfSpace+1, messageContent.length());
+        return message;
     }
 
     else { // if (messageTypeName == "POST" || messageTypeName == "STAT")
-        for (int i=0; i<messageContent.length(); i++) // changing the content/username to hex
-            hexMessage = hexMessage + charToHex(messageContent[i]);
-        return hexMessage;
+        message = messageContent;
+        return message;
     }
-}
-
-/**
- * Changing a given char to hex
- *
- * @param letter - the char that needs to be encoded to hex.
- * @return - the encoded char.
- */
-std::string ConnectionHandler::charToHex(char letter){
-    constexpr char hexmap[] = {'0', '1', '2', '3', '4', '5', '6', '7',
-                               '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
-
-    std::string letterHex( 2, ' ');
-    letterHex[0] = hexmap[(letter & 0xF0) >> 4];
-    letterHex[1] = hexmap[letter & 0x0F];
-
-    return letterHex;
 }
 
 /**
@@ -177,11 +157,11 @@ bool ConnectionHandler::sendBytes(const char bytes[], int bytesToWrite) {
             tmp += socket_.write_some(boost::asio::buffer(bytes + tmp, bytesToWrite - tmp), error);
         }
         if(error){
-            throw boost::system::system_error(error);
+            return false; // throw boost::system::system_error(error);
         }
 
     } catch (std::exception& e) {
-        std::cerr << "recv failed (Error: " << e.what() << ')' << std::endl;
+        //std::cerr << "recv failed (Error: " << e.what() << ')' << std::endl;
         return false;
     }
     return true;
@@ -200,21 +180,23 @@ bool ConnectionHandler::getLine(std::string& line) {
     std::string messageTypeName = messageTypeString(messageOpcode);
 
     std::string answer = messageTypeName;
-    changeMessageToChar(answer, line.substr(2), messageTypeName);
+    changeMessageToString(answer, line.substr(2), messageTypeName);
     return true;
 }
 
 bool ConnectionHandler::getFrameAscii(std::string& frame, char delimiter) {
     char ch;
-    // Stop when we encounter the null character. 
+    // Stop when we encounter the null character.
     // Notice that the null character is not appended to the frame string.
     try {
         do{
-            getBytes(&ch, 1);
-            frame.append(1, ch);
-        }while (delimiter != ch);
+            if(getBytes(&ch, 1)!= false)
+                frame.append(1, ch);
+            else
+                return false;
+        } while (delimiter != ch);
     } catch (std::exception& e) {
-        std::cerr << "recv failed (Error: " << e.what() << ')' << std::endl;
+        //std::cerr << "recv failed (Error: " << e.what() << ')' << std::endl;
         return false;
     }
     return true;
@@ -228,10 +210,10 @@ bool ConnectionHandler::getBytes(char bytes[], unsigned int bytesToRead) {
             tmp += socket_.read_some(boost::asio::buffer(bytes+tmp, bytesToRead-tmp), error);
         }
         if(error) {
-            throw boost::system::system_error(error);
+            return false;//throw boost::system::system_error(error);
         }
     } catch (std::exception& e) {
-        std::cerr << "recv failed (Error: " << e.what() << ')' << std::endl;
+        //std::cerr << "recv failed (Error: " << e.what() << ')' << std::endl;
         return false;
     }
     return true;
@@ -254,47 +236,34 @@ std::string ConnectionHandler::messageTypeString(short messageTypeNum){
     return messageTypeName;
 }
 
-std::string ConnectionHandler::changeMessageToChar(std::string answer, std::string messageContent, std::string messageType){
+std::string ConnectionHandler::changeMessageToString(std::string answer, std::string messageContent, std::string messageType){
     int len=messageContent.length();
     messageContent.resize(len-1);
 
     if (messageType == "NOTIFICATION") {
-        if (hexToChar(messageContent[0]) == "5") { // public
-            messageContent = messageContent.substr(1);
+        if (messageContent[0] == '5') { // public
             std::string::size_type index(answer.find('0', 0));
-            for (int i=0; i<index; i++) // posting user
-                answer = answer + hexToChar(messageContent[i]);
-            answer = answer + " ";
-            for (int i=index; i<messageContent.length(); i++) // content
-                answer = answer + hexToChar(messageContent[i]);
+            answer = messageContent.substr(1, index)+" "+messageContent.substr(index+1, messageContent.length());
             answer = "> NOTIFICATION Public " + answer;
         }
         else { // pm
-            messageContent = messageContent.substr(1);
             std::string::size_type index(answer.find('0', 0));
-            for (int i=0; i<index; i++) // posting user
-                answer = answer + hexToChar(messageContent[i]);
-            answer = answer + " ";
-            for (int i=index; i<messageContent.length(); i++) // content
-                answer = answer + hexToChar(messageContent[i]);
+            answer = messageContent.substr(1, index)+" "+messageContent.substr(index+1, messageContent.length());
             answer = "> NOTIFICATION PM "+ answer;
         }
     }
+
     else if (messageType == "ACK"){
         char messageTypeShort = messageContent[0];
         answer = bytesToShort(&messageTypeShort);
-        for (int i=1; i<messageContent.length(); i++) // content
-            answer = answer + hexToChar(messageContent[i]);
+        answer = answer +" "+ messageContent.substr(1, messageContent.length());
         answer = "> ACK "+ answer;
     }
+
     else {
         char messageTypeShort = messageContent[0];
         answer = "> ERROR "+ bytesToShort(&messageTypeShort);
     }
-}
-
-std::string ConnectionHandler::hexToChar(char letter){
-return "n";
 }
 
 

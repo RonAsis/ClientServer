@@ -10,7 +10,7 @@ private:
     int id;
     std::string clientName;
 public:
-    Client(ConnectionHandler& connectionHandler, int id);
+    Client(std::string host, short port, int id);
     //Client & operator=(const Client & other); //copy assignment
     Client(const Client & other); //copy constructor
     ~Client(); //destructor

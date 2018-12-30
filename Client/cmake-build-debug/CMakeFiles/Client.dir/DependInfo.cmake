@@ -4,9 +4,9 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/ron/ClientServer/Client/src/Client.cpp" "/home/ron/ClientServer/Client/cmake-build-debug/CMakeFiles/Client.dir/src/Client.cpp.o"
-  "/home/ron/ClientServer/Client/src/ClientMain.cpp" "/home/ron/ClientServer/Client/cmake-build-debug/CMakeFiles/Client.dir/src/ClientMain.cpp.o"
-  "/home/ron/ClientServer/Client/src/ConnectionHandler.cpp" "/home/ron/ClientServer/Client/cmake-build-debug/CMakeFiles/Client.dir/src/ConnectionHandler.cpp.o"
+  "/home/noy/Desktop/SPL/as3/Client/src/Client.cpp" "/home/noy/Desktop/SPL/as3/Client/cmake-build-debug/CMakeFiles/Client.dir/src/Client.cpp.o"
+  "/home/noy/Desktop/SPL/as3/Client/src/ClientMain.cpp" "/home/noy/Desktop/SPL/as3/Client/cmake-build-debug/CMakeFiles/Client.dir/src/ClientMain.cpp.o"
+  "/home/noy/Desktop/SPL/as3/Client/src/ConnectionHandler.cpp" "/home/noy/Desktop/SPL/as3/Client/cmake-build-debug/CMakeFiles/Client.dir/src/ConnectionHandler.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
