@@ -80,7 +80,7 @@ bool ConnectionHandler::sendFrameAscii(const std::string& frame, char delimiter)
 
     std::string messageContent(frame.substr(indexOfSpace+1, frame.length())); // removing the message's opcode
 
-    if (messageOpcode == '4') { // FOLLOW / UNFOLLOW
+    if (messageOpcode == '4') { // FOLLOW
         short followOrUnfollow;
         if (messageContent[0] == '0')
             followOrUnfollow = '0';
@@ -93,7 +93,7 @@ bool ConnectionHandler::sendFrameAscii(const std::string& frame, char delimiter)
         indexOfSpace = messageContent.find(' ', 2);
 
         std::string stringNumOfUsers(messageContent.substr(2, indexOfSpace)); // the amount of users
-        short numOfUsers = short(stringNumOfUsers);
+        short numOfUsers = stringToNum(stringNumOfUsers);
         shortToBytes(numOfUsers, h);
         result = sendBytes(h, 1); // sending numOfUsers
         if (!result) return false;
@@ -144,6 +144,37 @@ short ConnectionHandler::messageTypeShort(std::string messageTypeName){;
 void ConnectionHandler::shortToBytes(short num, char* bytesArr){
     bytesArr[0] = ((num >> 8) & 0xFF);
     bytesArr[1] = (num & 0xFF);
+}
+
+/**
+ * This method returns the short representation of the given string.
+ *
+ * @param stringNum - the string that needs to be represented with short.
+ * @return - the short representation of the given string.
+ */
+short ConnectionHandler::stringToNum(std::string stringNum){
+    short num;
+    for(int i=0; i<stringNum.length(); i++){
+        if (stringNum[i] == '1')
+            num = num + 1*10^(stringNum.length()-i-1);
+        else if (stringNum[i] == '2')
+            num = num + 2*10^(stringNum.length()-i-1);
+        else if (stringNum[i] == '3')
+            num = num + 3*10^(stringNum.length()-i-1);
+        else if (stringNum[i] == '4')
+            num = num + 4*10^(stringNum.length()-i-1);
+        else if (stringNum[i] == '5')
+            num = num + 5*10^(stringNum.length()-i-1);
+        else if (stringNum[i] == '6')
+            num = num + 6*10^(stringNum.length()-i-1);
+        else if (stringNum[i] == '7')
+            num = num + 7*10^(stringNum.length()-i-1);
+        else if (stringNum[i] == '8')
+            num = num + 8*10^(stringNum.length()-i-1);
+        else if (stringNum[i] == '9')
+            num = num + 9*10^(stringNum.length()-i-1);
+    }
+    return num;
 }
 
 /**

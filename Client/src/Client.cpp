@@ -51,7 +51,8 @@ void Client::runReader(){
             std::cout << this->clientName+" "+answer <<std::endl;
 
             std::string::size_type index(answer.find('>', 0));
-            if (answer.substr(index+1, index+3) == "ACK"){
+            std::string s = answer.substr(index+2, index+6);
+            if (s.compare("ACK 3") == 0){
                 this->stop = true;
                 this->getConnectionHandler().close();
             }

@@ -19,6 +19,7 @@ private:
     bool sendFrameAscii(const std::string& frame, char delimiter);
     short messageTypeShort(std::string messageTypeName);
     void shortToBytes(short num, char* bytesArr);
+    short stringToNum(std::string stringNumOfUsers);
     std::string changeStringToMessage(std::string messageTypeName, std::string messageContent);
     bool sendBytes(const char bytes[], int bytesToWrite);
 

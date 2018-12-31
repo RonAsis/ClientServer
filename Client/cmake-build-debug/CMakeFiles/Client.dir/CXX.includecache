@@ -30,13 +30,3 @@ thread
 boost/asio.hpp
 -
 
-/home/noy/Desktop/SPL/as3/Client/src/ConnectionHandler.cpp
-../include/ConnectionHandler.h
-/home/noy/Desktop/SPL/as3/Client/include/ConnectionHandler.h
-string
--
-iostream
--
-boost/asio.hpp
--
-
