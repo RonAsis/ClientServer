@@ -22,6 +22,4 @@ public:
     bool getStop();
 };
 
-
-
 #endif //CLIENT_CLIENT_H

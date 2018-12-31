@@ -6,11 +6,27 @@
 
 #IncludeRegexTransform: 
 
+/home/noy/Desktop/SPL/as3/Client/include/Client.h
+thread
+-
+ConnectionHandler.h
+/home/noy/Desktop/SPL/as3/Client/include/ConnectionHandler.h
+
 /home/noy/Desktop/SPL/as3/Client/include/ConnectionHandler.h
 string
 -
 iostream
 -
+boost/asio.hpp
+-
+
+/home/noy/Desktop/SPL/as3/Client/src/Client.cpp
+thread
+-
+../include/ConnectionHandler.h
+/home/noy/Desktop/SPL/as3/Client/include/ConnectionHandler.h
+../include/Client.h
+/home/noy/Desktop/SPL/as3/Client/include/Client.h
 boost/asio.hpp
 -
 

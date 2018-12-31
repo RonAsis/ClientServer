@@ -14,12 +14,25 @@ private:
     const short port_;
     boost::asio::io_service io_service_;   // Provides core I/O functionality
     tcp::socket socket_;
+
+    // ********************** Sending a message to the server **********************
+    bool sendFrameAscii(const std::string& frame, char delimiter);
     short messageTypeShort(std::string messageTypeName);
-    std::string messageTypeString(short messageTypeName);
     void shortToBytes(short num, char* bytesArr);
     std::string changeStringToMessage(std::string messageTypeName, std::string messageContent);
+    bool sendBytes(const char bytes[], int bytesToWrite);
+
+    // ********************** Reading a message from the server **********************
+    bool getFrameAscii(std::string& frame, char delimiter);
+    short getShort(std::string& frame);
+    bool getBytes(char bytes[], unsigned int bytesToRead);
     short bytesToShort(char* bytesArr);
-    std::string changeMessageToString(std::string answer, std::string messageContent, std::string messageType);
+    std::string messageTypeString(short messageTypeNum);
+    bool createNotification(std::string& frame);
+    bool createAck(std::string& frame);
+    bool createError(std::string& frame);
+    bool getString(std::vector<char>& frameVector);
+
 public:
     ConnectionHandler(std::string host, short port);
     virtual ~ConnectionHandler();
@@ -27,44 +40,28 @@ public:
     // Connect to the remote machine
     bool connect();
 
-    // Read a fixed number of bytes from the server - blocking.
-    // Returns false in case the connection is closed before bytesToRead bytes can be read.
-    bool getBytes(char bytes[], unsigned int bytesToRead);
-
-    // Send a fixed number of bytes from the client - blocking.
-    // Returns false in case the connection is closed before all the data is sent.
-    bool sendBytes(const char bytes[], int bytesToWrite);
-
     // Read an ascii line from the server
     // Returns false in case connection closed before a newline can be read.
-    bool getLine(std::string& line);
+    bool getLine(std::string& frame);
 
     // Send an ascii line from the server
     // Returns false in case connection closed before all the data is sent.
     bool sendLine(std::string& line);
 
-    // Get Ascii data from the server until the delimiter character
-    // Returns false in case connection closed before null can be read.
-    bool getFrameAscii(std::string& frame, char delimiter);
-
-    // Send a message to the remote host.
-    // Returns false in case connection is closed before all the data is sent.
-    bool sendFrameAscii(const std::string& frame, char delimiter);
-
     // Close down the connection properly.
     void close();
 
-    const std::string getHost();
+    // const std::string getHost();
 
-    short getPort();
+    //   short getPort();
 
-   // ConnectionHandler & operator=(const ConnectionHandler & other); //copy assignment
+    // ConnectionHandler & operator=(const ConnectionHandler & other); //copy assignment
 
-    ConnectionHandler(const ConnectionHandler & other); //copy constructor
+    //  ConnectionHandler(const ConnectionHandler & other); //copy constructor
 
     // ConnectionHandler(ConnectionHandler && other); //Move constructor
 
-   // ConnectionHandler & operator=(ConnectionHandler && other); //Move assignment
+    // ConnectionHandler & operator=(ConnectionHandler && other); //Move assignment
 }; //class ConnectionHandler
 
 #endif

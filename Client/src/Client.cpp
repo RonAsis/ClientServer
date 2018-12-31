@@ -1,13 +1,24 @@
-
 #include <thread>
 #include "../include/ConnectionHandler.h"
 #include "../include/Client.h"
 #include <boost/asio.hpp>
 
-class size_type;
+/**
+ * This class represents a client, that sends messages to the server and recives messages from it.
+ */
 
-Client::Client(std::string host, short port, int id): connectionHandler(host, port), stop(false), id(id), clientName("CLIENT#" + id){}
+/**
+ * Client's constructor.
+ *
+ * @param host -  the connection handler's host.
+ * @param port - the connection handler's port.
+ * @param id - the client's ID.
+ */
+Client::Client(std::string host, short port, int id): connectionHandler(host, port), stop(false), id(id), clientName("CLIENT#" + std::to_string(id)){}
 
+/**
+ * The method that the thread threadWrite is responsible for.
+ */
 void Client::runWriter(){
     while(!this->stop)  {
         const short bufsize(1024);
@@ -17,43 +28,58 @@ void Client::runWriter(){
         int len(line.length());
 
         if (!connectionHandler.sendLine(line)) { // if it wasn't possible to send the line from the user break;
-            std::cout << "Disconnected. Exiting...\n" << std::endl;
-            this->stop = true;
-            break;
+            // std::cout << "Disconnected. Exiting...\n" << std::endl;
+            //this->stop = true;
+            //break;
         }
-        std::cout << "Sent " << len+1 << " bytes to server" << std::endl;
     }
 }
 
+/**
+ * The method that the thread threadRead is responsible for.
+ */
 void Client::runReader(){
     while(!this->stop)  {
         std::string answer;
 
-        while (!connectionHandler.getLine(answer)) { // if it wasn't possible to get the answer from the server
-            //std::cout << "Disconnected. Exiting...\n" << std::endl;
-            //this->stop = true;
-           // break;
+        if (!connectionHandler.getLine(answer)) { // if it wasn't possible to get the answer from the server
+            //  std::cout << "Disconnected. Exiting...\n" << std::endl;
+            // this->stop = true;
+            // break;
         }
-        std::cout << this->clientName+""+answer<<std::endl;
+        if (answer!=""){
+            std::cout << this->clientName+" "+answer <<std::endl;
 
-        std::string::size_type index(answer.find('>', 0));
-        if (answer.substr(index+1, index+3) == "ACK")
-            this->stop = true;
+            std::string::size_type index(answer.find('>', 0));
+            if (answer.substr(index+1, index+3) == "ACK"){
+                this->stop = true;
+                this->getConnectionHandler().close();
+            }
+        }
     }
 }
 
+/**
+ * This method returns a pointer to the client's connection handler.
+ *
+ * @return - a pointer to the client's connection handler.
+ */
 ConnectionHandler& Client::getConnectionHandler(){
     return this->connectionHandler;
 }
 
+/**
+ * This method returns whether the client's threads need to stop or not.
+ *
+ * @return - whether the client's threads need to stop or not.
+ */
 bool Client::getStop(){
     return this->stop;
 }
 
 
 /**
- * Destructor - this method destructs this Client.
- *
+ * Destructor - this method destructs this client.
  */
 Client :: ~Client() {
     this->connectionHandler.close();
