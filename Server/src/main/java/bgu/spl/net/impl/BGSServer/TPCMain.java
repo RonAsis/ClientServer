@@ -7,6 +7,11 @@ import bgu.spl.net.srv.Server;
 
 public class TPCMain {
 
+    /**
+     * for run the server per client
+     * @param args
+     * @throws Exception
+     */
     public static void main(String[] args)throws Exception  {
         int port;
         if(args.length>0){

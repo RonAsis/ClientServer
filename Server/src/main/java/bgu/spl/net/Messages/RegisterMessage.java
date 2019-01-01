@@ -9,15 +9,18 @@ public class RegisterMessage extends Message{
     private String nameUser="";
     private String password="";
 
+    /**
+     * constructor
+     */
     public RegisterMessage(){
         super(1);
     }
 
-    public RegisterMessage(String nameUser,String password){
-        super(1);
-        this.nameUser=nameUser;
-        this.password=password;
-    }
+    /**
+     * do the action of this message
+     * @param sharedData
+     * @return
+     */
     public short act(SharedData sharedData){
         if(sharedData.register(this.nameUser,this.password)){
             setResult(new AckMessage(getOpcode()));
@@ -29,7 +32,11 @@ public class RegisterMessage extends Message{
         }
     }
 
-
+    /**
+     * use for create message from bytes
+     * @param nextByte
+     * @return
+     */
     @SuppressWarnings("Duplicates")
     @Override
     public Message createMessage(byte nextByte) {
@@ -47,16 +54,4 @@ public class RegisterMessage extends Message{
          }
 
     }
-
-    @SuppressWarnings("Duplicates")
-    @Override
-    public byte[] getBytes() {
-        byte[] opcodeByte=this.shortToBytes(this.getOpcode());
-        byte[] result=mergeTwoArraysOfBytes(opcodeByte,this.nameUser.getBytes());
-        result=addByteToArray(result,delimeter);
-        result=mergeTwoArraysOfBytes(result,password.getBytes());
-        result=addByteToArray(result,delimeter);
-        return result;
-    }
-
 }

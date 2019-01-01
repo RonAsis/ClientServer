@@ -1,10 +1,6 @@
 package bgu.spl.net.Messages;
-
-import com.sun.org.apache.regexp.internal.RE;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ConcurrentLinkedQueue;
 
 import static bgu.spl.net.api.MessageEncoderDecoderlmpl.delimeter;
 
@@ -18,21 +14,34 @@ public class AckMessage extends Message {
     private short numFollowing=-1;
     private String nameUser;
 
-//    public AckMessage(short messageOpcode, String optional ){
-//        super(10);
-//        this.messageOpcode=messageOpcode;
-//        this.optional=optional;
-//    }
+    /**
+    constructor
+     */
     public AckMessage(int messageOpcode ){
         super(10);
         this.messageOpcode=(short)messageOpcode;
     }
+
+    /**
+     * constructor
+     * @param messageOpcode
+     * @param numOfUsers
+     * @param userNameList
+     */
     public AckMessage(short messageOpcode,short numOfUsers,List<String> userNameList){
         super(10);
         this.messageOpcode=messageOpcode;
         this.numOfUsers=numOfUsers;
         this.userNameList=userNameList;
     }
+
+    /**
+     * constructor
+     * @param messageOpcode
+     * @param numPosts
+     * @param numFollowers
+     * @param numFollowing
+     */
     public AckMessage(short messageOpcode,short numPosts,short numFollowers, short numFollowing){
         super(10);
         this.messageOpcode=messageOpcode;
@@ -40,17 +49,11 @@ public class AckMessage extends Message {
         this.numFollowers=numFollowers;
         this.numFollowing=numFollowing;
     }
-    public AckMessage( ){
-        super(10);
-    }
-//    @Override
-//    public String getContainResult() {
-//        String result="ACK "+getOpcode()+" "+this.messageOpcode;
-//        if(this.optional.length()>0)
-//            result=result+" "+this.optional;
-//        return result;
-//    }
 
+    /**
+     * return the bytes of the object
+     * @return
+     */
     @Override
     public byte[] getBytes() {
         byte[] opcodeByte=this.shortToBytes(this.getOpcode());
@@ -69,15 +72,32 @@ public class AckMessage extends Message {
         }
         //  return  mergeTwoArraysOfBytes(c,optional.getBytes());
     }
+
+
+    /**
+     * method help for get bytes opcode 8
+     * @return
+     */
     private byte[] opcodeOprtionalBytes8(){
         return  mergeTwoArraysOfBytes(mergeTwoArraysOfBytes(this.shortToBytes(this.numOfUsers),this.shortToBytes(this.numFollowers)),this.shortToBytes(this.numFollowing));
     }
 
-        private byte[] opcodeOprtionalBytes7And4(){
+
+    /**
+     * method help for get bytes opcode 7 and 4
+     * @return
+     */
+    private byte[] opcodeOprtionalBytes7And4(){
             byte []numOfUsersByte=this.shortToBytes(this.numOfUsers);
             return mergeTwoArraysOfBytes(numOfUsersByte,createBytesFromList());
         }
-        private byte[] createBytesFromList(){
+
+
+    /**
+     * method help for get bytes from list
+     * @return
+     */
+     private byte[] createBytesFromList(){
         byte []result=new byte[0];
         for(String key:this.userNameList){
             result=mergeTwoArraysOfBytes(result,key.getBytes());
@@ -85,84 +105,11 @@ public class AckMessage extends Message {
         }
         return  result;
         }
-    @Override
-    public Message createMessage(byte nextByte) {
-        if(messageOpcode==-1 && getLen()<1){
-            addBytes(nextByte);
-            return null;
-        }
-        if(messageOpcode==-1){
-            addBytes(nextByte);
-            this.messageOpcode=this.bytesToShort();
-            if(this.messageOpcode!=4 && this.messageOpcode!=7 && this.messageOpcode!=8)
-                return  this;
-            return null;
-        }
-        if (messageOpcode==4){
-            return createMessageOpcode4And7(nextByte);
-        }
-        if(messageOpcode==7){
-            return createMessageOpcode4And7(nextByte);
-        }
-        if(messageOpcode==8){
-            return  createMessageOpcode8(nextByte);
-        }
-        return null;
-    }
-    private Message createMessageOpcode4And7(byte nextByte){
-        if(numOfUsers==-1 &&  getLen()<1){
-            addBytes(nextByte);
-            return null;
-        }
-        else if(numOfUsers==-1){
-            addBytes(nextByte);
-            this.numOfUsers=this.bytesToShort();
-            return null;
-        }
-        if(numOfUsers>this.userNameList.size()) {
-            if (nextByte != delimeter) {
-                addBytes(nextByte);
-                return null;
-            } else {
-                this.userNameList.add(popString());
-                if (numOfUsers == this.userNameList.size())
-                    return this;
-                return null;
-            }
-        }
-        else{
-            return null;
-            }
 
-    }
-
-
-    private Message createMessageOpcode8(byte nextByte){
-        if(numPosts==-1 &&  getLen()<1){
-            addBytes(nextByte);
-            return null;
-        }
-        else if(numPosts==-1){
-            this.numPosts=this.bytesToShort();
-            return null;
-        }
-        else if(numFollowers==-1 &&  getLen()<1){
-            addBytes(nextByte);
-            return null;
-        }
-        else if(numFollowers==-1){
-            this.numFollowers=this.bytesToShort();
-            return null;
-        }
-        else if(numFollowing==-1 &&  getLen()<1){
-            addBytes(nextByte);
-            return null;
-        }
-        else {
-            this.numFollowing=this.bytesToShort();
-            return this;
-        }
-    }
+    /**
+     * get the opcode of the message
+      * @return
+     */
     public short getMessageOpcode(){
         return  this.messageOpcode;
     }

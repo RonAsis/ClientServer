@@ -1,6 +1,5 @@
 package bgu.spl.net.Messages;
 
-import bgu.spl.net.Future;
 import bgu.spl.net.accessories.SharedData;
 
 import java.nio.charset.StandardCharsets;
@@ -9,39 +8,69 @@ import java.util.Arrays;
 public abstract class Message<T> {
 
         private short opcode;
-        private Future<Message> result;
+        private Message result;
         private byte[] bytes = new byte[1 << 13]; //start with 8k
         private int len = 0;
 
+    /**
+     * constructor
+     * @param opcode
+     */
         public Message(int opcode){
                 this.opcode=(short)opcode;
-                this.result=new Future<>();
         }
 
+    /**
+     * return the opcode of the message
+     * @return
+     */
         public short getOpcode(){
                 return this.opcode;
         }
 
-        public abstract Message  createMessage(byte nextByte);
+    /**
+     * create message -all message from the client to the server needs implements this
+     * @param nextByte
+     * @return
+     */
+        public  Message  createMessage(byte nextByte){return null; }
 
-        public abstract byte[] getBytes();
+    /**
+     * @return bytes of this object all message from the server to client needs implements this
+     */
+        public  byte[] getBytes(){
+            return null;
+        }
 
+    /**
+     * do act -all messages of the client to server need implement this
+     * @param sharedData
+     * @return
+     */
         public short  act(SharedData sharedData){
             return this.opcode;
         }
 
+    /**
+     * return the result
+     * @return
+     */
         public Message  getContainResult(){
-                return this.result.get();
+                return this.result;
         }
 
-//        public String getResult(){
-//                return this.result.get().getContainResult();
-//        }
-
+    /**
+     * set the result of the act
+     * @param result
+     */
         public void setResult(Message result) {
-                this.result.resolve(result);
+                this.result=result;
         }
 
+    /**
+     * convert bytes to string
+     * @return
+     */
         public String popString() {
                 //notice that we explicitly requesting that the string will be decoded from UTF-8
                 //this is not actually required as it is the default encoding in java.
@@ -50,6 +79,10 @@ public abstract class Message<T> {
                 return result;
         }
 
+    /**
+     * add byte to the array of bytes
+     * @param nextByte
+     */
         public void addBytes(Byte nextByte){
             if (len >= bytes.length) {
                 bytes = Arrays.copyOf(bytes, len * 2);
@@ -58,18 +91,25 @@ public abstract class Message<T> {
             bytes[len++] = nextByte;
         }
 
-        public void rest(){
+    /**
+     * do that len be on zero
+     */
+    public void rest(){
                 this.len=0;
         }
 
-        public void biggerBytes(int size){
-                bytes=new byte[size];
-        }
-
+    /**
+     * @return len
+     */
         public int getLen(){
                 return this.len;
         }
 
+    /**
+     * convert short to bytes
+     * @param num
+     * @return
+     */
         public byte[] shortToBytes(short num)
         {
                 byte[] bytesArr = new byte[2];
@@ -78,6 +118,12 @@ public abstract class Message<T> {
                 return bytesArr;
         }
 
+    /**
+     * merge two arrays of bytes
+     * @param a
+     * @param b
+     * @return
+     */
         public byte[] mergeTwoArraysOfBytes(byte[] a,byte[] b){
                 int lenA = a.length;
                 int lenB = b.length;
@@ -85,6 +131,11 @@ public abstract class Message<T> {
                 System.arraycopy(b, 0, c, lenA, lenB);
                 return c;
         }
+
+    /**
+     * convert bytes to short
+      * @return
+     */
     public short bytesToShort()
     {
         byte[] byteArr=this.bytes;
@@ -93,18 +144,16 @@ public abstract class Message<T> {
         rest();
         return result;
     }
-    public byte[]addByteToArray(byte[] a,byte b){
 
+    /**
+     * add one bytes to full array of byte
+     * @param a
+     * @param b
+     * @return
+     */
+    public byte[]addByteToArray(byte[] a,byte b){
             byte[] c = Arrays.copyOf(a, a.length+1);
             c[a.length]=b;
             return c;
-    }
-    public String toString(){
-                return "Message with opcode:"+this.opcode;
-    }
-    public char bytesToChar(){
-                char result=(char) (bytes[0] & 0xFF);
-                len=0;
-                return result;
     }
 }

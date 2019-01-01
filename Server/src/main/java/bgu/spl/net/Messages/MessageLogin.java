@@ -1,6 +1,5 @@
 package bgu.spl.net.Messages;
 
-import bgu.spl.net.Future;
 import bgu.spl.net.accessories.SharedData;
 
 import static bgu.spl.net.api.MessageEncoderDecoderlmpl.delimeter;
@@ -10,16 +9,19 @@ public class MessageLogin extends Message {
     private String nameUser="";
     private String password="";
 
+    /**
+     * constructor
+     */
     public MessageLogin(){
         super(2);
     }
 
-    public MessageLogin(String name,String password)
-    {
-        super(2);
-        this.nameUser=name;
-        this.password=password;
-    }
+
+    /**
+     * do the action of this message
+     * @param sharedData
+     * @return
+     */
     @Override
     public short act(SharedData sharedData) {
         if(sharedData.login(this.nameUser,this.password)){
@@ -34,15 +36,20 @@ public class MessageLogin extends Message {
         }
     }
 
-//    @Override
-//    public String getContainResult() {
-//        return this.getResult();
-//    }
+    /**
+     * return the name of the user that want login
+     * @return
+     */
 
     public String getNameUser() {
         return this.nameUser;
     }
 
+    /**
+     * use from create message from bytes
+     * @param nextByte
+     * @return
+     */
     @SuppressWarnings("Duplicates")
     @Override
     public Message createMessage(byte nextByte) {
@@ -60,16 +67,5 @@ public class MessageLogin extends Message {
             this.rest();
             return this;
         }
-    }
-
-    @SuppressWarnings("Duplicates")
-    @Override
-    public byte[] getBytes() {
-        byte[] opcodeByte=this.shortToBytes(this.getOpcode());
-        byte[] result=mergeTwoArraysOfBytes(opcodeByte,this.nameUser.getBytes());
-        result=addByteToArray(result,delimeter);
-        result=mergeTwoArraysOfBytes(result,password.getBytes());
-        result=addByteToArray(result,delimeter);
-        return result;
     }
 }

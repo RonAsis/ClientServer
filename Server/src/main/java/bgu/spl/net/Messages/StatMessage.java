@@ -1,21 +1,30 @@
 package bgu.spl.net.Messages;
 
-import bgu.spl.net.Future;
 import bgu.spl.net.accessories.SharedData;
 
 import static bgu.spl.net.api.MessageEncoderDecoderlmpl.delimeter;
 
 public class StatMessage extends  Message {
-    String userName;
 
+    String userName;
+    String userStat;
+    /**
+     * constructor
+     * @param name
+     */
     public  StatMessage(String name){
         super(8);
         this.userName=name;
     }
 
+    /**
+     * do the the action of this message
+     * @param sharedData
+     * @return
+     */
     @Override
     public short act(SharedData sharedData) {
-        short [] statUser=sharedData.getStatUser(this.userName);
+        short [] statUser=sharedData.getStatUser(this.userName,this.userStat);
         if(statUser==null) {
             setResult(new ErrorMessage(getOpcode()));
             return -1;
@@ -26,7 +35,11 @@ public class StatMessage extends  Message {
         }
     }
 
-
+    /**
+     * use for decode this message from bytes to object
+     * @param nextByte
+     * @return
+     */
     @Override
     public Message createMessage(byte nextByte) {
         if(nextByte!=delimeter) {
@@ -34,17 +47,9 @@ public class StatMessage extends  Message {
             return null;
         }
         else{
-            this.userName=popString();
+            this.userStat=popString();
             this.rest();
             return this;
         }
-    }
-
-    @Override
-    public byte[] getBytes() {
-        byte[] opcodeByte=this.shortToBytes(this.getOpcode());
-        byte[] result=mergeTwoArraysOfBytes(opcodeByte,this.userName.getBytes());
-        result=addByteToArray(result,delimeter);
-        return result;
     }
 }

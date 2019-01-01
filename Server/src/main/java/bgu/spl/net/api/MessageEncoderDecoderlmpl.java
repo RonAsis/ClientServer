@@ -1,7 +1,6 @@
 package bgu.spl.net.api;
 
 import bgu.spl.net.Messages.*;
-import com.sun.org.apache.bcel.internal.generic.BREAKPOINT;
 
 
 public class MessageEncoderDecoderlmpl implements MessageEncoderDecoder {
@@ -13,6 +12,12 @@ public class MessageEncoderDecoderlmpl implements MessageEncoderDecoder {
     public final static byte delimeter='\0';
     private String nameUser="";
 
+    /**
+     * decode the bytes to message
+     * @param nextByte the next byte to consider for the currently decoded
+     * message
+     * @return
+     */
     @Override
     public Object decodeNextByte(byte nextByte) {
         if (lenOpcode<1) {
@@ -26,35 +31,43 @@ public class MessageEncoderDecoderlmpl implements MessageEncoderDecoder {
             createMessageAccordingOpcode();
             if(fOpcode==3 || fOpcode==7) {
                 Message result=this.message.createMessage(nextByte);// not use in nextByte in this case.
-                doneRead();
+                rest();
                 return result;
             }
         }
         else  {
             Message result;
             if((result=this.message.createMessage(nextByte))!=null)
-                doneRead();
+                rest();
             return result;
         }
 
         return null;
     }
 
+    /**
+     * encode message to bytes
+     * @param message the message to encode
+     * @return
+     */
     @Override
     public byte[] encode(Object message) {
         Message msc=(Message) message;
         return msc.getBytes();
     }
 
+    /**
+     * rest he EncoderDecoder
+     */
     private void rest(){
         this.lenOpcode=0;
         this.message=null;
 
     }
 
-    private void doneRead(){
-        rest();
-    }
+    /**
+     * helper for createMessage
+     */
     private void createMessageAccordingOpcode(){
         switch (fOpcode){
             case 1:this.message=new RegisterMessage();
@@ -73,22 +86,25 @@ public class MessageEncoderDecoderlmpl implements MessageEncoderDecoder {
                     break;
             case 8:this.message=new StatMessage(this.nameUser);
                     break;
-            case 9:this.message=new NotificationMessage();
-                    break;
-            case 10:this.message=new AckMessage();
-                    break;
-            case 11:this.message=new ErrorMessage();
-                    break;
         }
     }
 
-
+    /**
+     * covert bytes to short
+     * @param byteArr
+     * @return
+     */
     private short bytesToShort(byte[] byteArr)
     {
         short result = (short)((byteArr[0] & 0xff) << 8);
         result += (short)(byteArr[1] & 0xff);
         return result;
     }
+
+    /**
+     * set the name of user for to know do the action that the client send
+     * @param nameUser
+     */
     public void setNameUser(String nameUser){
         this.nameUser=nameUser;
     }

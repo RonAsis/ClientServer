@@ -1,8 +1,6 @@
 package bgu.spl.net.Messages;
 
-import bgu.spl.net.Future;
 import bgu.spl.net.accessories.SharedData;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -10,20 +8,29 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import static bgu.spl.net.api.MessageEncoderDecoderlmpl.delimeter;
 
 public class PmMessage extends  Message {
+
         String userName;
         ConcurrentLinkedQueue<String> listUserS;
         String userSentMessageTo="";
         String content;
         char typeMessage='1';
 
-
+    /**
+     * constructor
+     * @param name
+     */
     public PmMessage(String name){
             super(6);
             this.userName=name;
             this.listUserS=new ConcurrentLinkedQueue<>();
         }
 
-        @Override
+    /**
+     * for do the action of this message
+     * @param sharedData
+     * @return
+     */
+    @Override
         public short act(SharedData sharedData) {
             if(sharedData.sendMessagePM(userName,userSentMessageTo,content)) {
                 List list=new ArrayList();
@@ -37,12 +44,11 @@ public class PmMessage extends  Message {
             }
         }
 
-//    @Override
-//    public String getContainResult() {
-//        return null;
-//    }
-
-    @Override
+    /**
+     * for create mesasge from bytes
+     * @param nextByte
+     * @return
+     */
     public Message createMessage(byte nextByte) {
         if(nextByte!=delimeter) {
             addBytes(nextByte);
@@ -58,15 +64,5 @@ public class PmMessage extends  Message {
             this.rest();
             return this;
         }
-    }
-
-    @Override
-    public byte[] getBytes() {
-        byte[] opcodeByte=this.shortToBytes(this.getOpcode());
-        byte[] result=mergeTwoArraysOfBytes(opcodeByte,this.userName.getBytes());
-        result=addByteToArray(result,delimeter);
-        result=mergeTwoArraysOfBytes(result,content.getBytes());
-        result=addByteToArray(result,delimeter);
-        return result;
     }
 }

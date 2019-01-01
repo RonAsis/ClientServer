@@ -6,6 +6,11 @@ import bgu.spl.net.api.bidi.BGSProtocol;
 import bgu.spl.net.srv.Server;
 
 public class ReactorMain {
+    /**
+     * for run the Reactor server
+     * @param args
+     * @throws Exception
+     */
     public static void main(String[] args) throws Exception {
         int port=0;
         int noOfThreads=0;

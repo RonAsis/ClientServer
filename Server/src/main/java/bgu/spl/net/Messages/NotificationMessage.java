@@ -1,16 +1,23 @@
 package bgu.spl.net.Messages;
 
 import java.util.List;
-import java.util.concurrent.ConcurrentLinkedQueue;
 
 import static bgu.spl.net.api.MessageEncoderDecoderlmpl.delimeter;
 
 public class NotificationMessage extends Message {
-    char notificationType='2';
-    String postingUser="";
-    String content="";
+
+    char notificationType;
+    String postingUser;
+    String content;
     List<String > userSentMessageTo;
 
+    /**
+     * constructor
+     * @param notificationType
+     * @param postingUser
+     * @param userSentMessageTo
+     * @param content
+     */
     public  NotificationMessage(char notificationType, String postingUser, List<String > userSentMessageTo, String content){
         super(9);
         this.notificationType=notificationType;
@@ -18,18 +25,19 @@ public class NotificationMessage extends Message {
         this.content=content;
         this.userSentMessageTo=userSentMessageTo;
     }
+
+    /**
+     * return the list of user that need get the message ,need use only after the message is ready
+     * @return
+     */
     public List getListUserSentMessageTo(){
         return this.userSentMessageTo;
     }
-    public NotificationMessage(){
-        super(9);
-    }
-//    @Override
-//
-//    public String getContainResult() {
-//        return this.getResult();
-//    }
 
+    /**
+     * return bytes of this message
+     * @return
+     */
     @Override
     public byte[] getBytes() {
         byte[] opcodeByte=this.shortToBytes(this.getOpcode());
@@ -42,48 +50,15 @@ public class NotificationMessage extends Message {
         return result;
     }
 
+    /**
+     * check if user find in the list of the people that needs get the notification
+     * @param name
+     * @return
+     */
     public boolean checkIfFindInTheListOfUsers(String name){
         if(userSentMessageTo.contains(name))
             return true;
         else
             return false;
-    }
-
-    @Override
-    public Message createMessage(byte nextByte) {
-        if(notificationType=='2'){
-            this.notificationType=(char)nextByte;
-            return null;
-        }
-        if(nextByte!=delimeter) {
-            addBytes(nextByte);
-            return null;
-        }
-
-        if(postingUser.length()==0){
-            if(nextByte!=delimeter) {
-                addBytes(nextByte);
-                return null;
-            }
-            else{
-                this.postingUser=popString();
-                rest();
-                return null;
-            }
-        }
-        else{
-            if(nextByte!=delimeter) {
-                addBytes(nextByte);
-                return null;
-            }
-            else{
-                this.content=popString();
-                rest();
-                return this;
-            }
-        }
-    }
-    public String toString(){
-        return postingUser+">"+this.content;
     }
 }
