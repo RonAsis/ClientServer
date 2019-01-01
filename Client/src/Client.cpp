@@ -21,16 +21,18 @@ Client::Client(std::string host, short port, int id): connectionHandler(host, po
  */
 void Client::runWriter(){
     while(!this->stop)  {
-        const short bufsize(1024);
-        char buf[bufsize];
-        std::cin.getline(buf, bufsize); // getting a new line from the user
-        std::string line(buf);
-        int len(line.length());
+        if (this->connectionHandler.getIsLoggedOut()==false) {
+            const short bufsize(1024);
+            char buf[bufsize];
+            std::cin.getline(buf, bufsize); // getting a new line from the user
+            std::string line(buf);
+            int len(line.length());
 
-        if (!connectionHandler.sendLine(line)) { // if it wasn't possible to send the line from the user break;
-            // std::cout << "Disconnected. Exiting...\n" << std::endl;
-            //this->stop = true;
-            //break;
+            if (!connectionHandler.sendLine(line)) { // if it wasn't possible to send the line from the user break;
+                // std::cout << "Disconnected. Exiting...\n" << std::endl;
+                //this->stop = true;
+                //break;
+            }
         }
     }
 }
@@ -39,22 +41,24 @@ void Client::runWriter(){
  * The method that the thread threadRead is responsible for.
  */
 void Client::runReader(){
-    while(!this->stop)  {
-        std::string answer;
+    while(!this->stop) {
+        if (this->connectionHandler.getIsLoggedOut()==false){
+            std::string answer;
 
-        if (!connectionHandler.getLine(answer)) { // if it wasn't possible to get the answer from the server
-            //  std::cout << "Disconnected. Exiting...\n" << std::endl;
-            // this->stop = true;
-            // break;
-        }
-        if (answer!=""){
-            std::cout << this->clientName+" "+answer <<std::endl;
+            if (!connectionHandler.getLine(answer)) { // if it wasn't possible to get the answer from the server
+                //  std::cout << "Disconnected. Exiting...\n" << std::endl;
+                // this->stop = true;
+                // break;
+            }
+            if (answer!=""){
+                std::cout << this->clientName+" "+answer <<std::endl;
 
-            std::string::size_type index(answer.find('>', 0));
-            std::string s = answer.substr(index+2, index+6);
-            if (s.compare("ACK 3") == 0){
-                this->stop = true;
-                this->getConnectionHandler().close();
+                std::string::size_type index(answer.find('>', 0));
+                std::string s = answer.substr(index+2, index+6);
+                if (s.compare("ACK 3") == 0){
+                    this->stop = true;
+                    this->getConnectionHandler().close();
+                }
             }
         }
     }

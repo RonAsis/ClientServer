@@ -21,9 +21,9 @@ int main (int argc, char **argv) {
 
     std::thread threadWrite (&Client::runWriter, &client);
     std::thread threadRead (&Client::runReader, &client);
-    threadWrite.join();
-    threadRead.join();
 
+    threadRead.join();
+    threadWrite.join();
     if (client.getStop() == true) {
         //threadWrite.stop();
         //threadRead.stop();

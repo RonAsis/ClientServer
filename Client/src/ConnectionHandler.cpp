@@ -2,6 +2,7 @@
 #include <string>
 #include <iostream>
 #include <boost/asio.hpp>
+#include <mutex>
 
 using boost::asio::ip::tcp;
 using std::cin;
@@ -16,7 +17,7 @@ using std::string;
  * @param host - the connection handler's host.
  * @param port - the connection handler's port.
  */
-ConnectionHandler::ConnectionHandler(string host, short port): host_(host), port_(port), io_service_(), socket_(io_service_), delimiter('\0'){}
+ConnectionHandler::ConnectionHandler(string host, short port): host_(host), port_(port), io_service_(), socket_(io_service_), delimiter('\0'), isLoggedOut(false){}
 
 /**
  * ConnectionHandler's distructor.
@@ -80,12 +81,12 @@ bool ConnectionHandler::sendFrameAscii(const std::string& frame, char delimiter)
 
     std::string messageContent(frame.substr(indexOfSpace+1, frame.length())); // removing the message's opcode
 
-    if (messageOpcode == '4') { // FOLLOW
+    if (messageOpcode == 4) { // FOLLOW
         short followOrUnfollow;
         if (messageContent[0] == '0')
-            followOrUnfollow = '0';
+            followOrUnfollow = 0;
         else
-            followOrUnfollow = '1';
+            followOrUnfollow = 1;
         shortToBytes(followOrUnfollow, h);
         result = sendBytes(h, 1); // sending 0/1 (follow or unfollow)
         if (!result) return false;
@@ -102,9 +103,15 @@ bool ConnectionHandler::sendFrameAscii(const std::string& frame, char delimiter)
     }
 
     std::string message(changeStringToMessage(messageTypeName, messageContent));
-
     result = sendBytes(message.c_str(), messageContent.length() ); // sending the encoded message to the server
     if(!result) return false;
+
+    if (messageTypeName == "LOGOUT"){ // in order to make the user wait for the server's response, on whether or not he should terminate
+       this->isLoggedOut = true;
+        //this->lock.lock();
+        //condition.wait(lock);
+    }
+
     return sendBytes(&delimiter,1);
 }
 
@@ -295,7 +302,7 @@ short ConnectionHandler::getShort(std::string& frame){
         return -1;
     }
 
-    char* messageTypeByte = new char [2]; // translating the bytes to char
+    char messageTypeByte[2];// translating the bytes to char
     messageTypeByte[0] = frame[0];
     messageTypeByte[1] = frame[1];
     return bytesToShort(messageTypeByte); // translating the char to short
@@ -378,7 +385,7 @@ bool ConnectionHandler::createNotification(std::string& frame){
 
     std::string content (frameVector.data(), frameVector.size());
 
-    if (messageOpcode == '5')  // public
+    if (messageOpcode == 5)  // public
         frame = "> NOTIFICATION Public " + postingUser+" "+content;
     else  // pm
         frame = "> NOTIFICATION PM "+ postingUser+" "+content;
@@ -397,7 +404,7 @@ bool ConnectionHandler::createAck(std::string& frame) {
 
     frame = "";
 
-    if (messageOpcode == '4' || messageOpcode == '7') { // Follow / Unfollow / userlist
+    if (messageOpcode == 4 || messageOpcode == 7) { // Follow / Unfollow / userlist
         short numOfUsers = getShort(frame);
         if (numOfUsers == -1)
             return false;
@@ -412,7 +419,7 @@ bool ConnectionHandler::createAck(std::string& frame) {
         frame = "> ACK "+ std::to_string(messageOpcode) +" "+ std::to_string(numOfUsers)+" "+ listOfUsers;
     }
 
-    else if (messageOpcode == '8'){ // stat
+    else if (messageOpcode == 8){ // stat
         short numPosts = getShort(frame);
         if (numPosts == -1)
             return false;
@@ -432,8 +439,14 @@ bool ConnectionHandler::createAck(std::string& frame) {
         frame = "> ACK "+ std::to_string(messageOpcode) +" "+ std::to_string(numPosts)+" "+ std::to_string(numFollowers)+" "+std::to_string(numFollowing);
     }
 
-    else // register / login / logout / post / pm
-        frame = "> ACK "+ std::to_string(messageOpcode);
+    else {// register / login / logout / post / pm
+        frame = "> ACK " + std::to_string(messageOpcode);
+
+     //   if (messageOpcode == 3) {
+           // this->lock.unlock();
+          //  condition.notify_all();
+      //  }
+    }
 }
 
 /**
@@ -448,6 +461,10 @@ bool ConnectionHandler::createError(std::string& frame) {
         return false;
 
     frame = "> ERROR "+ std::to_string(messageOpcode);
+
+    if (messageOpcode == 3)
+        this->isLoggedOut = false;
+       // condition.notify_all();
 }
 
 
@@ -486,63 +503,6 @@ void ConnectionHandler::close() {
     }
 }
 
-/**
-const std::string ConnectionHandler::getHost(){
-    return this->host_;
+bool ConnectionHandler::getIsLoggedOut(){
+    return this->isLoggedOut;
 }
-
-short ConnectionHandler::getPort(){
-    return this->port_;
-}
-
-
-
- * Move constructor - this method makes a copy of this ConnectionHandler, saves it in the given ConnectionHandler "other"
- * and deletes this ConnectionHandler.
- *
- * @param other - the ConnectionHandler in which the copy of this ConnectionHandler will be saved.
-
-ConnectionHandler :: Client(ConnectionHandler&& other): orderPrint(other.orderPrint),capacity(other.capacity),numberTable(other.numberTable),open(other.open),customersList(), orderList(){
-    customersList = std:: move(other.customersList);
-    orderList = std:: move(other.orderList);
-    other.open = false;
-} */
-
-/**
- * Copy assignment - this method makes a copy of the given ConnectionHandler "other" and saves it in this ConnectionHandler.
- *
- * @param other - the ConnectionHandler that this ConnectionHandler will be identical to.
-
-ConnectionHandler& ConnectionHandler :: operator=(const ConnectionHandler &other) {
-    if (this != &other) {
-        this->port_(other.getPort())_;
-        this->host(other.getHost()_);
-        this->close(other.close());
-        }
-    }
-    return *this;
-
-}
-*/
-/**
- * Move assignment - this method makes a copy of the given Client "other", saves it in this Client
- * and deletes the given Client "other".
- *
- * @param other - the Client that this Client will be identical to.
-
-Client &Client::operator=(Client &&other) {
-    if (this != &other) {
-        clear();
-        customersList = std::move(other.customersList);
-        orderList = std::move(other.orderList);
-        open = other.open;
-        capacity = other.capacity;
-        numberTable = other.numberTable;
-    }
-    return *this;
-}
-
-ConnectionHandler::ConnectionHandler(const ConnectionHandler& other): host_(other.host_), port_(other.port_), io_service_(), socket_(io_service_), delimiter(other.delimiter){
-
-}
-*/

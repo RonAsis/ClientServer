@@ -4,6 +4,8 @@
 #include <string>
 #include <iostream>
 #include <boost/asio.hpp>
+#include <mutex>
+#include <condition_variable>
 
 using boost::asio::ip::tcp;
 
@@ -14,6 +16,7 @@ private:
     const short port_;
     boost::asio::io_service io_service_;   // Provides core I/O functionality
     tcp::socket socket_;
+    bool isLoggedOut;
 
     // ********************** Sending a message to the server **********************
     bool sendFrameAscii(const std::string& frame, char delimiter);
@@ -35,6 +38,7 @@ private:
     bool getString(std::vector<char>& frameVector);
 
 public:
+    bool getIsLoggedOut();
     ConnectionHandler(std::string host, short port);
     virtual ~ConnectionHandler();
 
