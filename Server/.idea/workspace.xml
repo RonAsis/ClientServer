@@ -3,7 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="1da2da1a-509a-4607-b706-fa08250cd185" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/bgu/spl/net/api/bidi/BGSProtocol.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bgu/spl/net/api/bidi/BGSProtocol.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/bgu/spl/net/Messages/NotificationMessage.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bgu/spl/net/Messages/NotificationMessage.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/bgu/spl/net/Messages/PmMessage.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bgu/spl/net/Messages/PmMessage.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/bgu/spl/net/Messages/PostMessage.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bgu/spl/net/Messages/PostMessage.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/bgu/spl/net/accessories/SharedData.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bgu/spl/net/accessories/SharedData.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/bgu/spl/net/api/bidi/ConnectionsImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bgu/spl/net/api/bidi/ConnectionsImpl.class" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
@@ -278,7 +281,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1546442902090" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1546444560170" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -515,7 +518,7 @@
       <workItem from="1546340577013" duration="5512000" />
       <workItem from="1546357211672" duration="1903000" />
       <workItem from="1546373963405" duration="12526000" />
-      <workItem from="1546439442389" duration="3453000" />
+      <workItem from="1546439442389" duration="4568000" />
     </task>
     <task id="LOCAL-00001" summary="start of the program">
       <created>1545328097247</created>
@@ -608,11 +611,18 @@
       <option name="project" value="LOCAL" />
       <updated>1546442859153</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="change in the server not done">
+      <created>1546442907256</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1546442907256</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="196673000" />
+    <option name="totallyTimeSpent" value="197788000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -626,7 +636,7 @@
   <component name="ToolWindowManager">
     <frame x="67" y="25" width="1299" height="743" extended-state="6" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.28092578" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.28092578" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -635,7 +645,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32929105" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.31973898" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.31973898" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.46735075" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
