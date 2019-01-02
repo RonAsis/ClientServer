@@ -55,7 +55,10 @@ public class BGSProtocol<T> implements  BidiMessagingProtocol{
                 return;
             }
 
-            connections.send(connectionId, mcl.getContainResult());
+            boolean isSend=connections.send(connectionId, mcl.getContainResult());
+            if(isSend && suc==3){
+                this.connections.disconnect(this.connectionId);
+            }
         }
     }
 

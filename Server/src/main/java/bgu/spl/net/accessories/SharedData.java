@@ -244,7 +244,7 @@ public class SharedData {
         synchronized (registerLock){
             List<String> result=new ArrayList<>();
             User user=this.users.get(name);
-            if(user!=null || user.isLogin()==false)
+            if(user==null || user.isLogin()==false)
                 return result;
             result.addAll(this.users.keySet());
             return result;

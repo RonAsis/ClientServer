@@ -10,7 +10,7 @@ public class StatMessage extends  Message {
     String userStat;
     /**
      * constructor
-     * @param name
+     * @param
      */
     public  StatMessage(){
         super(8);

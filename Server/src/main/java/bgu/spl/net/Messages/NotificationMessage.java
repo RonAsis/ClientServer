@@ -8,7 +8,7 @@ import static bgu.spl.net.api.MessageEncoderDecoderlmpl.delimeter;
 
 public class NotificationMessage extends Message {
 
-    char notificationType;
+    byte notificationType;
     String postingUser;
     String content;
     List<String > userSentMessageTo;
@@ -20,7 +20,7 @@ public class NotificationMessage extends Message {
      * @param userSentMessageTo
      * @param content
      */
-    public  NotificationMessage(char notificationType, String postingUser, List<String > userSentMessageTo, String content){
+    public  NotificationMessage(byte notificationType, String postingUser, List<String > userSentMessageTo, String content){
         super(9);
         this.notificationType=notificationType;
         this.postingUser=postingUser;
@@ -43,7 +43,8 @@ public class NotificationMessage extends Message {
     @Override
     public byte[] getBytes() {
         byte[] opcodeByte=this.shortToBytes(this.getOpcode());
-        String convertToBytes=notificationType+this.postingUser;
+        opcodeByte=this.addByteToArray(opcodeByte,this.notificationType);
+        String convertToBytes=this.postingUser;
         byte []result=convertToBytes.getBytes();
         result=mergeTwoArraysOfBytes(opcodeByte,result);
         result=addByteToArray(result,delimeter);

@@ -121,6 +121,7 @@ public class User {
      * add user to the list of follow
      */
     public void addFollow(String name){
+
         this.followList.add(name);
     }
 
