@@ -9,11 +9,10 @@ public class UserListMessage extends  Message {
 
     /**
      *constructor
-     * @param name
+     * @param
      */
-    public  UserListMessage(String name){
+    public  UserListMessage(){
         super(7);
-        this.userName=name;
     }
 
     /**
@@ -22,7 +21,8 @@ public class UserListMessage extends  Message {
      * @return
      */
     @Override
-    public short act(SharedData sharedData) {
+    public short act(SharedData sharedData,String name) {
+        this.userName=name;
         List<String> userNameListRegister = sharedData.getUserNameListRegister(this.userName);
         if (userNameListRegister.size() == 0) {
             setResult(new ErrorMessage(getOpcode()));

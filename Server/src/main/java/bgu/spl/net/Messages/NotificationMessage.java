@@ -1,5 +1,7 @@
 package bgu.spl.net.Messages;
 
+import bgu.spl.net.accessories.SharedData;
+
 import java.util.List;
 
 import static bgu.spl.net.api.MessageEncoderDecoderlmpl.delimeter;
@@ -48,6 +50,11 @@ public class NotificationMessage extends Message {
         result=mergeTwoArraysOfBytes(result,this.content.getBytes());
         result=addByteToArray(result,delimeter);
         return result;
+    }
+
+    @Override
+    public short act(SharedData sharedData, String name) {
+        return this.getOpcode();
     }
 
     /**

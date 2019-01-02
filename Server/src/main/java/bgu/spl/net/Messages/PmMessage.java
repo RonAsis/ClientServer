@@ -17,11 +17,10 @@ public class PmMessage extends  Message {
 
     /**
      * constructor
-     * @param name
+     * @param
      */
-    public PmMessage(String name){
+    public PmMessage(){
             super(6);
-            this.userName=name;
             this.listUserS=new ConcurrentLinkedQueue<>();
         }
 
@@ -31,7 +30,8 @@ public class PmMessage extends  Message {
      * @return
      */
     @Override
-        public short act(SharedData sharedData) {
+        public short act(SharedData sharedData,String name) {
+        this.userName=name;
             if(sharedData.sendMessagePM(userName,userSentMessageTo,content)) {
                 List list=new ArrayList();
                 list.add(userSentMessageTo);

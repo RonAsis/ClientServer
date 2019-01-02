@@ -8,11 +8,10 @@ public class MessageLogout extends  Message {
 
     /**
      * constructor
-     * @param name
+     * @param
      */
-    public MessageLogout(String name){
+    public MessageLogout(){
         super(3);
-        this.nameUser=name;
     }
 
     /**
@@ -21,7 +20,8 @@ public class MessageLogout extends  Message {
      * @return
      */
     @Override
-    public short act(SharedData sharedData){
+    public short act(SharedData sharedData,String name){
+        this.nameUser=name;
         if(sharedData.logout(this.nameUser)){
             Message ackMessage=new AckMessage(getOpcode());
             setResult(ackMessage);

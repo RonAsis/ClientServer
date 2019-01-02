@@ -16,11 +16,10 @@ public class FollowMessage extends  Message{
 
     /**
      * constructor
-     * @param name
+     * @param
      */
-    public FollowMessage(String name){
+    public FollowMessage(){
         super(4);
-        this.name=name;
         listUsers=new ArrayList<>();
 
     }
@@ -30,7 +29,8 @@ public class FollowMessage extends  Message{
      * @param sharedData
      * @return
      */
-    public short act(SharedData sharedData) {
+    public short act(SharedData sharedData,String name) {
+        this.name=name;
         if(this.follow==0) {
             follow(sharedData);
             return this.getOpcode();

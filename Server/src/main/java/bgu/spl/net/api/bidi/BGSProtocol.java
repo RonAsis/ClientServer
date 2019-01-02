@@ -27,7 +27,7 @@ public class BGSProtocol<T> implements  BidiMessagingProtocol{
     public void process(Object message) {
         if(message!=null) {
             Message mcl = (Message) message;
-            short suc = mcl.act(sharedData);
+            short suc = mcl.act(sharedData,connections.getUserOfId(connectionId));
             if (suc == 2) {
                 MessageLogin messageLogin = (MessageLogin) mcl;
                 connections.addToUserIdMap(messageLogin.getNameUser(), this.connectionId);
@@ -41,6 +41,7 @@ public class BGSProtocol<T> implements  BidiMessagingProtocol{
                 MessageLogout messageLogout = (MessageLogout) mcl;
                 if(userIdMap.containsKey(messageLogout.getNameUser()))
                  userIdMap.remove(messageLogout.getNameUser());
+                this.connections.removeIdFromListOfUsers(this.connectionId);
             } else if (suc == 5) {
                 ConcurrentHashMap<String,Integer> userIdMap=connections.getUserIdMap();
                 NotificationMessage postMessage = (NotificationMessage) mcl.getContainResult();

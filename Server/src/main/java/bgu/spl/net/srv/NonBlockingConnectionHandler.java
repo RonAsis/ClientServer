@@ -59,9 +59,7 @@ public class NonBlockingConnectionHandler<T> implements ConnectionHandler<T> {
                         T nextMessage = encdec.decodeNextByte(buf.get());
                         if (nextMessage != null) {
                             protocol.process(nextMessage);
-//                            if (response != null) {
 
-//                            }
                         }
                     }
                 } finally {
@@ -127,16 +125,9 @@ public class NonBlockingConnectionHandler<T> implements ConnectionHandler<T> {
     @SuppressWarnings("Duplicates")
     @Override
     public void send(T msg) {
-        Message message=(Message)msg;
-        if(message.getOpcode()==10){
-            AckMessage ackMessage=(AckMessage)message;
-            if(ackMessage.getMessageOpcode()==2)
-                ((MessageEncoderDecoderlmpl)this.encdec).setNameUser(ackMessage.getNameUser());
-            if(ackMessage.getMessageOpcode()==3){
-                ((MessageEncoderDecoderlmpl)this.encdec).setNameUser("");
-            }
-        }
-        writeQueue.add(ByteBuffer.wrap(encdec.encode(msg)));
-        reactor.updateInterestedOps(chan, SelectionKey.OP_READ | SelectionKey.OP_WRITE);
+      if(msg!=null) {
+          writeQueue.add(ByteBuffer.wrap(encdec.encode(msg)));
+          reactor.updateInterestedOps(chan, SelectionKey.OP_READ | SelectionKey.OP_WRITE);
+      }
     }
 }

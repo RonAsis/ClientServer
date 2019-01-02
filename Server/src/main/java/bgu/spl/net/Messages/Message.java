@@ -47,9 +47,7 @@ public abstract class Message<T> {
      * @param sharedData
      * @return
      */
-        public short  act(SharedData sharedData){
-            return this.opcode;
-        }
+        public  abstract short  act(SharedData sharedData,String name);
 
     /**
      * return the result

@@ -60,24 +60,14 @@ public class BlockingConnectionHandler<T> implements Runnable, ConnectionHandler
     @SuppressWarnings("Duplicates")
     @Override
     public void send(T msg) {
-       Message message=(Message)msg;
-        if (message != null) {
-            if(message.getOpcode()==10){
-            AckMessage ackMessage=(AckMessage)message;
-            if(ackMessage.getMessageOpcode()==2)
-                ((MessageEncoderDecoderlmpl)this.encdec).setNameUser(ackMessage.getNameUser());
-            if(ackMessage.getMessageOpcode()==3){
-                ((MessageEncoderDecoderlmpl)this.encdec).setNameUser("");
-            }
-        }
-
+        if (msg != null) {
             try {
-                T response=(T)message;
-                out.write(encdec.encode(response));
+                out.write(encdec.encode(msg));
                 out.flush();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-                    }
+        }
     }
+
 }

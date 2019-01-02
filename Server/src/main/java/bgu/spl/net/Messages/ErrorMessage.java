@@ -1,5 +1,7 @@
 package bgu.spl.net.Messages;
 
+import bgu.spl.net.accessories.SharedData;
+
 public class ErrorMessage extends Message {
 
     short messageOpcode;
@@ -14,6 +16,11 @@ public class ErrorMessage extends Message {
         byte[] opcodeByte=this.shortToBytes(this.getOpcode());
         byte[] messageOpcodeBytes=this.shortToBytes(messageOpcode);
        return mergeTwoArraysOfBytes(opcodeByte,messageOpcodeBytes);
+    }
+
+    @Override
+    public short act(SharedData sharedData, String name) {
+        return this.getOpcode();
     }
 
 

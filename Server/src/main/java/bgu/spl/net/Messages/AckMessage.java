@@ -1,10 +1,12 @@
 package bgu.spl.net.Messages;
+import bgu.spl.net.accessories.SharedData;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import static bgu.spl.net.api.MessageEncoderDecoderlmpl.delimeter;
 
-public class AckMessage extends Message {
+public class AckMessage  extends Message {
 
     private short messageOpcode=-1;//also use for stat opcode
     private short numOfUsers=-1;
@@ -71,6 +73,11 @@ public class AckMessage extends Message {
             return c;
         }
         //  return  mergeTwoArraysOfBytes(c,optional.getBytes());
+    }
+
+    @Override
+    public short act(SharedData sharedData, String name) {
+        return this.getOpcode();
     }
 
 

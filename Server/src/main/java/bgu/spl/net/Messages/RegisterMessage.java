@@ -21,7 +21,7 @@ public class RegisterMessage extends Message{
      * @param sharedData
      * @return
      */
-    public short act(SharedData sharedData){
+    public short act(SharedData sharedData,String name){
         if(sharedData.register(this.nameUser,this.password)){
             setResult(new AckMessage(getOpcode()));
             return this.getOpcode();

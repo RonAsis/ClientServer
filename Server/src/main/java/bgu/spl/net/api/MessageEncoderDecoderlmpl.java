@@ -10,7 +10,6 @@ public class MessageEncoderDecoderlmpl implements MessageEncoderDecoder {
     private int lenOpcode=0;
     private Message message;
     public final static byte delimeter='\0';
-    private String nameUser="";
 
     /**
      * decode the bytes to message
@@ -74,17 +73,17 @@ public class MessageEncoderDecoderlmpl implements MessageEncoderDecoder {
                    break;
             case 2:this.message=new MessageLogin();
                    break;
-            case 3:this.message=new MessageLogout(this.nameUser);
+            case 3:this.message=new MessageLogout();
                    break;
-            case 4:this.message=new FollowMessage(this.nameUser);
+            case 4:this.message=new FollowMessage();
                    break;
-            case 5:this.message=new PostMessage(this.nameUser);
+            case 5:this.message=new PostMessage();
                    break;
-            case 6:this.message=new PmMessage(this.nameUser);
+            case 6:this.message=new PmMessage();
                    break;
-            case 7: this.message=new UserListMessage(this.nameUser);
+            case 7: this.message=new UserListMessage();
                     break;
-            case 8:this.message=new StatMessage(this.nameUser);
+            case 8:this.message=new StatMessage();
                     break;
         }
     }
@@ -101,12 +100,6 @@ public class MessageEncoderDecoderlmpl implements MessageEncoderDecoder {
         return result;
     }
 
-    /**
-     * set the name of user for to know do the action that the client send
-     * @param nameUser
-     */
-    public void setNameUser(String nameUser){
-        this.nameUser=nameUser;
-    }
+
 
 }

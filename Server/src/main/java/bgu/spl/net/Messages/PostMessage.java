@@ -15,11 +15,10 @@ public class PostMessage extends  Message {
 
     /**
      * constructor
-     * @param name
+     * @param
      */
-    public PostMessage(String name){
+    public PostMessage(){
         super(5);
-        this.name=name;
         this.listUserS=new ArrayList<>();
     }
     /**
@@ -28,7 +27,8 @@ public class PostMessage extends  Message {
      * @return
      */
     @Override
-    public short act(SharedData sharedData) {
+    public short act(SharedData sharedData,String name) {
+        this.name=name;
         List list=sharedData.sendMessagePost(name,listUserS,content);
         if(list==null){
             this.setResult(new ErrorMessage(5));

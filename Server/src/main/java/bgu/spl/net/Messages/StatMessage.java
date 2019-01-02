@@ -12,9 +12,8 @@ public class StatMessage extends  Message {
      * constructor
      * @param name
      */
-    public  StatMessage(String name){
+    public  StatMessage(){
         super(8);
-        this.userName=name;
     }
 
     /**
@@ -23,7 +22,8 @@ public class StatMessage extends  Message {
      * @return
      */
     @Override
-    public short act(SharedData sharedData) {
+    public short act(SharedData sharedData,String name) {
+        this.userName=name;
         short [] statUser=sharedData.getStatUser(this.userName,this.userStat);
         if(statUser==null) {
             setResult(new ErrorMessage(getOpcode()));

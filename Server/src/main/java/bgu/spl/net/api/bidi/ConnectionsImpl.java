@@ -12,6 +12,7 @@ public class ConnectionsImpl<T> implements  Connections<T>  {
     private ConcurrentHashMap<Integer,ConnectionHandler> connectionHandlerMap;
     private static int id;
     private ConcurrentHashMap<String,Integer> userIdMap;
+    private ConcurrentHashMap<Integer,String> idUserMap;
 
     /**
      * Constructor
@@ -20,6 +21,7 @@ public class ConnectionsImpl<T> implements  Connections<T>  {
        connectionHandlerMap=new ConcurrentHashMap<>();
        id=0;
        userIdMap=new ConcurrentHashMap<>();
+       idUserMap=new ConcurrentHashMap<>();
    }
     public int getId(){
        return this.id;
@@ -89,8 +91,20 @@ public class ConnectionsImpl<T> implements  Connections<T>  {
     }
     public void  addToUserIdMap(String username,Integer idClinet){
         userIdMap.put(username,idClinet);
+        idUserMap.put(idClinet,username);
     }
+
     public ConcurrentHashMap<String,Integer> getUserIdMap(){
         return this.userIdMap;
+    }
+
+
+    public String getUserOfId(Integer thisIdOfClient){
+        return this.idUserMap.get(thisIdOfClient);
+    }
+    public void removeIdFromListOfUsers(Integer idOfUser){
+        String mame=this.idUserMap.get(idOfUser);
+        this.idUserMap.remove(idOfUser);
+        this.userIdMap.remove(mame);
     }
 }
