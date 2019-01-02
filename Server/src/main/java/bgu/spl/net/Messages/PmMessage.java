@@ -13,7 +13,7 @@ public class PmMessage extends  Message {
         ConcurrentLinkedQueue<String> listUserS;
         String userSentMessageTo="";
         String content;
-        byte typeMessage=1;
+        byte typeMessage=0;
 
     /**
      * constructor

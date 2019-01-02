@@ -70,6 +70,7 @@ public class FollowMessage extends  Message{
         if (listSucceful.size() == 0)
             setResult(new ErrorMessage(getOpcode()));
         else {// less part of the list is successful
+           this.numOfUsers=(short)this.listUsers.size();
             setResult(new AckMessage(getOpcode(),this.numOfUsers,this.listUsers));
         }
         }

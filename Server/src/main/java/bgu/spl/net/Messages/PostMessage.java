@@ -11,7 +11,7 @@ public class PostMessage extends  Message {
     String name;
     List<String> listUserS;
     String content="";
-    byte typeMessage=0;
+    byte typeMessage=1;
 
     /**
      * constructor

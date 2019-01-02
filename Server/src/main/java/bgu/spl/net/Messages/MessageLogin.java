@@ -24,7 +24,8 @@ public class MessageLogin extends Message {
      */
     @Override
     public short act(SharedData sharedData,String name) {
-        if(sharedData.login(this.nameUser,this.password)){
+        boolean isLogin=name!=null;
+        if(!isLogin && sharedData.login(this.nameUser,this.password)){
             Message ackMessage=new AckMessage(getOpcode());
             setResult(ackMessage);
             ((AckMessage) ackMessage).setNameUser(this.nameUser);

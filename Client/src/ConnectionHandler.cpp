@@ -145,7 +145,9 @@ bool ConnectionHandler::followMessage(std::string &messageContent){
     else
         followOrUnfollow = 1;
     shortToBytes(followOrUnfollow, h);
-    bool result = sendBytes(h, 1); // sending 0/1 (follow or unfollow)
+    char j[1];
+    j[0]=h[1];
+    bool result = sendBytes(j, 1); // sending 0/1 (follow or unfollow)
     if (!result) return false;
 
     string::size_type indexOfSpace = messageContent.find(' ', 2);
@@ -372,7 +374,7 @@ bool ConnectionHandler::createNotification(std::string& frame){
 
     std::string content (frameVector.data(), frameVector.size());
 
-    if (messageOpcode == 0)  // public
+    if (messageOpcode == 1)  // public
         frame = "> NOTIFICATION Public " + postingUser+" "+content;
     else  // pm
         frame = "> NOTIFICATION PM "+ postingUser+" "+content;
@@ -399,19 +401,15 @@ bool ConnectionHandler::createAck(std::string& frame) {
         frame = "";
 
         std::vector<char> frameVector;
-        if (getString(frameVector) == false)
-            return false;
+        int counter = numOfUsers;
+        while (counter>0) {
+            if (getString(frameVector) == false)
+                return false;
+            counter--;
+        }
 
         std::string listOfUsers(frameVector.data(), frameVector.size());
-        std::string users;
-        int counter = 0;
-        while (counter< listOfUsers.length()){
-            if (listOfUsers[counter]!=this->delimiter)
-                users = users + listOfUsers[counter];
-            else
-                users = users + ' ';
-            counter++;
-        }
+        std::string users (listOfUsers.substr(0, listOfUsers.length()-1));
 
         frame = "> ACK "+ std::to_string(messageOpcode) +" "+ std::to_string(numOfUsers)+" "+ users;
     }
@@ -477,8 +475,10 @@ bool ConnectionHandler::getString(std::vector<char>& frameVector) {
             if (getBytes(&ch, 1) != false) {
                 if (ch!=this->delimiter)
                     frameVector.push_back(ch);
-                else
+                else {
+                    frameVector.push_back(' ');
                     return true;
+                }
             } else
                 return false;
         } while (ch != this->delimiter);
