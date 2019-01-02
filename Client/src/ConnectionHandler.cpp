@@ -182,13 +182,13 @@ std::string ConnectionHandler::changeStringToMessage(std::string messageTypeName
     }
 
     else if (messageTypeName == "FOLLOW"){
-        int counter = messageContent.length()-1;
-        while (counter>=0){
+        int counter = 0;
+        while (counter< messageContent.length()){
             if (messageContent[counter]!=' ')
                 message = message + messageContent[counter];
             else
                 message = message + delimiter;
-            counter--;
+            counter++;
         }
         return message;
     }
@@ -397,7 +397,17 @@ bool ConnectionHandler::createAck(std::string& frame) {
             return false;
 
         std::string listOfUsers(frameVector.data(), frameVector.size());
-        frame = "> ACK "+ std::to_string(messageOpcode) +" "+ std::to_string(numOfUsers)+" "+ listOfUsers;
+        std::string users;
+        int counter = 0;
+        while (counter< listOfUsers.length()){
+            if (listOfUsers[counter]!=this->delimiter)
+                users = users + listOfUsers[counter];
+            else
+                users = users + ' ';
+            counter++;
+        }
+
+        frame = "> ACK "+ std::to_string(messageOpcode) +" "+ std::to_string(numOfUsers)+" "+ users;
     }
 
     else if (messageOpcode == 8){ // stat
@@ -422,11 +432,6 @@ bool ConnectionHandler::createAck(std::string& frame) {
 
     else {// register / login / logout / post / pm
         frame = "> ACK " + std::to_string(messageOpcode);
-
-        //   if (messageOpcode == 3) {
-        // this->lock.unlock();
-        //  condition.notify_all();
-        //  }
     }
 }
 
@@ -469,6 +474,7 @@ bool ConnectionHandler::getString(std::vector<char>& frameVector) {
     } catch (std::exception &e) {
         return false;
     }
+    return true;
 }
 
 //*****************************************************************
