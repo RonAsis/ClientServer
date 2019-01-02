@@ -79,27 +79,12 @@ bool ConnectionHandler::sendFrameAscii(const std::string& frame, char delimiter)
     bool result = sendBytes(h, 2); // sending the message's opcode to the server
     if(!result) return false;
 
-    std::string messageContent(frame.substr(indexOfSpace+1, frame.length())); // removing the message's opcode
+    std::string messageContent(frame.substr(indexOfSpace+1, frame.length()-(indexOfSpace+1))); // removing the message's opcode
 
     if (messageOpcode == 4) { // FOLLOW
-        short followOrUnfollow;
-        if (messageContent[0] == '0')
-            followOrUnfollow = 0;
-        else
-            followOrUnfollow = 1;
-        shortToBytes(followOrUnfollow, h);
-        result = sendBytes(h, 1); // sending 0/1 (follow or unfollow)
-        if (!result) return false;
-
-        indexOfSpace = messageContent.find(' ', 2);
-
-        std::string stringNumOfUsers(messageContent.substr(2, indexOfSpace)); // the amount of users
-        short numOfUsers = stringToNum(stringNumOfUsers);
-        shortToBytes(numOfUsers, h);
-        result = sendBytes(h, 1); // sending numOfUsers
-        if (!result) return false;
-
-        messageContent = messageContent.substr(indexOfSpace, messageContent.length()); // removing followOrUnfollow & numOfUsers
+        result = followMessage(messageContent);
+        if (result == false)
+            return false;
     }
 
     std::string message(changeStringToMessage(messageTypeName, messageContent));
@@ -107,12 +92,11 @@ bool ConnectionHandler::sendFrameAscii(const std::string& frame, char delimiter)
     if(!result) return false;
 
     if (messageTypeName == "LOGOUT"){ // in order to make the user wait for the server's response, on whether or not he should terminate
-       this->isLoggedOut = true;
-        //this->lock.lock();
-        //condition.wait(lock);
+        this->isLoggedOut = true;
     }
 
-    return sendBytes(&delimiter,1);
+    if(messageTypeName!="LOGOUT" && messageTypeName!="USERLIST")
+        return sendBytes(&delimiter,1);
 }
 
 /**
@@ -153,35 +137,27 @@ void ConnectionHandler::shortToBytes(short num, char* bytesArr){
     bytesArr[1] = (num & 0xFF);
 }
 
-/**
- * This method returns the short representation of the given string.
- *
- * @param stringNum - the string that needs to be represented with short.
- * @return - the short representation of the given string.
- */
-short ConnectionHandler::stringToNum(std::string stringNum){
-    short num;
-    for(int i=0; i<stringNum.length(); i++){
-        if (stringNum[i] == '1')
-            num = num + 1*10^(stringNum.length()-i-1);
-        else if (stringNum[i] == '2')
-            num = num + 2*10^(stringNum.length()-i-1);
-        else if (stringNum[i] == '3')
-            num = num + 3*10^(stringNum.length()-i-1);
-        else if (stringNum[i] == '4')
-            num = num + 4*10^(stringNum.length()-i-1);
-        else if (stringNum[i] == '5')
-            num = num + 5*10^(stringNum.length()-i-1);
-        else if (stringNum[i] == '6')
-            num = num + 6*10^(stringNum.length()-i-1);
-        else if (stringNum[i] == '7')
-            num = num + 7*10^(stringNum.length()-i-1);
-        else if (stringNum[i] == '8')
-            num = num + 8*10^(stringNum.length()-i-1);
-        else if (stringNum[i] == '9')
-            num = num + 9*10^(stringNum.length()-i-1);
-    }
-    return num;
+bool ConnectionHandler::followMessage(std::string &messageContent){
+    short followOrUnfollow;
+    char h[2];
+    if (messageContent[0] == '0')
+        followOrUnfollow = 0;
+    else
+        followOrUnfollow = 1;
+    shortToBytes(followOrUnfollow, h);
+    bool result = sendBytes(h, 1); // sending 0/1 (follow or unfollow)
+    if (!result) return false;
+
+    string::size_type indexOfSpace = messageContent.find(' ', 2);
+
+    std::string stringNumOfUsers(messageContent.substr(2, indexOfSpace-2)); // the amount of users
+    short numOfUsers = std::stoi(stringNumOfUsers);
+    shortToBytes(numOfUsers, h);
+    result = sendBytes(h, 2); // sending numOfUsers
+    if (!result) return false;
+
+    messageContent = messageContent.substr(indexOfSpace+1, messageContent.length()-indexOfSpace); // removing followOrUnfollow & numOfUsers
+    return true;
 }
 
 /**
@@ -196,7 +172,7 @@ std::string ConnectionHandler::changeStringToMessage(std::string messageTypeName
 
     if (messageTypeName == "REGISTER" || messageTypeName == "LOGIN" || messageTypeName == "PM") {
         string::size_type indexOfSpace(messageContent.find(' ', 0)); // where the username ends
-        message = messageContent.substr(0,indexOfSpace) +this->delimiter+messageContent.substr(indexOfSpace+1, messageContent.length());
+        message = messageContent.substr(0,indexOfSpace) +this->delimiter+messageContent.substr(indexOfSpace+1, messageContent.length()-(indexOfSpace+1));
         return message;
     }
 
@@ -206,9 +182,14 @@ std::string ConnectionHandler::changeStringToMessage(std::string messageTypeName
     }
 
     else if (messageTypeName == "FOLLOW"){
-        message = messageContent[0]; // follow or unfollow
-        string::size_type indexOfSpace(messageContent.find(' ', 0)); // number of users to follow/unfollow
-        message = message + messageContent.substr(1, indexOfSpace) + "0" + messageContent.substr(indexOfSpace+1, messageContent.length());
+        int counter = messageContent.length()-1;
+        while (counter>=0){
+            if (messageContent[counter]!=' ')
+                message = message + messageContent[counter];
+            else
+                message = message + delimiter;
+            counter--;
+        }
         return message;
     }
 
@@ -442,10 +423,10 @@ bool ConnectionHandler::createAck(std::string& frame) {
     else {// register / login / logout / post / pm
         frame = "> ACK " + std::to_string(messageOpcode);
 
-     //   if (messageOpcode == 3) {
-           // this->lock.unlock();
-          //  condition.notify_all();
-      //  }
+        //   if (messageOpcode == 3) {
+        // this->lock.unlock();
+        //  condition.notify_all();
+        //  }
     }
 }
 
@@ -464,7 +445,7 @@ bool ConnectionHandler::createError(std::string& frame) {
 
     if (messageOpcode == 3)
         this->isLoggedOut = false;
-       // condition.notify_all();
+    // condition.notify_all();
 }
 
 

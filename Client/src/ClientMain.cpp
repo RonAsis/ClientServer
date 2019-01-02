@@ -25,8 +25,6 @@ int main (int argc, char **argv) {
     threadRead.join();
     threadWrite.join();
     if (client.getStop() == true) {
-        //threadWrite.stop();
-        //threadRead.stop();
         client.getConnectionHandler().close();
     }
 

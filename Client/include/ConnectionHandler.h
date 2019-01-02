@@ -22,20 +22,20 @@ private:
     bool sendFrameAscii(const std::string& frame, char delimiter);
     short messageTypeShort(std::string messageTypeName);
     void shortToBytes(short num, char* bytesArr);
-    short stringToNum(std::string stringNumOfUsers);
+    bool followMessage(std::string &messageContent);
     std::string changeStringToMessage(std::string messageTypeName, std::string messageContent);
     bool sendBytes(const char bytes[], int bytesToWrite);
 
     // ********************** Reading a message from the server **********************
-    bool getFrameAscii(std::string& frame, char delimiter);
-    short getShort(std::string& frame);
+    bool getFrameAscii(std::string &frame, char delimiter);
+    short getShort(std::string &frame);
     bool getBytes(char bytes[], unsigned int bytesToRead);
-    short bytesToShort(char* bytesArr);
+    short bytesToShort(char *bytesArr);
     std::string messageTypeString(short messageTypeNum);
-    bool createNotification(std::string& frame);
-    bool createAck(std::string& frame);
-    bool createError(std::string& frame);
-    bool getString(std::vector<char>& frameVector);
+    bool createNotification(std::string &frame);
+    bool createAck(std::string &frame);
+    bool createError(std::string &frame);
+    bool getString(std::vector<char> &frameVector);
 
 public:
     bool getIsLoggedOut();
@@ -56,17 +56,6 @@ public:
     // Close down the connection properly.
     void close();
 
-    // const std::string getHost();
-
-    //   short getPort();
-
-    // ConnectionHandler & operator=(const ConnectionHandler & other); //copy assignment
-
-    //  ConnectionHandler(const ConnectionHandler & other); //copy constructor
-
-    // ConnectionHandler(ConnectionHandler && other); //Move constructor
-
-    // ConnectionHandler & operator=(ConnectionHandler && other); //Move assignment
 }; //class ConnectionHandler
 
 #endif

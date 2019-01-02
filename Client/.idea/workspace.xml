@@ -11,54 +11,7 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7a8acbd2-c694-4ada-9584-a18550ce04b8" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../Server/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/target/classes/bgu/spl/net/Future.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/target/classes/bgu/spl/net/Messages/AckMessage.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/target/classes/bgu/spl/net/Messages/ErrorMessage.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/target/classes/bgu/spl/net/Messages/FollowMessage.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/target/classes/bgu/spl/net/Messages/Message.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/target/classes/bgu/spl/net/Messages/MessageLogin.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/target/classes/bgu/spl/net/Messages/MessageLogout.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/target/classes/bgu/spl/net/Messages/NotificationMessage.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/target/classes/bgu/spl/net/Messages/PmMessage.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/target/classes/bgu/spl/net/Messages/PostMessage.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/target/classes/bgu/spl/net/Messages/RegisterMessage.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/target/classes/bgu/spl/net/Messages/StatMessage.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/target/classes/bgu/spl/net/Messages/UserListMessage.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/target/classes/bgu/spl/net/accessories/SharedData.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/target/classes/bgu/spl/net/accessories/SplitMessage.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/target/classes/bgu/spl/net/accessories/User.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/target/classes/bgu/spl/net/api/MessageEncoderDecoder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/target/classes/bgu/spl/net/api/MessageEncoderDecoderlmpl.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/target/classes/bgu/spl/net/api/MessagingProtocol.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/target/classes/bgu/spl/net/api/bidi/BGSProtocol.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/target/classes/bgu/spl/net/api/bidi/BidiMessagingProtocol.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/target/classes/bgu/spl/net/api/bidi/Connections.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/target/classes/bgu/spl/net/api/bidi/ConnectionsImpl.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/target/classes/bgu/spl/net/impl/BGSServer/ReactorMain.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/target/classes/bgu/spl/net/impl/BGSServer/TPCMain.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/target/classes/bgu/spl/net/impl/echo/EchoClient.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/target/classes/bgu/spl/net/impl/echo/EchoProtocol.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/target/classes/bgu/spl/net/impl/echo/LineMessageEncoderDecoder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/target/classes/bgu/spl/net/impl/newsfeed/FetchNewsCommand.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/target/classes/bgu/spl/net/impl/newsfeed/NewsFeed.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/target/classes/bgu/spl/net/impl/newsfeed/NewsFeedClientMain.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/target/classes/bgu/spl/net/impl/newsfeed/NewsFeedServerMain.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/target/classes/bgu/spl/net/impl/newsfeed/PublishNewsCommand.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/target/classes/bgu/spl/net/impl/rci/Command.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/target/classes/bgu/spl/net/impl/rci/ObjectEncoderDecoder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/target/classes/bgu/spl/net/impl/rci/RCIClient.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/target/classes/bgu/spl/net/impl/rci/RemoteCommandInvocationProtocol.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/target/classes/bgu/spl/net/srv/ActorThreadPool.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/target/classes/bgu/spl/net/srv/BaseServer.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/target/classes/bgu/spl/net/srv/BlockingConnectionHandler.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/target/classes/bgu/spl/net/srv/ConnectionHandler.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/target/classes/bgu/spl/net/srv/NonBlockingConnectionHandler.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/target/classes/bgu/spl/net/srv/Reactor.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/target/classes/bgu/spl/net/srv/Server$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/target/classes/bgu/spl/net/srv/Server.class" beforeDir="false" />
-    </list>
+    <list default="true" id="7a8acbd2-c694-4ada-9584-a18550ce04b8" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -72,17 +25,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Client.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1035">
-              <caret line="99" selection-start-line="99" selection-end-line="99" />
+            <state relative-caret-position="521">
+              <caret line="56" column="5" selection-start-line="56" selection-start-column="5" selection-end-line="56" selection-end-column="5" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/ConnectionHandler.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="79">
-              <caret line="52" column="3" lean-forward="true" selection-start-line="52" selection-start-column="3" selection-end-line="52" selection-end-column="3" />
+            <state relative-caret-position="119">
+              <caret line="136" column="22" lean-forward="true" selection-start-line="136" selection-start-column="22" selection-end-line="136" selection-end-column="22" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
               </folding>
@@ -90,20 +43,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="10" column="26" lean-forward="true" selection-start-line="10" selection-start-column="26" selection-end-line="10" selection-end-column="26" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/include/ConnectionHandler.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="345">
-              <caret line="23" column="24" selection-start-line="23" selection-start-column="24" selection-end-line="23" selection-end-column="24" />
+            <state relative-caret-position="179">
+              <caret line="24" column="22" selection-start-line="24" selection-start-column="9" selection-end-line="24" selection-end-column="22" />
               <folding>
                 <element signature="e#59#76#0" expanded="true" />
               </folding>
@@ -114,8 +58,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ClientMain.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="18" column="17" selection-start-line="18" selection-start-column="17" selection-end-line="18" selection-end-column="17" />
+            <state relative-caret-position="369">
+              <caret line="27" column="28" selection-start-line="27" selection-start-column="28" selection-end-line="27" selection-end-column="28" />
               <folding>
                 <element signature="e#0#19#0" expanded="true" />
               </folding>
@@ -142,6 +86,7 @@
       <find>LOGOUT</find>
       <find>new</find>
       <find>*</find>
+      <find>followMessage</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -152,16 +97,16 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/CMakeLists.txt" />
-        <option value="$PROJECT_DIR$/src/ClientMain.cpp" />
         <option value="$PROJECT_DIR$/include/Client.h" />
         <option value="$PROJECT_DIR$/src/Client.cpp" />
-        <option value="$PROJECT_DIR$/include/ConnectionHandler.h" />
         <option value="$PROJECT_DIR$/src/ConnectionHandler.cpp" />
+        <option value="$PROJECT_DIR$/src/ClientMain.cpp" />
+        <option value="$PROJECT_DIR$/include/ConnectionHandler.h" />
       </list>
     </option>
   </component>
   <component name="OCFindUsagesOptions" text="true" ivars="false" properties="true" derivedClasses="false" />
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="67" />
     <option name="y" value="27" />
     <option name="width" value="1269" />
@@ -217,7 +162,7 @@
     </option>
   </component>
   <component name="RunManager">
-    <configuration name="Client" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="127.0.0.1 7777" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Client" TARGET_NAME="Client" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Client" RUN_TARGET_NAME="Client">
+    <configuration name="Client" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="77.127.22.170 7777" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Client" TARGET_NAME="Client" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Client" RUN_TARGET_NAME="Client">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -245,17 +190,18 @@
       <workItem from="1546339965544" duration="7485000" />
       <workItem from="1546357107501" duration="1899000" />
       <workItem from="1546370693191" duration="1968000" />
-      <workItem from="1546374019597" duration="427000" />
+      <workItem from="1546423790635" duration="11870000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="106049000" />
+    <option name="totallyTimeSpent" value="117492000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="67" y="25" width="1299" height="743" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.14126097" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.14126097" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -270,7 +216,7 @@
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="10" />
       <window_info anchor="bottom" id="CMake" order="11" weight="0.32792208" />
-      <window_info active="true" anchor="bottom" id="Messages" order="12" visible="true" weight="0.5276873" />
+      <window_info anchor="bottom" id="Messages" order="12" weight="0.5276873" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -279,6 +225,22 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/src/ConnectionHandler.cpp</url>
+          <line>60</line>
+          <option name="timeStamp" value="62" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/src/ConnectionHandler.cpp</url>
+          <line>34</line>
+          <option name="timeStamp" value="63" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$APPLICATION_HOME_DIR$/bin/cmake/linux/share/cmake-3.13/Modules/FindBoost.cmake">
@@ -431,6 +393,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="9" column="18" selection-start-line="9" selection-start-column="18" selection-end-line="9" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file:///usr/include/boost/asio/basic_socket.hpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="116">
@@ -440,45 +409,38 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Client.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1035">
-          <caret line="99" selection-start-line="99" selection-end-line="99" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/include/ConnectionHandler.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="23" column="24" selection-start-line="23" selection-start-column="24" selection-end-line="23" selection-end-column="24" />
-          <folding>
-            <element signature="e#59#76#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="521">
+          <caret line="56" column="5" selection-start-line="56" selection-start-column="5" selection-end-line="56" selection-end-column="5" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ClientMain.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="18" column="17" selection-start-line="18" selection-start-column="17" selection-end-line="18" selection-end-column="17" />
+        <state relative-caret-position="369">
+          <caret line="27" column="28" selection-start-line="27" selection-start-column="28" selection-end-line="27" selection-end-column="28" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ConnectionHandler.cpp">
+    <entry file="file://$PROJECT_DIR$/include/ConnectionHandler.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="79">
-          <caret line="52" column="3" lean-forward="true" selection-start-line="52" selection-start-column="3" selection-end-line="52" selection-end-column="3" />
+        <state relative-caret-position="179">
+          <caret line="24" column="22" selection-start-line="24" selection-start-column="9" selection-end-line="24" selection-end-column="22" />
           <folding>
-            <element signature="e#0#41#0" expanded="true" />
+            <element signature="e#59#76#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+    <entry file="file://$PROJECT_DIR$/src/ConnectionHandler.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="26" lean-forward="true" selection-start-line="10" selection-start-column="26" selection-end-line="10" selection-end-column="26" />
+        <state relative-caret-position="119">
+          <caret line="136" column="22" lean-forward="true" selection-start-line="136" selection-start-column="22" selection-end-line="136" selection-end-column="22" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
