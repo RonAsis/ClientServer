@@ -28,7 +28,7 @@ private:
 
     // ********************** Reading a message from the server **********************
     bool getFrameAscii(std::string &frame, char delimiter);
-    short getShort(std::string &frame);
+    short getShort(std::string &frame, int counter);
     bool getBytes(char bytes[], unsigned int bytesToRead);
     short bytesToShort(char *bytesArr);
     std::string messageTypeString(short messageTypeNum);

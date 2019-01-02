@@ -1,0 +1,32 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/noy/Desktop/SPL/as3/Client/include/ConnectionHandler.h
+string
+-
+iostream
+-
+boost/asio.hpp
+-
+mutex
+-
+condition_variable
+-
+
+/home/noy/Desktop/SPL/as3/Client/src/ConnectionHandler.cpp
+../include/ConnectionHandler.h
+/home/noy/Desktop/SPL/as3/Client/include/ConnectionHandler.h
+string
+-
+iostream
+-
+boost/asio.hpp
+-
+mutex
+-
+

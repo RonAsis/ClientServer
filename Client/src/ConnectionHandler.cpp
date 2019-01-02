@@ -246,7 +246,7 @@ bool ConnectionHandler::getLine(std::string& frame) {
  * @return true if the server's response was succsesfully written to "frame", false otherwise.
  */
 bool ConnectionHandler::getFrameAscii(std::string& frame, char delimiter) {
-    short messageOpcode = getShort(frame); // saving the message's opcode
+    short messageOpcode = getShort(frame, 2); // saving the message's opcode
     if (messageOpcode == -1) // if the opcode wasn't taken succsesfully
         return false;
     std::string messageTypeName = messageTypeString(messageOpcode);
@@ -267,25 +267,31 @@ bool ConnectionHandler::getFrameAscii(std::string& frame, char delimiter) {
  * @param frame - the string in which the char that represents the returned short is written to.
  * @return - the short representation of the bytes that were read from the server.
  */
-short ConnectionHandler::getShort(std::string& frame){
+short ConnectionHandler::getShort(std::string& frame, int counter){
     char ch;
-    int counter = 0;
+    int counterWhile = 0;
     try {
         do{
             if(getBytes(&ch, 1)!= false) {
                 frame.append(1, ch);
-                counter ++;
+                counterWhile ++;
             }
             else
                 return -1;
-        } while (counter<2);
+        } while (counterWhile<counter);
     } catch (std::exception& e) {
         return -1;
     }
 
-    char messageTypeByte[2];// translating the bytes to char
+    if (counter == 2){
+        char messageTypeByte[2];// translating the bytes to char
+        messageTypeByte[0] = frame[0];
+        messageTypeByte[1] = frame[1];
+        return bytesToShort(messageTypeByte); // translating the char to short
+    }
+    // incase there's only one byte to read
+    char messageTypeByte[1];// translating the bytes to char
     messageTypeByte[0] = frame[0];
-    messageTypeByte[1] = frame[1];
     return bytesToShort(messageTypeByte); // translating the char to short
 }
 
@@ -348,7 +354,7 @@ std::string ConnectionHandler::messageTypeString(short messageTypeNum){
  * @return - whether the notification message was created successfully, or not.
  */
 bool ConnectionHandler::createNotification(std::string& frame){
-    short messageOpcode = getShort(frame);
+    short messageOpcode = getShort(frame, 1);
     if (messageOpcode == -1)
         return false;
 
@@ -366,7 +372,7 @@ bool ConnectionHandler::createNotification(std::string& frame){
 
     std::string content (frameVector.data(), frameVector.size());
 
-    if (messageOpcode == 5)  // public
+    if (messageOpcode == 0)  // public
         frame = "> NOTIFICATION Public " + postingUser+" "+content;
     else  // pm
         frame = "> NOTIFICATION PM "+ postingUser+" "+content;
@@ -379,14 +385,14 @@ bool ConnectionHandler::createNotification(std::string& frame){
  * @return - whether the ack message was created successfully, or not.
  */
 bool ConnectionHandler::createAck(std::string& frame) {
-    short messageOpcode = getShort(frame);
+    short messageOpcode = getShort(frame, 2);
     if (messageOpcode == -1)
         return false;
 
     frame = "";
 
     if (messageOpcode == 4 || messageOpcode == 7) { // Follow / Unfollow / userlist
-        short numOfUsers = getShort(frame);
+        short numOfUsers = getShort(frame, 2);
         if (numOfUsers == -1)
             return false;
 
@@ -411,19 +417,19 @@ bool ConnectionHandler::createAck(std::string& frame) {
     }
 
     else if (messageOpcode == 8){ // stat
-        short numPosts = getShort(frame);
+        short numPosts = getShort(frame, 2);
         if (numPosts == -1)
             return false;
 
         frame = "";
 
-        short numFollowers = getShort(frame);
+        short numFollowers = getShort(frame, 2);
         if (numFollowers == -1)
             return false;
 
         frame = "";
 
-        short numFollowing = getShort(frame);
+        short numFollowing = getShort(frame, 2);
         if (numFollowing == -1)
             return false;
 
@@ -433,6 +439,7 @@ bool ConnectionHandler::createAck(std::string& frame) {
     else {// register / login / logout / post / pm
         frame = "> ACK " + std::to_string(messageOpcode);
     }
+    return true;
 }
 
 /**
@@ -442,7 +449,7 @@ bool ConnectionHandler::createAck(std::string& frame) {
  * @return - whether the error message was created successfully, or not.
  */
 bool ConnectionHandler::createError(std::string& frame) {
-    short messageOpcode = getShort(frame);
+    short messageOpcode = getShort(frame, 2);
     if (messageOpcode == -1)
         return false;
 
@@ -450,7 +457,8 @@ bool ConnectionHandler::createError(std::string& frame) {
 
     if (messageOpcode == 3)
         this->isLoggedOut = false;
-    // condition.notify_all();
+
+    return true;
 }
 
 
@@ -467,7 +475,10 @@ bool ConnectionHandler::getString(std::vector<char>& frameVector) {
     try {
         do {
             if (getBytes(&ch, 1) != false) {
-                frameVector.push_back(ch);
+                if (ch!=this->delimiter)
+                    frameVector.push_back(ch);
+                else
+                    return true;
             } else
                 return false;
         } while (ch != this->delimiter);

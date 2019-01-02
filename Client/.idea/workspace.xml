@@ -11,10 +11,7 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7a8acbd2-c694-4ada-9584-a18550ce04b8" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/ConnectionHandler.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/ConnectionHandler.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/target/classes/bgu/spl/net/Messages/RegisterMessage.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/target/classes/bgu/spl/net/Messages/RegisterMessage.class" afterDir="false" />
-    </list>
+    <list default="true" id="7a8acbd2-c694-4ada-9584-a18550ce04b8" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -28,26 +25,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Client.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="111">
+            <state relative-caret-position="150">
               <caret line="47" selection-start-line="47" selection-end-line="47" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file:///usr/include/c++/7/thread">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="32">
-              <caret line="227" lean-forward="true" selection-start-line="227" selection-end-line="227" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ConnectionHandler.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="46">
-              <caret line="240" column="3" lean-forward="true" selection-start-line="240" selection-start-column="3" selection-end-line="240" selection-end-column="3" />
+            <state relative-caret-position="1163">
+              <caret line="254" lean-forward="true" selection-start-line="254" selection-end-line="254" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
               </folding>
@@ -56,13 +44,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/include/ConnectionHandler.h">
+        <entry file="file:///usr/include/boost/system/error_code.hpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="179">
-              <caret line="24" column="22" selection-start-line="24" selection-start-column="22" selection-end-line="24" selection-end-column="22" />
-              <folding>
-                <element signature="e#59#76#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="92">
+              <caret line="489" selection-start-line="489" selection-end-line="489" />
             </state>
           </provider>
         </entry>
@@ -70,8 +55,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ClientMain.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="8" column="18" lean-forward="true" selection-start-line="8" selection-start-column="18" selection-end-line="8" selection-end-column="18" />
+            <state relative-caret-position="339">
+              <caret line="23" lean-forward="true" selection-start-line="23" selection-end-line="23" />
               <folding>
                 <element signature="e#0#19#0" expanded="true" />
               </folding>
@@ -99,7 +84,13 @@
       <find>new</find>
       <find>*</find>
       <find>followMessage</find>
-      <find>FOLLOW</find>
+      <find>getShort</find>
+      <find>CREATEACK</find>
+      <find>getString</find>
+      <find>bytestoshort</find>
+      <find>stop</find>
+      <find>getb</find>
+      <find>STAT</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -109,21 +100,21 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/CMakeLists.txt" />
         <option value="$PROJECT_DIR$/include/Client.h" />
-        <option value="$PROJECT_DIR$/src/Client.cpp" />
         <option value="$PROJECT_DIR$/src/ClientMain.cpp" />
+        <option value="$PROJECT_DIR$/src/Client.cpp" />
+        <option value="$PROJECT_DIR$/CMakeLists.txt" />
         <option value="$PROJECT_DIR$/include/ConnectionHandler.h" />
         <option value="$PROJECT_DIR$/src/ConnectionHandler.cpp" />
       </list>
     </option>
   </component>
   <component name="OCFindUsagesOptions" text="true" ivars="false" properties="true" derivedClasses="false" />
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="67" />
-    <option name="y" value="25" />
-    <option name="width" value="650" />
-    <option name="height" value="743" />
+    <option name="y" value="27" />
+    <option name="width" value="1269" />
+    <option name="height" value="400" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -137,6 +128,11 @@
             <path>
               <item name="Client" type="b2602c69:ProjectViewProjectNode" />
               <item name="Client" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Client" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Client" type="462c0819:PsiDirectoryNode" />
+              <item name="cmake-build-debug" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Client" type="b2602c69:ProjectViewProjectNode" />
@@ -203,25 +199,24 @@
       <workItem from="1546339965544" duration="7485000" />
       <workItem from="1546357107501" duration="1899000" />
       <workItem from="1546370693191" duration="1968000" />
-      <workItem from="1546423790635" duration="11870000" />
-      <workItem from="1546442989955" duration="5839000" />
+      <workItem from="1546423790635" duration="17982000" />
+      <workItem from="1546450887869" duration="10664000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="123331000" />
+    <option name="totallyTimeSpent" value="134268000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="67" y="25" width="1299" height="743" extended-state="6" />
-    <editor active="true" />
+    <frame x="67" y="25" width="1299" height="743" extended-state="7" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4966216" visible="true" weight="0.14365523" />
-      <window_info id="Structure" order="1" sideWeight="0.5033784" side_tool="true" visible="true" weight="0.14365523" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19393456" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32899022" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.3159609" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.5179153" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.048859935" />
+      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.35993487" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -230,7 +225,7 @@
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="10" />
       <window_info anchor="bottom" id="CMake" order="11" weight="0.32792208" />
-      <window_info anchor="bottom" id="Messages" order="12" weight="0.6384365" />
+      <window_info anchor="bottom" id="Messages" order="12" weight="0.60912055" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -245,23 +240,23 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/src/ConnectionHandler.cpp</url>
-          <line>235</line>
-          <option name="timeStamp" value="68" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/src/Client.cpp</url>
-          <line>47</line>
-          <option name="timeStamp" value="69" />
+          <line>356</line>
+          <option name="timeStamp" value="73" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/src/ConnectionHandler.cpp</url>
           <line>248</line>
-          <option name="timeStamp" value="70" />
+          <option name="timeStamp" value="74" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/src/ConnectionHandler.cpp</url>
-          <line>350</line>
-          <option name="timeStamp" value="71" />
+          <line>81</line>
+          <option name="timeStamp" value="75" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/src/ConnectionHandler.cpp</url>
+          <line>255</line>
+          <option name="timeStamp" value="76" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -302,20 +297,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/makefile">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-55">
-          <caret line="5" column="43" selection-start-line="5" selection-start-column="43" selection-end-line="5" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/include/boost/asio/buffer.hpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="7182">
-          <caret line="378" selection-start-line="378" selection-end-line="378" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///usr/include/boost/asio/basic_stream_socket.hpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="12977">
@@ -351,10 +332,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file:///usr/include/boost/system/error_code.hpp">
+    <entry file="file:///usr/include/c++/7/thread">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="438" selection-start-line="438" selection-end-line="438" />
+        <state relative-caret-position="122">
+          <caret line="134" selection-start-line="134" selection-end-line="134" />
         </state>
       </provider>
     </entry>
@@ -410,13 +391,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="9" column="18" selection-start-line="9" selection-start-column="18" selection-end-line="9" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///usr/include/boost/asio/basic_socket.hpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="116">
@@ -427,44 +401,65 @@
     <entry file="file://$PROJECT_DIR$/include/ConnectionHandler.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="179">
-          <caret line="24" column="22" selection-start-line="24" selection-start-column="22" selection-end-line="24" selection-end-column="22" />
+          <caret line="30" column="18" selection-start-line="30" selection-start-column="10" selection-end-line="30" selection-end-column="18" />
           <folding>
             <element signature="e#59#76#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/makefile">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="19">
+          <caret line="1" column="25" selection-start-line="1" selection-start-column="25" selection-end-line="1" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="271">
+          <caret line="17" lean-forward="true" selection-start-line="17" selection-end-line="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/include/boost/system/error_code.hpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="92">
+          <caret line="489" selection-start-line="489" selection-end-line="489" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/include/boost/asio/buffer.hpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="73">
+          <caret line="765" selection-start-line="765" selection-end-line="765" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/ClientMain.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="18" lean-forward="true" selection-start-line="8" selection-start-column="18" selection-end-line="8" selection-end-column="18" />
+        <state relative-caret-position="339">
+          <caret line="23" lean-forward="true" selection-start-line="23" selection-end-line="23" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ConnectionHandler.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="46">
-          <caret line="240" column="3" lean-forward="true" selection-start-line="240" selection-start-column="3" selection-end-line="240" selection-end-column="3" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Client.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="111">
+        <state relative-caret-position="150">
           <caret line="47" selection-start-line="47" selection-end-line="47" />
         </state>
       </provider>
     </entry>
-    <entry file="file:///usr/include/c++/7/thread">
+    <entry file="file://$PROJECT_DIR$/src/ConnectionHandler.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="32">
-          <caret line="227" lean-forward="true" selection-start-line="227" selection-end-line="227" />
+        <state relative-caret-position="1163">
+          <caret line="254" lean-forward="true" selection-start-line="254" selection-end-line="254" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
