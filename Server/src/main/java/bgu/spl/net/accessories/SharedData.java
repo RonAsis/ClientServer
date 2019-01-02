@@ -2,17 +2,14 @@ package bgu.spl.net.accessories;
 
 import bgu.spl.net.Messages.Message;
 import bgu.spl.net.Messages.NotificationMessage;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class SharedData {
 
-        private ConcurrentHashMap<Integer, NotificationMessage> messagePost;
-        private ConcurrentLinkedQueue<String> messagePM;
+        private ConcurrentHashMap<Integer, NotificationMessage> messagePostAndPM;
         private ConcurrentHashMap<String,User> users;
         private AtomicInteger tick;
         private Object postMsgLock=new Object();
@@ -23,8 +20,7 @@ public class SharedData {
      * constructor
      */
     public SharedData(){
-        messagePost=new ConcurrentHashMap<>();
-            messagePM=new ConcurrentLinkedQueue<>();
+        messagePostAndPM=new ConcurrentHashMap<>();
             users=new ConcurrentHashMap<>();
             tick=new AtomicInteger();
     }
@@ -52,14 +48,15 @@ public class SharedData {
      * @return
      */
     public boolean login(String name,String password){
-        User user=users.get(name);
-        if(user==null || user.isLogin())
-            return false;
-        else if(user.login(password))
-            return  true;
-        else
-            return  false;
-
+        synchronized (registerLock) {
+            User user = users.get(name);
+            if (user == null || user.isLogin())
+                return false;
+            else if (user.login(password))
+                return true;
+            else
+                return false;
+        }
     }
 
     /**
@@ -68,16 +65,17 @@ public class SharedData {
      * @return
      */
     public boolean logout(String name){
-        if(name!=null) {
-            User user = users.get(name);
-            if (user != null && user.isLogin()) {
-                user.logout(tick.get());
-                return true;
-            } else
-                return false;
+        synchronized (postMsgLock) {
+            if (name != null) {
+                User user = users.get(name);
+                if (user != null && user.isLogin()) {
+                    user.logout(tick.get());
+                    return true;
+                } else
+                    return false;
+            }
+            return false;
         }
-        return false;
-
     }
 
     /**
@@ -148,8 +146,8 @@ public class SharedData {
      * add Notifaction  message to the list
      * @param notificationMessage
      */
-    public void addNotifactionToMessagesPost(Message notificationMessage){
-        this.messagePost.put(channgeTick(),(NotificationMessage)notificationMessage);
+    public void addNotifactionToMessages(Message notificationMessage){
+        this.messagePostAndPM.put(channgeTick(),(NotificationMessage)notificationMessage);
 
     }
 
@@ -164,7 +162,7 @@ public class SharedData {
             int tickCurrnt = this.tick.get();
             int tickLastOfUser = this.users.get(name).getTickLogOut();
             while (tickCurrnt <= tickLastOfUser) {
-                NotificationMessage notificationMessage = this.messagePost.get(tickLastOfUser);
+                NotificationMessage notificationMessage = this.messagePostAndPM.get(tickLastOfUser);
                 if (notificationMessage != null && notificationMessage.checkIfFindInTheListOfUsers(name))
                     result.add(notificationMessage);
                 tickLastOfUser++;
@@ -228,12 +226,11 @@ public class SharedData {
      * @return
      */
     public boolean sendMessagePM(String name,String nameUserGetMsg,String msg){
-        synchronized (pmMsgLock){
+        synchronized (postMsgLock){
             User userSent=this.users.get(name);
             User userGetTheMsg=this.users.get(nameUserGetMsg);
             if (userSent==null || userSent.isLogin()==false || userGetTheMsg==null)
                 return false;
-            this.messagePM.add(msg);
             return true;
         }
     }

@@ -10,7 +10,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class ConnectionsImpl<T> implements  Connections<T>  {
     private ConcurrentHashMap<Integer,ConnectionHandler> connectionHandlerMap;
-    private static int id;
+    private int id;// change form static
     private ConcurrentHashMap<String,Integer> userIdMap;
     private ConcurrentHashMap<Integer,String> idUserMap;
 

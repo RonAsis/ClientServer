@@ -35,7 +35,9 @@ public class PmMessage extends  Message {
             if(sharedData.sendMessagePM(userName,userSentMessageTo,content)) {
                 List list=new ArrayList();
                 list.add(userSentMessageTo);
-                this.setResult(new NotificationMessage(typeMessage, userName, list, content));
+                NotificationMessage notificationMessage=new NotificationMessage(typeMessage, userName, list, content);
+                this.setResult(notificationMessage);
+                sharedData.addNotifactionToMessages(notificationMessage);
                 return  this.getOpcode();
             }
             else{

@@ -37,7 +37,7 @@ public class PostMessage extends  Message {
         else{
             Message notificationMessage=new NotificationMessage(typeMessage, name, list, content);
             this.setResult(notificationMessage);
-            sharedData.addNotifactionToMessagesPost(notificationMessage);
+            sharedData.addNotifactionToMessages(notificationMessage);
             return this.getOpcode();
         }
     }
