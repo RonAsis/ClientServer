@@ -8,7 +8,7 @@ public class RegisterMessage extends Message{
 
     private String nameUser="";
     private String password="";
-
+    private boolean thisUserIsOnline=false;
     /**
      * constructor
      */
@@ -22,7 +22,8 @@ public class RegisterMessage extends Message{
      * @return
      */
     public short act(SharedData sharedData,String name){
-        if(sharedData.register(this.nameUser,this.password)){
+        this.thisUserIsOnline=name!=null;
+        if(!this.thisUserIsOnline && sharedData.register(this.nameUser,this.password)){
             setResult(new AckMessage(getOpcode()));
             return this.getOpcode();
         }
