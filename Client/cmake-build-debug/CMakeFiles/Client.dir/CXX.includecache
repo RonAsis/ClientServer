@@ -6,7 +6,13 @@
 
 #IncludeRegexTransform: 
 
-/home/ron/ClientServer/Client/include/ConnectionHandler.h
+/home/noy/Desktop/SPL/as3/Client/include/Client.h
+thread
+-
+ConnectionHandler.h
+/home/noy/Desktop/SPL/as3/Client/include/ConnectionHandler.h
+
+/home/noy/Desktop/SPL/as3/Client/include/ConnectionHandler.h
 string
 -
 iostream
@@ -18,15 +24,13 @@ mutex
 condition_variable
 -
 
-/home/ron/ClientServer/Client/src/ConnectionHandler.cpp
+/home/noy/Desktop/SPL/as3/Client/src/Client.cpp
+thread
+-
 ../include/ConnectionHandler.h
-/home/ron/ClientServer/Client/include/ConnectionHandler.h
-string
--
-iostream
--
+/home/noy/Desktop/SPL/as3/Client/include/ConnectionHandler.h
+../include/Client.h
+/home/noy/Desktop/SPL/as3/Client/include/Client.h
 boost/asio.hpp
--
-mutex
 -
 
