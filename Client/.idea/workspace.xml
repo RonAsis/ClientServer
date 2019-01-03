@@ -13,8 +13,8 @@
   <component name="ChangeListManager">
     <list default="true" id="7a8acbd2-c694-4ada-9584-a18550ce04b8" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Client.dir/src/ClientMain.cpp.o" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../Server/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/target/classes/bgu/spl/net/Messages/FollowMessage.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/target/classes/bgu/spl/net/Messages/FollowMessage.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Server/target/classes/bgu/spl/net/accessories/SharedData.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/target/classes/bgu/spl/net/accessories/SharedData.class" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
@@ -234,12 +234,12 @@
       <workItem from="1546423790635" duration="17982000" />
       <workItem from="1546450887869" duration="10664000" />
       <workItem from="1546466360816" duration="6482000" />
-      <workItem from="1546512964775" duration="7001000" />
+      <workItem from="1546512964775" duration="8041000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="156081000" />
+    <option name="totallyTimeSpent" value="157121000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="67" y="25" width="650" height="743" extended-state="4" />
@@ -249,8 +249,8 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32899022" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.16612378" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.28664497" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.16612378" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.28664497" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
