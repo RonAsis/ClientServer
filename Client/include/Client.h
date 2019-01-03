@@ -7,10 +7,8 @@ class Client{
 private:
     ConnectionHandler connectionHandler;
     bool stop;
-    int id;
-    std::string clientName;
 public:
-    Client(std::string host, short port, int id);
+    Client(std::string host, short port);
     ~Client(); //destructor
     void runWriter();
     void runReader();

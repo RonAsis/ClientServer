@@ -12,9 +12,8 @@
  *
  * @param host -  the connection handler's host.
  * @param port - the connection handler's port.
- * @param id - the client's ID.
  */
-Client::Client(std::string host, short port, int id): connectionHandler(host, port), stop(false), id(id), clientName("CLIENT#" + std::to_string(id)){}
+Client::Client(std::string host, short port): connectionHandler(host, port), stop(false){}
 
 /**
  * The method that the thread threadWrite is responsible for.
@@ -27,14 +26,9 @@ void Client::runWriter(){
             std::cin.getline(buf, bufsize); // getting a new line from the user
             std::string line(buf);
 
-            if (!connectionHandler.sendLine(line)) { // if it wasn't possible to send the line from the user break;
-                // std::cout << "Disconnected. Exiting...\n" << std::endl;
-                //this->stop = true;
-                //break;
-            }
+            connectionHandler.sendLine(line); // if it wasn't possible to send the line from the user break;
         }
     }
-    std::cerr << "terminate run writer" << std::endl;
 }
 
 /**
@@ -45,13 +39,10 @@ void Client::runReader(){
         if (this->connectionHandler.getIsLoggedOut()==false){
             std::string answer;
 
-            if (!connectionHandler.getLine(answer)) { // if it wasn't possible to get the answer from the server
-                //  std::cout << "Disconnected. Exiting...\n" << std::endl;
-                // this->stop = true;
-                // break;
-            }
+            connectionHandler.getLine(answer); // if it wasn't possible to get the answer from the server
+
             if (answer!=""){
-                std::cout << this->clientName+" "+answer <<std::endl;
+                std::cout <<answer <<std::endl;
 
                 std::string::size_type index(answer.find('>', 0));
                 std::string s = answer.substr(index+2, index+6);
@@ -61,9 +52,7 @@ void Client::runReader(){
                 }
             }
         }
-
     }
-    std::cerr << "terminate run reader" << std::endl;
 }
 
 /**

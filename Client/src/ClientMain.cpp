@@ -11,8 +11,7 @@ int main (int argc, char **argv) {
     std::string host = argv[1];
     short port = atoi(argv[2]);
 
-    int id = 0; // *********************
-    Client client(host, port, id); // creating a new client
+    Client client(host, port); // creating a new client
 
     if (!client.getConnectionHandler().connect()) {
         std::cerr << "Cannot connect to " << host << ":" << port << std::endl;
