@@ -32,13 +32,3 @@ condition_variable
 boost/asio.hpp
 -
 
-/home/noy/Desktop/SPL/as3/Client/src/ClientMain.cpp
-stdlib.h
--
-../include/ConnectionHandler.h
-/home/noy/Desktop/SPL/as3/Client/include/ConnectionHandler.h
-../include/Client.h
-/home/noy/Desktop/SPL/as3/Client/include/Client.h
-thread
--
-

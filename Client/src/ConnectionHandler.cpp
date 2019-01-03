@@ -381,9 +381,9 @@ bool ConnectionHandler::createNotification(std::string& frame){
     std::string content (frameVector.data(), frameVector.size());
 
     if (messageOpcode==1)  // public
-        frame = "> NOTIFICATION Public " + postingUser+content;
+        frame = "NOTIFICATION Public " + postingUser+content;
     else  // pm
-        frame = "> NOTIFICATION PM "+ postingUser+content;
+        frame = "NOTIFICATION PM "+ postingUser+content;
     return true;
 }
 
@@ -418,7 +418,7 @@ bool ConnectionHandler::createAck(std::string& frame) {
         std::string listOfUsers(frameVector.data(), frameVector.size());
         std::string users (listOfUsers.substr(0, listOfUsers.length()-1));
 
-        frame = "> ACK "+ std::to_string(messageOpcode) +" "+ std::to_string(numOfUsers)+" "+ users;
+        frame = "ACK "+ std::to_string(messageOpcode) +" "+ std::to_string(numOfUsers)+" "+ users;
     }
 
     else if (messageOpcode == 8){ // stat
@@ -438,11 +438,11 @@ bool ConnectionHandler::createAck(std::string& frame) {
         if (numFollowing == -1)
             return false;
 
-        frame = "> ACK "+ std::to_string(messageOpcode) +" "+ std::to_string(numPosts)+" "+ std::to_string(numFollowers)+" "+std::to_string(numFollowing);
+        frame = "ACK "+ std::to_string(messageOpcode) +" "+ std::to_string(numPosts)+" "+ std::to_string(numFollowers)+" "+std::to_string(numFollowing);
     }
 
     else {// register / login / logout / post / pm
-        frame = "> ACK " + std::to_string(messageOpcode);
+        frame = "ACK " + std::to_string(messageOpcode);
     }
     return true;
 }
@@ -458,7 +458,7 @@ bool ConnectionHandler::createError(std::string& frame) {
     if (messageOpcode == -1)
         return false;
 
-    frame = "> ERROR "+ std::to_string(messageOpcode);
+    frame = "ERROR "+ std::to_string(messageOpcode);
 
     if (messageOpcode == 3)
         this->isLoggedOut = false;

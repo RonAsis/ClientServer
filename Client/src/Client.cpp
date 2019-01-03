@@ -44,11 +44,13 @@ void Client::runReader(){
             if (answer!=""){
                 std::cout <<answer <<std::endl;
 
-                std::string::size_type index(answer.find('>', 0));
-                std::string s = answer.substr(index+2, index+6);
-                if (s.compare("ACK 3") == 0){
-                    this->stop = true;
-                    this->getConnectionHandler().close();
+                std::string::size_type index(answer.find('A', 0));
+                if (index<answer.length()){
+                    std::string s = answer.substr(index, index+5);
+                    if (s.compare("ACK 3") == 0){
+                        this->stop = true;
+                        this->getConnectionHandler().close();
+                    }
                 }
             }
         }

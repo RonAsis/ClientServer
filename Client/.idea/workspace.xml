@@ -25,8 +25,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Client.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="350">
-              <caret line="32" lean-forward="true" selection-start-line="32" selection-end-line="32" />
+            <state relative-caret-position="212">
+              <caret line="48" column="66" lean-forward="true" selection-start-line="48" selection-start-column="66" selection-end-line="48" selection-end-column="66" />
               <folding>
                 <element signature="e#20#61#0" expanded="true" />
               </folding>
@@ -41,18 +41,6 @@
               <caret line="30" column="1" lean-forward="true" selection-start-line="30" selection-start-column="1" selection-end-line="30" selection-end-column="1" />
               <folding>
                 <element signature="e#0#19#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/ConnectionHandler.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="19">
-              <caret line="429" lean-forward="true" selection-start-line="429" selection-end-line="429" />
-              <folding>
-                <element signature="e#0#41#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -89,6 +77,7 @@
       <find>ACK</find>
       <find>islooges</find>
       <find>INDEXOFSPACE</find>
+      <find>&gt;</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -99,11 +88,11 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/include/ConnectionHandler.h" />
-        <option value="$PROJECT_DIR$/src/ConnectionHandler.cpp" />
         <option value="$PROJECT_DIR$/CMakeLists.txt" />
         <option value="$PROJECT_DIR$/makefile" />
         <option value="$PROJECT_DIR$/include/Client.h" />
         <option value="$PROJECT_DIR$/src/ClientMain.cpp" />
+        <option value="$PROJECT_DIR$/src/ConnectionHandler.cpp" />
         <option value="$PROJECT_DIR$/src/Client.cpp" />
       </list>
     </option>
@@ -198,23 +187,22 @@
       <workItem from="1546466360816" duration="6482000" />
       <workItem from="1546512964775" duration="1386000" />
       <workItem from="1546528901360" duration="2886000" />
-      <workItem from="1546533474620" duration="1907000" />
+      <workItem from="1546533474620" duration="2298000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="168791000" />
+    <option name="totallyTimeSpent" value="169182000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="67" y="25" width="1299" height="743" extended-state="7" />
-    <editor active="true" />
+    <frame x="67" y="25" width="1299" height="743" extended-state="6" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49444443" visible="true" weight="0.21308859" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49444443" visible="true" weight="0.21308859" />
       <window_info id="Structure" order="1" sideWeight="0.50555557" side_tool="true" weight="0.35095447" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32899022" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.5228013" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3485342" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.43322477" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -224,7 +212,7 @@
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="10" />
       <window_info anchor="bottom" id="CMake" order="11" weight="0.52117264" />
-      <window_info anchor="bottom" id="Messages" order="12" weight="0.59934855" />
+      <window_info anchor="bottom" id="Messages" order="12" weight="0.4820847" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -439,6 +427,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/ConnectionHandler.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="22">
+          <caret line="498" lean-forward="true" selection-start-line="498" selection-end-line="498" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/ClientMain.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="521">
@@ -449,20 +447,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ConnectionHandler.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="429" lean-forward="true" selection-start-line="429" selection-end-line="429" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Client.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="350">
-          <caret line="32" lean-forward="true" selection-start-line="32" selection-end-line="32" />
+        <state relative-caret-position="212">
+          <caret line="48" column="66" lean-forward="true" selection-start-line="48" selection-start-column="66" selection-end-line="48" selection-end-column="66" />
           <folding>
             <element signature="e#20#61#0" expanded="true" />
           </folding>
