@@ -101,6 +101,7 @@ bool ConnectionHandler::sendFrameAscii(const std::string& frame, char delimiter)
 
     if(messageTypeName!="LOGOUT" && messageTypeName!="USERLIST")
         return sendBytes(&delimiter,1);
+    return true;
 }
 
 /**
@@ -188,7 +189,7 @@ std::string ConnectionHandler::changeStringToMessage(std::string messageTypeName
     }
 
     else if (messageTypeName == "FOLLOW"){
-        int counter = 0;
+        unsigned int counter = 0;
         while (counter< messageContent.length()){
             if (messageContent[counter]!=' ')
                 message = message + messageContent[counter];
@@ -383,6 +384,7 @@ bool ConnectionHandler::createNotification(std::string& frame){
         frame = "> NOTIFICATION Public " + postingUser+content;
     else  // pm
         frame = "> NOTIFICATION PM "+ postingUser+content;
+    return true;
 }
 
 /**

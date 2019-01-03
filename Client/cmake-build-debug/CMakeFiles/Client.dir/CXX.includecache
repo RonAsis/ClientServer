@@ -6,13 +6,13 @@
 
 #IncludeRegexTransform: 
 
-/home/ron/ClientServer/Client/include/Client.h
+/home/noy/Desktop/SPL/as3/Client/include/Client.h
 thread
 -
 ConnectionHandler.h
-/home/ron/ClientServer/Client/include/ConnectionHandler.h
+/home/noy/Desktop/SPL/as3/Client/include/ConnectionHandler.h
 
-/home/ron/ClientServer/Client/include/ConnectionHandler.h
+/home/noy/Desktop/SPL/as3/Client/include/ConnectionHandler.h
 string
 -
 iostream
@@ -24,35 +24,21 @@ mutex
 condition_variable
 -
 
-/home/ron/ClientServer/Client/src/Client.cpp
-thread
--
+/home/noy/Desktop/SPL/as3/Client/src/Client.cpp
 ../include/ConnectionHandler.h
-/home/ron/ClientServer/Client/include/ConnectionHandler.h
+/home/noy/Desktop/SPL/as3/Client/include/ConnectionHandler.h
 ../include/Client.h
-/home/ron/ClientServer/Client/include/Client.h
+/home/noy/Desktop/SPL/as3/Client/include/Client.h
 boost/asio.hpp
 -
 
-/home/ron/ClientServer/Client/src/ClientMain.cpp
+/home/noy/Desktop/SPL/as3/Client/src/ClientMain.cpp
 stdlib.h
 -
 ../include/ConnectionHandler.h
-/home/ron/ClientServer/Client/include/ConnectionHandler.h
+/home/noy/Desktop/SPL/as3/Client/include/ConnectionHandler.h
 ../include/Client.h
-/home/ron/ClientServer/Client/include/Client.h
+/home/noy/Desktop/SPL/as3/Client/include/Client.h
 thread
--
-
-/home/ron/ClientServer/Client/src/ConnectionHandler.cpp
-../include/ConnectionHandler.h
-/home/ron/ClientServer/Client/include/ConnectionHandler.h
-string
--
-iostream
--
-boost/asio.hpp
--
-mutex
 -
 

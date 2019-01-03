@@ -11,11 +11,11 @@ using boost::asio::ip::tcp;
 
 class ConnectionHandler {
 private:
-    char delimiter;
     const std::string host_;
     const short port_;
     boost::asio::io_service io_service_;   // Provides core I/O functionality
     tcp::socket socket_;
+    char delimiter;
     bool isLoggedOut;
 
     // ********************** Sending a message to the server **********************

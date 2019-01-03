@@ -11,11 +11,7 @@ private:
     std::string clientName;
 public:
     Client(std::string host, short port, int id);
-    //Client & operator=(const Client & other); //copy assignment
-    Client(const Client & other); //copy constructor
     ~Client(); //destructor
-    //Client(Client && other); //Move constructor
-    //Client & operator=(Client && other); //Move assignment
     void runWriter();
     void runReader();
     ConnectionHandler& getConnectionHandler();

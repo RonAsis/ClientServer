@@ -1,4 +1,4 @@
-#include <thread>
+//#include <thread>
 #include "../include/ConnectionHandler.h"
 #include "../include/Client.h"
 #include <boost/asio.hpp>
@@ -26,7 +26,6 @@ void Client::runWriter(){
             char buf[bufsize];
             std::cin.getline(buf, bufsize); // getting a new line from the user
             std::string line(buf);
-            int len(line.length());
 
             if (!connectionHandler.sendLine(line)) { // if it wasn't possible to send the line from the user break;
                 // std::cout << "Disconnected. Exiting...\n" << std::endl;
@@ -92,60 +91,3 @@ bool Client::getStop(){
 Client :: ~Client() {
     this->connectionHandler.close();
 }
-
-/**
- * Copy constructor - this method makes a copy of this Client and saves it in the given Client "other".
- *
- * @param other - the Client in which the copy of this Client will be saved.
- */
-Client :: Client(const Client &other): stop(other.stop), id(other.id), clientName(other.clientName), connectionHandler("11", 1){
-}
-
-/**
- * Move constructor - this method makes a copy of this Client, saves it in the given Client "other"
- * and deletes this Client.
- *
- * @param other - the Client in which the copy of this Client will be saved.
-
-Client :: Client(Client&& other): orderPrint(other.orderPrint),capacity(other.capacity),numberTable(other.numberTable),open(other.open),customersList(), orderList(){
-    customersList = std:: move(other.customersList);
-    orderList = std:: move(other.orderList);
-    other.open = false;
-}
-*/
-/**
- * Copy assignment - this method makes a copy of the given Client "other" and saves it in this Client.
- *
- * @param other - the Client that this Client will be identical to.
-
-Client& Client :: operator=(const Client &other) {
-    if (this != &other) {
-        clear();
-        for (Customer *customer:other.customersList)
-            this->customersList.push_back(customer->clone());
-        for (OrderPair orderPair:other.orderList) {
-            OrderPair op(orderPair.first, orderPair.second);
-            orderList.push_back(op);
-        }
-    }
-    return *this;
-
-}
-*/
-/**
- * Move assignment - this method makes a copy of the given Client "other", saves it in this Client
- * and deletes the given Client "other".
- *
- * @param other - the Client that this Client will be identical to.
-
-Client &Client::operator=(Client &&other) {
-    if (this != &other) {
-        clear();
-        customersList = std::move(other.customersList);
-        orderList = std::move(other.orderList);
-        open = other.open;
-        capacity = other.capacity;
-        numberTable = other.numberTable;
-    }
-    return *this;
-} */
