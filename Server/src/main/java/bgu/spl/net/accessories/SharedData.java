@@ -254,7 +254,10 @@ public class SharedData {
     public List<String> getUserNameListRegister(String name){
         synchronized (registerLock){
             List<String> result=new ArrayList<>();
-            User user=this.users.get(name);
+            User user=null;
+            if(name !=null) {
+                user = this.users.get(name);
+            }
             if(user==null || user.isLogin()==false)
                 return result;
             result.addAll(this.orderRegister);

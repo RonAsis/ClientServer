@@ -1,4 +1,4 @@
-# Install script for directory: /home/noy/Desktop/SPL/as3/Client
+# Install script for directory: /home/ron/ClientServer/Client
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/noy/Desktop/SPL/as3/Client/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/ron/ClientServer/Client/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

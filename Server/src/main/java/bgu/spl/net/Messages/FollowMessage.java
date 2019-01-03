@@ -31,18 +31,19 @@ public class FollowMessage extends  Message{
      */
     public short act(SharedData sharedData,String name) {
         this.name=name;
-        if(this.follow==0) {
-            follow(sharedData);
-            return this.getOpcode();
+        if(name!=null) {
+            if (this.follow == 0) {
+                follow(sharedData);
+                return this.getOpcode();
+            } else if (this.follow == 1) {
+                unfollow(sharedData);
+                return this.getOpcode();
+            }
         }
-        else if(this.follow==1){
-            unfollow(sharedData);
-            return this.getOpcode();
-        }
-        else {
+      //  else {
             setResult(new ErrorMessage(getOpcode()));//if the nubmer of follow is not 1 or 0
             return -1;
-        }
+       // }
     }
 
 
