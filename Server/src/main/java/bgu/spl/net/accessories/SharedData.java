@@ -36,9 +36,10 @@ public class SharedData {
         synchronized (registerLock) {
             if (name != null && password != null) {
                 User successful = users.putIfAbsent(name, new User(name, password));
-                orderRegister.add(name);
-                if (successful == null)
+                if (successful == null) {
+                    orderRegister.add(name);
                     return true;
+                }
             }
             return false;
         }
@@ -187,7 +188,14 @@ public class SharedData {
         // if the user don't exist or don't login
         if (user == null || user.isLogin() == false)
             return null;
-        List<String> mergeList=mergeList(list,user.getFollowList());
+        List<String> listChecked=new ArrayList<>();
+        if(list!=null && list.size()>0) {
+            for (String key : list) {
+                if (this.users.containsKey(key))
+                    listChecked.add(key);
+            }
+        }
+        List<String> mergeList=mergeList(listChecked,user.getFollowList());
         user.addNumberOfPost();
             return mergeList;
     }
