@@ -28,8 +28,11 @@ public class PostMessage extends  Message {
      */
     @Override
     public short act(SharedData sharedData,String name) {
-        this.name=name;
-        List list=sharedData.sendMessagePost(name,listUserS,content);
+        this.name = name;
+        List list=null;
+        if (name != null){
+            list = sharedData.sendMessagePost(name, listUserS, content);
+         }
         if(list==null){
             this.setResult(new ErrorMessage(5));
             return -1;

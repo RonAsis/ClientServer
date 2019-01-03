@@ -32,18 +32,20 @@ public class PmMessage extends  Message {
     @Override
         public short act(SharedData sharedData,String name) {
         this.userName=name;
-            if(sharedData.sendMessagePM(userName,userSentMessageTo,content)) {
-                List list=new ArrayList();
+        if (name!=null) {
+            if (sharedData.sendMessagePM(userName, userSentMessageTo, content)) {
+                List list = new ArrayList();
                 list.add(userSentMessageTo);
-                NotificationMessage notificationMessage=new NotificationMessage(typeMessage, userName, list, content);
+                NotificationMessage notificationMessage = new NotificationMessage(typeMessage, userName, list, content);
                 this.setResult(notificationMessage);
                 sharedData.addNotifactionToMessages(notificationMessage);
-                return  this.getOpcode();
+                return this.getOpcode();
             }
-            else{
+        }
+         //   else{
                 this.setResult(new ErrorMessage(6));
                 return  -1;
-            }
+        //    }
         }
 
     /**
