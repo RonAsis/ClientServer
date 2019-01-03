@@ -24,7 +24,10 @@ public class StatMessage extends  Message {
     @Override
     public short act(SharedData sharedData,String name) {
         this.userName=name;
-        short [] statUser=sharedData.getStatUser(this.userName,this.userStat);
+        short[] statUser=null;
+        if(this.userName!=null) {
+            statUser = sharedData.getStatUser(this.userName, this.userStat);
+        }
         if(statUser==null) {
             setResult(new ErrorMessage(getOpcode()));
             return -1;
