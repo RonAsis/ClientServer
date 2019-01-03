@@ -86,7 +86,7 @@ public class AckMessage  extends Message {
      * @return
      */
     private byte[] opcodeOprtionalBytes8(){
-        return  mergeTwoArraysOfBytes(mergeTwoArraysOfBytes(this.shortToBytes(this.numOfUsers),this.shortToBytes(this.numFollowers)),this.shortToBytes(this.numFollowing));
+        return  mergeTwoArraysOfBytes(mergeTwoArraysOfBytes(this.shortToBytes(this.numPosts),this.shortToBytes(this.numFollowers)),this.shortToBytes(this.numFollowing));
     }
 
 
