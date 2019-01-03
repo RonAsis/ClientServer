@@ -73,7 +73,7 @@ public class SharedData {
             if (name != null) {
                 User user = users.get(name);
                 if (user != null && user.isLogin()) {
-                    user.logout(tick.get());
+                    user.logout(tick.get()+1);
                     return true;
                 } else
                     return false;
