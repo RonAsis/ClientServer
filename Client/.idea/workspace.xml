@@ -25,8 +25,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Client.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="48">
-              <caret line="44" selection-start-line="44" selection-end-line="44" />
+            <state relative-caret-position="96">
+              <caret line="100" column="1" lean-forward="true" selection-start-line="100" selection-start-column="1" selection-end-line="100" selection-end-column="1" />
             </state>
           </provider>
         </entry>
@@ -34,8 +34,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/ConnectionHandler.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="219">
-              <caret line="148" column="14" selection-end-line="505" selection-end-column="1" />
+            <state relative-caret-position="238">
+              <caret line="384" column="1" lean-forward="true" selection-start-line="384" selection-start-column="1" selection-end-line="384" selection-end-column="1" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
               </folding>
@@ -46,8 +46,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ClientMain.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="339">
-              <caret line="23" selection-start-line="23" selection-end-line="23" />
+            <state relative-caret-position="77">
+              <caret line="7" column="13" selection-start-line="7" selection-end-line="8" />
               <folding>
                 <element signature="e#0#19#0" expanded="true" />
               </folding>
@@ -80,9 +80,13 @@
       <find>bytestoshort</find>
       <find>stop</find>
       <find>getb</find>
-      <find>STAT</find>
       <find>getString</find>
       <find>PM</find>
+      <find>STAT</find>
+      <find>LOGOU</find>
+      <find>POST</find>
+      <find>49</find>
+      <find>pm</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -94,15 +98,15 @@
       <list>
         <option value="$PROJECT_DIR$/include/Client.h" />
         <option value="$PROJECT_DIR$/src/ClientMain.cpp" />
-        <option value="$PROJECT_DIR$/src/Client.cpp" />
         <option value="$PROJECT_DIR$/CMakeLists.txt" />
         <option value="$PROJECT_DIR$/include/ConnectionHandler.h" />
+        <option value="$PROJECT_DIR$/src/Client.cpp" />
         <option value="$PROJECT_DIR$/src/ConnectionHandler.cpp" />
       </list>
     </option>
   </component>
   <component name="OCFindUsagesOptions" text="true" ivars="false" properties="true" derivedClasses="false" />
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="67" />
     <option name="y" value="27" />
     <option name="width" value="1269" />
@@ -193,24 +197,23 @@
       <workItem from="1546370693191" duration="1968000" />
       <workItem from="1546423790635" duration="17982000" />
       <workItem from="1546450887869" duration="10664000" />
-      <workItem from="1546466360816" duration="6482000" />
+      <workItem from="1546466360816" duration="18978000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="143724000" />
+    <option name="totallyTimeSpent" value="156220000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="67" y="25" width="1299" height="743" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4952381" visible="true" weight="0.09497207" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4952381" visible="true" weight="0.19792499" />
       <window_info id="Structure" order="1" sideWeight="0.50476193" side_tool="true" weight="0.30298012" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32899022" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.5162867" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.4136808" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.3306189" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4136808" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -234,11 +237,25 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/src/ConnectionHandler.cpp</url>
-          <line>146</line>
-          <option name="timeStamp" value="88" />
+          <line>359</line>
+          <option name="timeStamp" value="99" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+  </component>
+  <component name="debuggerHistoryManager">
+    <expressions id="evaluateExpression">
+      <expression>
+        <expression-string>frame[0]</expression-string>
+        <language-id>ObjectiveC</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>frame</expression-string>
+        <language-id>ObjectiveC</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+    </expressions>
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$APPLICATION_HOME_DIR$/bin/cmake/linux/share/cmake-3.13/Modules/FindBoost.cmake">
@@ -417,8 +434,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ClientMain.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="339">
-          <caret line="23" selection-start-line="23" selection-end-line="23" />
+        <state relative-caret-position="77">
+          <caret line="7" column="13" selection-start-line="7" selection-end-line="8" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
           </folding>
@@ -427,15 +444,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Client.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="48">
-          <caret line="44" selection-start-line="44" selection-end-line="44" />
+        <state relative-caret-position="96">
+          <caret line="100" column="1" lean-forward="true" selection-start-line="100" selection-start-column="1" selection-end-line="100" selection-end-column="1" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ConnectionHandler.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="219">
-          <caret line="148" column="14" selection-end-line="505" selection-end-column="1" />
+        <state relative-caret-position="238">
+          <caret line="384" column="1" lean-forward="true" selection-start-line="384" selection-start-column="1" selection-end-line="384" selection-end-column="1" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
           </folding>

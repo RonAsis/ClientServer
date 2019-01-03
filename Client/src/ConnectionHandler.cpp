@@ -292,8 +292,9 @@ short ConnectionHandler::getShort(std::string& frame, int counter){
         return bytesToShort(messageTypeByte); // translating the char to short
     }
     // incase there's only one byte to read
-    char messageTypeByte[1];// translating the bytes to char
-    messageTypeByte[0] = frame[0];
+    char messageTypeByte[2];// translating the bytes to char
+    messageTypeByte[0] = 0;
+    messageTypeByte[1] = frame[0];
     return bytesToShort(messageTypeByte); // translating the char to short
 }
 
@@ -374,10 +375,10 @@ bool ConnectionHandler::createNotification(std::string& frame){
 
     std::string content (frameVector.data(), frameVector.size());
 
-    if (messageOpcode == 1)  // public
-        frame = "> NOTIFICATION Public " + postingUser+" "+content;
+    if (messageOpcode==1)  // public
+        frame = "> NOTIFICATION Public " + postingUser+content;
     else  // pm
-        frame = "> NOTIFICATION PM "+ postingUser+" "+content;
+        frame = "> NOTIFICATION PM "+ postingUser+content;
 }
 
 /**
