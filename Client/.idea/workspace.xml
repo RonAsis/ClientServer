@@ -11,7 +11,28 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7a8acbd2-c694-4ada-9584-a18550ce04b8" name="Default Changelist" comment="" />
+    <list default="true" id="7a8acbd2-c694-4ada-9584-a18550ce04b8" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeCache.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeCache.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeDirectoryInformation.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeDirectoryInformation.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeOutput.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeOutput.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Client.dir/CXX.includecache" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Client.dir/CXX.includecache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Client.dir/DependInfo.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Client.dir/DependInfo.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Client.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Client.dir/build.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Client.dir/depend.internal" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Client.dir/depend.internal" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Client.dir/src/ClientMain.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Client.dir/src/ClientMain.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Client.dir/src/ConnectionHandler.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Client.dir/src/ConnectionHandler.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile2" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/TargetDirectories.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/TargetDirectories.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/Client" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Client" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/Client.cbp" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Client.cbp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/cmake_install.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/cmake_install.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/src/main/java/bgu/spl/net/accessories/SharedData.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/src/main/java/bgu/spl/net/accessories/SharedData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/target/classes/bgu/spl/net/accessories/SharedData.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/target/classes/bgu/spl/net/accessories/SharedData.class" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -25,8 +46,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Client.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="96">
-              <caret line="100" column="1" lean-forward="true" selection-start-line="100" selection-start-column="1" selection-end-line="100" selection-end-column="1" />
+            <state relative-caret-position="495">
+              <caret line="33" column="24" selection-start-line="33" selection-start-column="24" selection-end-line="33" selection-end-column="24" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="180">
+              <caret line="12" column="30" selection-start-line="12" selection-start-column="30" selection-end-line="12" selection-end-column="30" />
             </state>
           </provider>
         </entry>
@@ -34,8 +64,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/ConnectionHandler.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="384" column="1" lean-forward="true" selection-start-line="384" selection-start-column="1" selection-end-line="384" selection-end-column="1" />
+            <state relative-caret-position="62">
+              <caret line="177" column="5" selection-start-line="177" selection-start-column="5" selection-end-line="177" selection-end-column="5" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
               </folding>
@@ -44,10 +74,40 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file:///usr/include/c++/7/bits/basic_string.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="90525">
+              <caret line="6035" selection-start-line="6035" selection-end-line="6035" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file:///usr/include/boost/system/error_code.hpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="6570">
+              <caret line="438" selection-start-line="438" selection-end-line="438" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/include/ConnectionHandler.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="360">
+              <caret line="24" column="22" selection-start-line="24" selection-start-column="22" selection-end-line="24" selection-end-column="22" />
+              <folding>
+                <element signature="e#59#76#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ClientMain.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="77">
-              <caret line="7" column="13" selection-start-line="7" selection-end-line="8" />
+            <state relative-caret-position="150">
+              <caret line="10" column="31" selection-start-line="10" selection-start-column="31" selection-end-line="10" selection-end-column="31" />
               <folding>
                 <element signature="e#0#19#0" expanded="true" />
               </folding>
@@ -80,13 +140,10 @@
       <find>bytestoshort</find>
       <find>stop</find>
       <find>getb</find>
+      <find>STAT</find>
       <find>getString</find>
       <find>PM</find>
-      <find>STAT</find>
-      <find>LOGOU</find>
-      <find>POST</find>
-      <find>49</find>
-      <find>pm</find>
+      <find>ACK</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -98,19 +155,19 @@
       <list>
         <option value="$PROJECT_DIR$/include/Client.h" />
         <option value="$PROJECT_DIR$/src/ClientMain.cpp" />
+        <option value="$PROJECT_DIR$/src/Client.cpp" />
         <option value="$PROJECT_DIR$/CMakeLists.txt" />
         <option value="$PROJECT_DIR$/include/ConnectionHandler.h" />
-        <option value="$PROJECT_DIR$/src/Client.cpp" />
         <option value="$PROJECT_DIR$/src/ConnectionHandler.cpp" />
       </list>
     </option>
   </component>
   <component name="OCFindUsagesOptions" text="true" ivars="false" properties="true" derivedClasses="false" />
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="4">
     <option name="x" value="67" />
-    <option name="y" value="27" />
-    <option name="width" value="1269" />
-    <option name="height" value="400" />
+    <option name="y" value="25" />
+    <option name="width" value="727" />
+    <option name="height" value="741" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -125,11 +182,6 @@
             <path>
               <item name="Client" type="b2602c69:ProjectViewProjectNode" />
               <item name="Client" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Client" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Client" type="462c0819:PsiDirectoryNode" />
-              <item name="cmake-build-debug" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Client" type="b2602c69:ProjectViewProjectNode" />
@@ -197,23 +249,24 @@
       <workItem from="1546370693191" duration="1968000" />
       <workItem from="1546423790635" duration="17982000" />
       <workItem from="1546450887869" duration="10664000" />
-      <workItem from="1546466360816" duration="18978000" />
+      <workItem from="1546466360816" duration="6482000" />
+      <workItem from="1546512964775" duration="1386000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="156220000" />
+    <option name="totallyTimeSpent" value="150466000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="67" y="25" width="1299" height="743" extended-state="6" />
+    <frame x="67" y="25" width="727" height="741" extended-state="4" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4952381" visible="true" weight="0.19792499" />
-      <window_info id="Structure" order="1" sideWeight="0.50476193" side_tool="true" weight="0.30298012" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49444443" visible="true" weight="0.36270192" />
+      <window_info id="Structure" order="1" sideWeight="0.50555557" side_tool="true" weight="0.35095447" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32899022" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.3306189" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4136808" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.16666667" />
+      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.41339868" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -222,7 +275,7 @@
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="10" />
       <window_info anchor="bottom" id="CMake" order="11" weight="0.32792208" />
-      <window_info anchor="bottom" id="Messages" order="12" weight="0.60912055" />
+      <window_info anchor="bottom" id="Messages" order="12" weight="0.60784316" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -233,25 +286,16 @@
     <option name="version" value="1" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/src/ConnectionHandler.cpp</url>
-          <line>359</line>
-          <option name="timeStamp" value="99" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <watches-manager>
+      <configuration name="CMakeRunConfiguration">
+        <watch expression="messageContent(frame.substr(indexOfSpace+1, frame.length()-(indexOfSpace+1)))" language="ObjectiveC" />
+      </configuration>
+    </watches-manager>
   </component>
   <component name="debuggerHistoryManager">
-    <expressions id="evaluateExpression">
+    <expressions id="watch">
       <expression>
-        <expression-string>frame[0]</expression-string>
-        <language-id>ObjectiveC</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>frame</expression-string>
+        <expression-string>messageContent(frame.substr(indexOfSpace+1, frame.length()-(indexOfSpace+1)))</expression-string>
         <language-id>ObjectiveC</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
@@ -349,13 +393,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file:///usr/include/c++/7/bits/invoke.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="116">
-          <caret line="96" selection-start-line="96" selection-end-line="96" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///usr/include/c++/7/bits/std_mutex.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
@@ -380,27 +417,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file:///usr/include/c++/7/bits/basic_string.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="56">
-          <caret line="2268" column="6" selection-start-line="2268" selection-start-column="6" selection-end-line="2268" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///usr/include/boost/asio/basic_socket.hpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="116">
           <caret line="701" selection-start-line="701" selection-end-line="701" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/include/ConnectionHandler.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="179">
-          <caret line="24" column="22" selection-start-line="24" selection-start-column="22" selection-end-line="24" selection-end-column="22" />
-          <folding>
-            <element signature="e#59#76#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -411,20 +431,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="12" column="30" lean-forward="true" selection-start-line="12" selection-start-column="30" selection-end-line="12" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/include/boost/system/error_code.hpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="92">
-          <caret line="489" selection-start-line="489" selection-end-line="489" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///usr/include/boost/asio/buffer.hpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="73">
@@ -432,27 +438,65 @@
         </state>
       </provider>
     </entry>
+    <entry file="file:///usr/include/c++/7/bits/invoke.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="116">
+          <caret line="94" selection-start-line="94" selection-end-line="94" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Client.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="495">
+          <caret line="33" column="24" selection-start-line="33" selection-start-column="24" selection-end-line="33" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="12" column="30" selection-start-line="12" selection-start-column="30" selection-end-line="12" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/include/c++/7/bits/basic_string.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90525">
+          <caret line="6035" selection-start-line="6035" selection-end-line="6035" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/include/boost/system/error_code.hpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="6570">
+          <caret line="438" selection-start-line="438" selection-end-line="438" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/include/ConnectionHandler.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="24" column="22" selection-start-line="24" selection-start-column="22" selection-end-line="24" selection-end-column="22" />
+          <folding>
+            <element signature="e#59#76#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/ClientMain.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="77">
-          <caret line="7" column="13" selection-start-line="7" selection-end-line="8" />
+        <state relative-caret-position="150">
+          <caret line="10" column="31" selection-start-line="10" selection-start-column="31" selection-end-line="10" selection-end-column="31" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Client.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="96">
-          <caret line="100" column="1" lean-forward="true" selection-start-line="100" selection-start-column="1" selection-end-line="100" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/ConnectionHandler.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="384" column="1" lean-forward="true" selection-start-line="384" selection-start-column="1" selection-end-line="384" selection-end-column="1" />
+        <state relative-caret-position="62">
+          <caret line="177" column="5" selection-start-line="177" selection-start-column="5" selection-end-line="177" selection-end-column="5" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
           </folding>

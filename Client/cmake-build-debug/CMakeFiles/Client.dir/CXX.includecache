@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/noy/Desktop/SPL/as3/Client/include/ConnectionHandler.h
+/home/ron/ClientServer/Client/include/ConnectionHandler.h
 string
 -
 iostream
@@ -18,9 +18,9 @@ mutex
 condition_variable
 -
 
-/home/noy/Desktop/SPL/as3/Client/src/ConnectionHandler.cpp
+/home/ron/ClientServer/Client/src/ConnectionHandler.cpp
 ../include/ConnectionHandler.h
-/home/noy/Desktop/SPL/as3/Client/include/ConnectionHandler.h
+/home/ron/ClientServer/Client/include/ConnectionHandler.h
 string
 -
 iostream

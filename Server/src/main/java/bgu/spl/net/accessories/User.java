@@ -65,7 +65,6 @@ public class User {
      */
     public boolean login(String pass) {
         if(this.password.equals(pass)) {
-            timestamp = Integer.MAX_VALUE;
             this.login = true;
             return true;
         }

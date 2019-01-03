@@ -30,12 +30,13 @@ public class BGSProtocol<T> implements  BidiMessagingProtocol{
             short suc = mcl.act(sharedData,connections.getUserOfId(connectionId));
             if (suc == 2) {
                 MessageLogin messageLogin = (MessageLogin) mcl;
+                connections.send(connectionId, mcl.getContainResult());// send ack
                 connections.addToUserIdMap(messageLogin.getNameUser(), this.connectionId);
                 List<Message> list = sharedData.getMesageThatDontSendToUser(messageLogin.getNameUser());
                 for (Message key : list) {
                     connections.send(connectionId, key);
                 }
-
+                return;
             } else if (suc == 3) {
                 ConcurrentHashMap<String,Integer> userIdMap=connections.getUserIdMap();
                 MessageLogout messageLogout = (MessageLogout) mcl;

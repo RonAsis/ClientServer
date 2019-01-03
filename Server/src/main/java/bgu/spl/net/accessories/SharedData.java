@@ -5,15 +5,16 @@ import bgu.spl.net.Messages.NotificationMessage;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class SharedData {
 
         private ConcurrentHashMap<Integer, NotificationMessage> messagePostAndPM;
         private ConcurrentHashMap<String,User> users;
+        private ConcurrentLinkedQueue<String> orderRegister;
         private AtomicInteger tick;
         private Object postMsgLock=new Object();
-        private Object pmMsgLock=new Object();
         private Object registerLock=new Object();
 
     /**
@@ -23,6 +24,7 @@ public class SharedData {
         messagePostAndPM=new ConcurrentHashMap<>();
             users=new ConcurrentHashMap<>();
             tick=new AtomicInteger();
+        orderRegister=new ConcurrentLinkedQueue<>();
     }
     /**
      * Register user to the server .
@@ -34,6 +36,7 @@ public class SharedData {
         synchronized (registerLock) {
             if (name != null && password != null) {
                 User successful = users.putIfAbsent(name, new User(name, password));
+                orderRegister.add(name);
                 if (successful == null)
                     return true;
             }
@@ -246,7 +249,7 @@ public class SharedData {
             User user=this.users.get(name);
             if(user==null || user.isLogin()==false)
                 return result;
-            result.addAll(this.users.keySet());
+            result.addAll(this.orderRegister);
             return result;
         }
     }
