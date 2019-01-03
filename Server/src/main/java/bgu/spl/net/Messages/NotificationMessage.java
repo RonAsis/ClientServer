@@ -64,7 +64,7 @@ public class NotificationMessage extends Message {
      * @return
      */
     public boolean checkIfFindInTheListOfUsers(String name){
-        if (notificationType==0) {
+        if (notificationType==1) {
             if (userSentMessageTo.contains(name))
                 return true;
         }

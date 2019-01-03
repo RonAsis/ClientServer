@@ -164,7 +164,7 @@ public class SharedData {
         synchronized (postMsgLock) {
             int tickCurrnt = this.tick.get();
             int tickLastOfUser = this.users.get(name).getTickLogOut();
-            while (tickCurrnt <= tickLastOfUser) {
+            while (tickCurrnt >= tickLastOfUser) {
                 NotificationMessage notificationMessage = this.messagePostAndPM.get(tickLastOfUser);
                 if (notificationMessage != null && notificationMessage.checkIfFindInTheListOfUsers(name))
                     result.add(notificationMessage);
