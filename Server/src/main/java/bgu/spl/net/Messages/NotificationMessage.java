@@ -4,7 +4,7 @@ import bgu.spl.net.accessories.SharedData;
 
 import java.util.List;
 
-import static bgu.spl.net.api.MessageEncoderDecoderlmpl.delimeter;
+import static bgu.spl.net.api.MessageEncoderDecoderImpl.delimeter;
 
 public class NotificationMessage extends Message {
 
@@ -64,10 +64,8 @@ public class NotificationMessage extends Message {
      * @return
      */
     public boolean checkIfFindInTheListOfUsers(String name){
-        if (notificationType==1) {
             if (userSentMessageTo.contains(name))
                 return true;
-        }
             return false;
     }
 }

@@ -2,7 +2,7 @@ package bgu.spl.net.Messages;
 
 import bgu.spl.net.accessories.SharedData;
 
-import static bgu.spl.net.api.MessageEncoderDecoderlmpl.delimeter;
+import static bgu.spl.net.api.MessageEncoderDecoderImpl.delimeter;
 
 public class MessageLogin extends Message {
 

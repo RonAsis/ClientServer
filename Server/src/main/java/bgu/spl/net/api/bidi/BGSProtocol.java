@@ -53,12 +53,22 @@ public class BGSProtocol<T> implements  BidiMessagingProtocol{
                         connections.send(id.intValue(), mcl.getContainResult());
                     }
                 }
+                connections.send(this.connectionId, new AckMessage(5));
                 return;
             }
-
+              else if(suc==6){
+                PmMessage pmMessage=(PmMessage)message;
+                int checkLogin=connections.getIdOfUser(pmMessage.getUserSentMessageTo());
+                if(checkLogin!=-1) {
+                    connections.send(connections.getIdOfUser(pmMessage.getUserSentMessageTo()), mcl.getContainResult());
+                }
+                connections.send(this.connectionId, new AckMessage(6));
+                return;
+            }
             boolean isSend=connections.send(connectionId, mcl.getContainResult());
             if(isSend && suc==3){
-                this.connections.disconnect(this.connectionId);
+                //this.connections.disconnect(this.connectionId);
+                this.shouldTerminate=true;
             }
         }
     }
@@ -66,5 +76,9 @@ public class BGSProtocol<T> implements  BidiMessagingProtocol{
     @Override
     public boolean shouldTerminate() {
         return this.shouldTerminate;
+    }
+
+    public int getConnectionId(){
+        return this.connectionId;
     }
 }

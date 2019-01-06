@@ -1,10 +1,8 @@
 package bgu.spl.net.impl.newsfeed;
 
 import bgu.spl.net.accessories.SharedData;
-import bgu.spl.net.api.MessageEncoderDecoderlmpl;
+import bgu.spl.net.api.MessageEncoderDecoderImpl;
 import bgu.spl.net.api.bidi.BGSProtocol;
-import bgu.spl.net.srv.BaseServer;
-import bgu.spl.net.srv.BlockingConnectionHandler;
 import bgu.spl.net.srv.Server;
 
 public class NewsFeedServerMain {
@@ -36,7 +34,7 @@ public class NewsFeedServerMain {
         Server.threadPerClient(
                 7777, //port
                 () -> new BGSProtocol(sharedData), //protocol factory
-                MessageEncoderDecoderlmpl::new //message encoder decoder factory
+                MessageEncoderDecoderImpl::new //message encoder decoder factory
         ).serve();
    }
 }

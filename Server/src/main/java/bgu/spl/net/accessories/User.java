@@ -9,10 +9,10 @@ public class User {
     private String name;
     private String password;
     private boolean login;
-    private List<String> followList;
+    private List<String> Followers;
     private int timestamp;
     private int numberOfPost;
-    private AtomicInteger numberOfFollowers;
+    private AtomicInteger NumFollowing;
 
     /**
      * constructor
@@ -23,10 +23,10 @@ public class User {
         this.name=name;
         this.password=password;
         login=false;
-        followList=new ArrayList<>();
+        Followers =new ArrayList<>();
         timestamp=0;
         this.numberOfPost=0;
-        numberOfFollowers =new AtomicInteger();
+        NumFollowing =new AtomicInteger();
     }
 
     /**
@@ -42,15 +42,15 @@ public class User {
      * @return
      */
     public int getNumberUsersTheUserIsFollowing(){
-        return this.followList.size();
+        return this.Followers.size();
     }
 
     /**
      * return the number of followers
      * @return
      */
-    public int getNumberOfFollowers() {
-        return numberOfFollowers.get();
+    public int getNumFollowing() {
+        return NumFollowing.get();
     }
 
 
@@ -85,8 +85,8 @@ public class User {
      * retun the list of follow
      * @return
      */
-    public List<String> getFollowList() {
-        return followList;
+    public List<String> getFollowers() {
+        return Followers;
     }
 
     /**
@@ -110,8 +110,8 @@ public class User {
      * @param name the name of user that want check if he is in the list of follow
      * @return
      */
-    public boolean areYouFollow(String name){
-        if(followList.contains(name))
+    public boolean areYouFollowBy(String name){
+        if(Followers.contains(name))
             return true;
         else
             return false;
@@ -121,7 +121,7 @@ public class User {
      */
     public void addFollow(String name){
 
-        this.followList.add(name);
+        this.Followers.add(name);
     }
 
     /**
@@ -129,31 +129,33 @@ public class User {
      * @param name
      */
     public void unFollow(String name){
-        this.followList.remove(name);
+        this.Followers.remove(name);
+        System.out.println();
     }
 
     /**
      * add more followers to the sum
      */
-    public void addFollowers(){
+    public void addFollowing(){
         Integer oldValue;
         Integer newValue;
         do{
-            oldValue=this.numberOfFollowers.get();
+            oldValue=this.NumFollowing.get();
             newValue=oldValue+1;
-        }while (!this.numberOfFollowers.compareAndSet(oldValue,newValue));
+        }while (!this.NumFollowing.compareAndSet(oldValue,newValue));
     }
 
     /**
-     * less follow from the sum of followers
+     * less follow
+     * the sum of followers
      */
-    public void lessFollowers(){
+    public void lessFollowing(){
         Integer oldValue;
         Integer newValue;
         do{
-            oldValue=this.numberOfFollowers.get();
+            oldValue=this.NumFollowing.get();
             newValue=oldValue-1;
-        }while (!this.numberOfFollowers.compareAndSet(oldValue,newValue));
+        }while (!this.NumFollowing.compareAndSet(oldValue,newValue));
     }
 
     /**

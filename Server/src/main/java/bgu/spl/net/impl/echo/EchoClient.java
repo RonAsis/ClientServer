@@ -1,8 +1,5 @@
 package bgu.spl.net.impl.echo;
 
-import bgu.spl.net.impl.newsfeed.PublishNewsCommand;
-import bgu.spl.net.impl.rci.RCIClient;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -10,7 +7,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
 
-import static bgu.spl.net.api.MessageEncoderDecoderlmpl.delimeter;
+import static bgu.spl.net.api.MessageEncoderDecoderImpl.delimeter;
 
 public class EchoClient {
 

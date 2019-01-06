@@ -7,6 +7,9 @@ import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReadWriteLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class SharedData {
 
@@ -14,9 +17,8 @@ public class SharedData {
         private ConcurrentHashMap<String,User> users;
         private ConcurrentLinkedQueue<String> orderRegister;
         private AtomicInteger tick;
-        private Object postMsgLock=new Object();
-        private Object registerLock=new Object();
-
+        private ReadWriteLock readWriteLockReg=new ReentrantReadWriteLock();
+        private ReadWriteLock readWriteLockPostPm=new ReentrantReadWriteLock();
     /**
      * constructor
      */
@@ -33,16 +35,18 @@ public class SharedData {
      * @return if its successful return true else false
      */
     public boolean register(String name,String password) {
-        synchronized (registerLock) {
+        this.readWriteLockReg.writeLock().lock();
             if (name != null && password != null) {
                 User successful = users.putIfAbsent(name, new User(name, password));
                 if (successful == null) {
                     orderRegister.add(name);
+                    this.readWriteLockReg.writeLock().unlock();
                     return true;
                 }
             }
-            return false;
-        }
+        this.readWriteLockReg.writeLock().unlock();
+        return false;
+
     }
 
     /**
@@ -52,15 +56,20 @@ public class SharedData {
      * @return
      */
     public boolean login(String name,String password){
-        synchronized (registerLock) {
+        this.readWriteLockReg.readLock().lock();
             User user = users.get(name);
-            if (user == null || user.isLogin())
+            if (user == null || user.isLogin()) {
+                this.readWriteLockReg.readLock().unlock();
                 return false;
-            else if (user.login(password))
+            }
+            else if (user.login(password)) {
+                this.readWriteLockReg.readLock().unlock();
                 return true;
-            else
+            }
+            else {
+                this.readWriteLockReg.readLock().unlock();
                 return false;
-        }
+            }
     }
 
     /**
@@ -69,17 +78,21 @@ public class SharedData {
      * @return
      */
     public boolean logout(String name){
-        synchronized (postMsgLock) {
+        this.readWriteLockPostPm.readLock().lock();
             if (name != null) {
                 User user = users.get(name);
                 if (user != null && user.isLogin()) {
                     user.logout(tick.get()+1);
+                    this.readWriteLockPostPm.readLock().unlock();
                     return true;
-                } else
+                } else {
+                    this.readWriteLockPostPm.readLock().unlock();
                     return false;
+                }
             }
-            return false;
-        }
+        this.readWriteLockPostPm.readLock().unlock();
+        return false;
+
     }
 
     /**
@@ -89,28 +102,31 @@ public class SharedData {
      * @return
      */
     public List<String> followUser(List<String> listUsers, String name){
-        synchronized (registerLock) {
+        this.readWriteLockReg.readLock().lock();
         User user=users.get(name);//the user that want do follow
         List<String> result=new ArrayList<>();//the result that return
-        if(user==null || user.isLogin()==false)// if the user is not exist or is logout
+        if(user==null || user.isLogin()==false) {// if the user is not exist or is logout
+            this.readWriteLockReg.readLock().unlock();
             return result;
+        }
         else {
             for (String key : listUsers) {
                 User followUser = users.get(key);
                 if (followUser == null)// if the user from the list is not exist
                     continue;
                 else {
-                    if (user.areYouFollow(key))//if the user is already follow this user from the list
+                    if (followUser.areYouFollowBy(name))//if the user is already follow this user from the list
                         continue;
                     else {
-                        user.addFollow(key);//follow after the user from the list that calls key
+                        followUser.addFollow(name);//follow after the user from the list that calls key
                         result.add(key);//add to the list that return when end pass all the list that get
-                        followUser.addFollowers();//add to the user calls key that he has a new follower;
+                        user.addFollowing();//add to the user calls key that he has a new follower;
                     }
                 }
             }
+            this.readWriteLockReg.readLock().unlock();
             return result;
-        }
+
         }
     }
 
@@ -121,29 +137,32 @@ public class SharedData {
      * @return
      */
     public  List<String> unFollowUser(List<String> listUsers, String name){
-        synchronized (registerLock) {
+        this.readWriteLockReg.readLock().lock();
             User user=users.get(name);//the user that want do un-follow
         List<String> result=new ArrayList<>();//the result that return
-        if(user==null || user.isLogin()==false)// if the user is not exist or is logout
+        if(user==null || user.isLogin()==false) {// if the user is not exist or is logout
+            this.readWriteLockReg.readLock().unlock();
             return result;
+        }
         else {
             for (String key : listUsers) {
                 User followUser = users.get(key);
                 if (followUser == null)// if the user from the list is not exist
                     continue;
                 else {
-                    if (!user.areYouFollow(key))//if the user is not follow after this user from the list
+                    if (!followUser.areYouFollowBy(name))//if the user is not follow after this user from the list
                         continue;
                     else {
-                        user.unFollow(key);//follow after the user from the list that calls key
+                        followUser.unFollow(name);//follow after the user from the list that calls key
                         result.add(key);//add to the list that return when end pass all the list that get
-                        followUser.lessFollowers();//add to the user calls key that he has a new follower;
+                        user.lessFollowing();//add to the user calls key that he has a new follower;
                     }
                 }
             }
+            this.readWriteLockReg.readLock().unlock();
             return result;
         }
-        }
+
     }
 
     /**
@@ -162,7 +181,7 @@ public class SharedData {
      */
     public List<Message> getMesageThatDontSendToUser(String name){
         List<Message> result = new ArrayList<>();
-        synchronized (postMsgLock) {
+        this.readWriteLockPostPm.readLock().lock();
             int tickCurrnt = this.tick.get();
             int tickLastOfUser = this.users.get(name).getTickLogOut();
             while (tickCurrnt >= tickLastOfUser) {
@@ -171,7 +190,7 @@ public class SharedData {
                     result.add(notificationMessage);
                 tickLastOfUser++;
             }
-        }
+        this.readWriteLockPostPm.readLock().unlock();
         return result;
     }
 
@@ -183,11 +202,13 @@ public class SharedData {
      * @return
      */
     public List<String> sendMessagePost(String name,List<String> list,String msg) {
-       synchronized (postMsgLock){
+        this.readWriteLockPostPm.writeLock().lock();
         User user = this.users.get(name);
         // if the user don't exist or don't login
-        if (user == null || user.isLogin() == false)
+        if (user == null || user.isLogin() == false) {
+            this.readWriteLockPostPm.writeLock().unlock();
             return null;
+        }
         List<String> listChecked=new ArrayList<>();
         if(list!=null && list.size()>0) {
             for (String key : list) {
@@ -195,10 +216,11 @@ public class SharedData {
                     listChecked.add(key);
             }
         }
-        List<String> mergeList=mergeList(listChecked,user.getFollowList());
+        List<String> mergeList=mergeList(listChecked,user.getFollowers());
         user.addNumberOfPost();
-            return mergeList;
-    }
+        this.readWriteLockPostPm.writeLock().unlock();
+        return mergeList;
+
 }
 
     /**
@@ -237,13 +259,16 @@ public class SharedData {
      * @return
      */
     public boolean sendMessagePM(String name,String nameUserGetMsg,String msg){
-        synchronized (postMsgLock){
+        this.readWriteLockPostPm.writeLock().lock();
             User userSent=this.users.get(name);
             User userGetTheMsg=this.users.get(nameUserGetMsg);
-            if (userSent==null || userSent.isLogin()==false || userGetTheMsg==null)
+            if (userSent==null || userSent.isLogin()==false || userGetTheMsg==null) {
+                this.readWriteLockPostPm.writeLock().unlock();
                 return false;
-            return true;
-        }
+            }
+        this.readWriteLockPostPm.writeLock().unlock();
+        return true;
+
     }
 
     /**
@@ -252,17 +277,20 @@ public class SharedData {
      * @return
      */
     public List<String> getUserNameListRegister(String name){
-        synchronized (registerLock){
+        this.readWriteLockReg.readLock().lock();
             List<String> result=new ArrayList<>();
             User user=null;
             if(name !=null) {
                 user = this.users.get(name);
             }
-            if(user==null || user.isLogin()==false)
+            if(user==null || user.isLogin()==false) {
+                this.readWriteLockReg.readLock().unlock();
                 return result;
+            }
             result.addAll(this.orderRegister);
-            return result;
-        }
+        this.readWriteLockReg.readLock().unlock();
+        return result;
+
     }
 
     /**
@@ -271,16 +299,20 @@ public class SharedData {
      * @return
      */
     public short[] getStatUser(String name,String nameOfStat){
-        synchronized (registerLock) {
+            this.readWriteLockReg.readLock().lock();
+            readWriteLockReg.readLock();
             User user = this.users.get(name);
             User userStat = this.users.get(nameOfStat);
-            if (user == null || user.isLogin() == false || userStat == null)
+            if (user == null || user.isLogin() == false || userStat == null) {
+                this.readWriteLockReg.readLock().unlock();
                 return null;
+            }
             short[] result = new short[3];
             result[0] = (short) userStat.getNumberOfPost();
-            result[1] = (short) userStat.getNumberOfFollowers();
+            result[1] = (short) userStat.getNumFollowing();
             result[2] = (short) userStat.getNumberUsersTheUserIsFollowing();
+            this.readWriteLockReg.readLock().unlock();
             return result;
-        }
+
     }
 }

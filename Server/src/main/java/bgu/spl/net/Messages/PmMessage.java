@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-import static bgu.spl.net.api.MessageEncoderDecoderlmpl.delimeter;
+import static bgu.spl.net.api.MessageEncoderDecoderImpl.delimeter;
 
 public class PmMessage extends  Message {
 
@@ -68,5 +68,8 @@ public class PmMessage extends  Message {
             this.rest();
             return this;
         }
+    }
+    public String getUserSentMessageTo(){
+        return this.userSentMessageTo;
     }
 }

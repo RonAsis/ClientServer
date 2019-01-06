@@ -1,10 +1,6 @@
 package bgu.spl.net.srv;
 
-import bgu.spl.net.Messages.AckMessage;
-import bgu.spl.net.Messages.Message;
 import bgu.spl.net.api.MessageEncoderDecoder;
-import bgu.spl.net.api.MessageEncoderDecoderlmpl;
-import bgu.spl.net.api.MessagingProtocol;
 import bgu.spl.net.api.bidi.BidiMessagingProtocol;
 import bgu.spl.net.api.bidi.ConnectionsImpl;
 
@@ -26,6 +22,7 @@ public class NonBlockingConnectionHandler<T> implements ConnectionHandler<T> {
     private final SocketChannel chan;
     private final Reactor reactor;
     private ConnectionsImpl connections;
+    private int connectionsId;
 
     public NonBlockingConnectionHandler(
             MessageEncoderDecoder<T> reader,
@@ -38,7 +35,8 @@ public class NonBlockingConnectionHandler<T> implements ConnectionHandler<T> {
         this.reactor = reactor;
         this.connections=connections;
         this.connections.addConnectionHandler(this);
-        protocol.start(this.connections.getId(),this.connections);
+        this.connectionsId=this.connections.getId();
+        protocol.start(connectionsId,this.connections);
     }
 
     public Runnable continueRead() {
@@ -103,7 +101,10 @@ public class NonBlockingConnectionHandler<T> implements ConnectionHandler<T> {
         }
 
         if (writeQueue.isEmpty()) {
-            if (protocol.shouldTerminate()) close();
+            if (protocol.shouldTerminate()){
+                this.connections.disconnect(this.connectionsId);
+                close();
+            }
             else reactor.updateInterestedOps(chan, SelectionKey.OP_READ);
         }
     }

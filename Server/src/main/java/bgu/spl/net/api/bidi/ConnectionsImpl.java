@@ -1,9 +1,6 @@
 package bgu.spl.net.api.bidi;
 
-import bgu.spl.net.Messages.Message;
-import bgu.spl.net.Messages.NotificationMessage;
 import bgu.spl.net.srv.ConnectionHandler;
-import com.sun.xml.internal.ws.api.model.MEP;
 
 import java.io.IOException;
 import java.util.concurrent.ConcurrentHashMap;
@@ -106,5 +103,11 @@ public class ConnectionsImpl<T> implements  Connections<T>  {
         String mame=this.idUserMap.get(idOfUser);
         this.idUserMap.remove(idOfUser);
         this.userIdMap.remove(mame);
+    }
+    public int getIdOfUser(String name) {
+           Integer result=this.userIdMap.get(name);
+           if(result!=null)
+                return result;
+        return -1;
     }
 }

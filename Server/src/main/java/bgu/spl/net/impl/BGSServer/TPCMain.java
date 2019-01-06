@@ -1,7 +1,7 @@
 package bgu.spl.net.impl.BGSServer;
 
 import bgu.spl.net.accessories.SharedData;
-import bgu.spl.net.api.MessageEncoderDecoderlmpl;
+import bgu.spl.net.api.MessageEncoderDecoderImpl;
 import bgu.spl.net.api.bidi.BGSProtocol;
 import bgu.spl.net.srv.Server;
 
@@ -24,7 +24,7 @@ public class TPCMain {
         Server.threadPerClient(
                 port, //port
                 () -> new BGSProtocol(sharedData), //protocol factory
-                MessageEncoderDecoderlmpl::new //message encoder decoder factory
+                MessageEncoderDecoderImpl::new //message encoder decoder factory
         ).serve();
     }
 }

@@ -3,7 +3,7 @@ package bgu.spl.net.api;
 import bgu.spl.net.Messages.*;
 
 
-public class MessageEncoderDecoderlmpl implements MessageEncoderDecoder {
+public class MessageEncoderDecoderImpl implements MessageEncoderDecoder {
 
     private byte[] bytesOpcode = new byte[2];
     private short fOpcode=-1;

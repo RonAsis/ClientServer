@@ -1,7 +1,7 @@
 package bgu.spl.net.impl.rci;
 
 import bgu.spl.net.Messages.Message;
-import bgu.spl.net.api.MessageEncoderDecoderlmpl;
+import bgu.spl.net.api.MessageEncoderDecoderImpl;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -11,14 +11,14 @@ import java.net.Socket;
 
 public class RCIClient implements Closeable {
 
-    private final MessageEncoderDecoderlmpl encdec;
+    private final MessageEncoderDecoderImpl encdec;
     private final Socket sock;
     private final BufferedInputStream in;
     private final BufferedOutputStream out;
 
     public RCIClient(String host, int port) throws IOException {
         sock = new Socket(host, port);
-        encdec = new MessageEncoderDecoderlmpl();
+        encdec = new MessageEncoderDecoderImpl();
         in = new BufferedInputStream(sock.getInputStream());
         out = new BufferedOutputStream(sock.getOutputStream());
     }

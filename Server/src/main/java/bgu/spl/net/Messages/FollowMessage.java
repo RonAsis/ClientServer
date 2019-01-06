@@ -5,7 +5,7 @@ import bgu.spl.net.accessories.SharedData;
 import java.util.ArrayList;
 import java.util.List;
 
-import static bgu.spl.net.api.MessageEncoderDecoderlmpl.delimeter;
+import static bgu.spl.net.api.MessageEncoderDecoderImpl.delimeter;
 
 public class FollowMessage extends  Message{
 

@@ -1,12 +1,7 @@
 package bgu.spl.net.srv;
 
-import bgu.spl.net.Messages.AckMessage;
-import bgu.spl.net.Messages.Message;
 import bgu.spl.net.api.MessageEncoderDecoder;
-import bgu.spl.net.api.MessageEncoderDecoderlmpl;
-import bgu.spl.net.api.MessagingProtocol;
 import bgu.spl.net.api.bidi.BidiMessagingProtocol;
-import bgu.spl.net.api.bidi.Connections;
 import bgu.spl.net.api.bidi.ConnectionsImpl;
 
 import java.io.BufferedInputStream;
@@ -23,6 +18,7 @@ public class BlockingConnectionHandler<T> implements Runnable, ConnectionHandler
     private BufferedOutputStream out;
     private volatile boolean connected = true;
     private ConnectionsImpl connections;
+    private int connectionsId;
 
     public BlockingConnectionHandler(Socket sock, MessageEncoderDecoder<T> reader, BidiMessagingProtocol<T> protocol,ConnectionsImpl connections) {
         this.sock = sock;
@@ -36,7 +32,8 @@ public class BlockingConnectionHandler<T> implements Runnable, ConnectionHandler
         try (Socket sock = this.sock) { //just for automatic closing
             int read;
             this.connections.addConnectionHandler(this);
-            protocol.start((this.connections).getId(),this.connections);
+            this.connectionsId=this.connections.getId();
+            protocol.start(this.connectionsId,this.connections);
             in = new BufferedInputStream(sock.getInputStream());
             out = new BufferedOutputStream(sock.getOutputStream());
             while (!protocol.shouldTerminate() && connected && (read = in.read()) >= 0) {
@@ -48,7 +45,7 @@ public class BlockingConnectionHandler<T> implements Runnable, ConnectionHandler
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-
+        this.connections.disconnect(this.connectionsId);
     }
 
     @Override
