@@ -3,25 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="1da2da1a-509a-4607-b706-fa08250cd185" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/bgu/spl/net/Messages/AckMessage.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bgu/spl/net/Messages/AckMessage.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/bgu/spl/net/Messages/FollowMessage.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bgu/spl/net/Messages/FollowMessage.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/bgu/spl/net/Messages/MessageLogin.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bgu/spl/net/Messages/MessageLogin.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/bgu/spl/net/Messages/NotificationMessage.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bgu/spl/net/Messages/NotificationMessage.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/bgu/spl/net/Messages/PmMessage.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bgu/spl/net/Messages/PmMessage.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/bgu/spl/net/Messages/PostMessage.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bgu/spl/net/Messages/PostMessage.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/bgu/spl/net/Messages/RegisterMessage.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bgu/spl/net/Messages/RegisterMessage.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/bgu/spl/net/Messages/StatMessage.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bgu/spl/net/Messages/StatMessage.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/bgu/spl/net/accessories/SharedData.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bgu/spl/net/accessories/SharedData.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/bgu/spl/net/accessories/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bgu/spl/net/accessories/User.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/bgu/spl/net/api/bidi/BGSProtocol.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bgu/spl/net/api/bidi/BGSProtocol.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/bgu/spl/net/api/bidi/ConnectionsImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bgu/spl/net/api/bidi/ConnectionsImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/bgu/spl/net/impl/BGSServer/ReactorMain.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bgu/spl/net/impl/BGSServer/ReactorMain.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/bgu/spl/net/impl/BGSServer/TPCMain.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bgu/spl/net/impl/BGSServer/TPCMain.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/bgu/spl/net/impl/echo/EchoClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bgu/spl/net/impl/echo/EchoClient.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/bgu/spl/net/impl/newsfeed/NewsFeedServerMain.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bgu/spl/net/impl/newsfeed/NewsFeedServerMain.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/bgu/spl/net/impl/rci/RCIClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bgu/spl/net/impl/rci/RCIClient.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/bgu/spl/net/srv/BlockingConnectionHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bgu/spl/net/srv/BlockingConnectionHandler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/bgu/spl/net/srv/NonBlockingConnectionHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bgu/spl/net/srv/NonBlockingConnectionHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/net/api/MessageEncoderDecoderImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/net/api/MessageEncoderDecoderImpl.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -67,24 +49,24 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dummy" value="5" />
-          <entry key="java" value="1366" />
+          <entry key="java" value="1389" />
           <entry key="txt" value="173" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="1366" />
+          <entry key="JAVA" value="1389" />
           <entry key="PLAIN_TEXT" value="178" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="java" value="62" />
+          <entry key="java" value="63" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="JAVA" value="62" />
+          <entry key="JAVA" value="63" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.lifecycle.project">
@@ -114,8 +96,17 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/bgu/spl/net/accessories/SharedData.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="420">
-              <caret line="37" column="49" lean-forward="true" selection-start-line="37" selection-start-column="49" selection-end-line="37" selection-end-column="49" />
+            <state relative-caret-position="255">
+              <caret line="26" column="22" selection-start-line="26" selection-start-column="22" selection-end-line="26" selection-end-column="22" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/bgu/spl/net/api/MessageEncoderDecoderImpl.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="139">
+              <caret line="38" column="23" lean-forward="true" selection-start-line="38" selection-start-column="23" selection-end-line="38" selection-end-column="23" />
             </state>
           </provider>
         </entry>
@@ -227,6 +218,7 @@
         <option value="$PROJECT_DIR$/src/main/java/bgu/spl/net/api/bidi/ConnectionsImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/bgu/spl/net/api/bidi/BGSProtocol.java" />
         <option value="$PROJECT_DIR$/src/main/java/bgu/spl/net/accessories/SharedData.java" />
+        <option value="$PROJECT_DIR$/src/main/java/bgu/spl/net/api/MessageEncoderDecoderImpl.java" />
       </list>
     </option>
   </component>
@@ -501,7 +493,7 @@
       <workItem from="1546530300111" duration="4233000" />
       <workItem from="1546535832632" duration="10078000" />
       <workItem from="1546557686262" duration="1761000" />
-      <workItem from="1546775480322" duration="1539000" />
+      <workItem from="1546775480322" duration="5299000" />
     </task>
     <task id="LOCAL-00001" summary="start of the program">
       <created>1545328097247</created>
@@ -685,11 +677,18 @@
       <option name="project" value="LOCAL" />
       <updated>1546777474575</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="change synco">
+      <created>1546782405280</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1546782405280</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="246185000" />
+    <option name="totallyTimeSpent" value="249945000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -704,7 +703,7 @@
     <frame x="67" y="25" width="1299" height="743" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.3048683" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.3048683" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -713,7 +712,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32929105" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.23240589" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.23164764" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.553018" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -1077,13 +1076,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bgu/spl/net/api/MessageEncoderDecoderImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="97">
-          <caret line="54" selection-start-line="54" selection-end-line="54" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/bgu/spl/net/Messages/FollowMessage.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1005">
@@ -1227,10 +1219,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bgu/spl/net/api/MessageEncoderDecoderImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="139">
+          <caret line="38" column="23" lean-forward="true" selection-start-line="38" selection-start-column="23" selection-end-line="38" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/bgu/spl/net/accessories/SharedData.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="37" column="49" lean-forward="true" selection-start-line="37" selection-start-column="49" selection-end-line="37" selection-end-column="49" />
+        <state relative-caret-position="255">
+          <caret line="26" column="22" selection-start-line="26" selection-start-column="22" selection-end-line="26" selection-end-column="22" />
         </state>
       </provider>
     </entry>

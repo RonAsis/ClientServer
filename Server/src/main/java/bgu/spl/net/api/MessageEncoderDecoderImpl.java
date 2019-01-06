@@ -36,9 +36,11 @@ public class MessageEncoderDecoderImpl implements MessageEncoderDecoder {
         }
         else  {
             Message result;
-            if((result=this.message.createMessage(nextByte))!=null)
-                rest();
-            return result;
+            if(this.message!=null) {
+                if ((result = this.message.createMessage(nextByte)) != null)
+                    rest();
+                return result;
+            }
         }
 
         return null;
